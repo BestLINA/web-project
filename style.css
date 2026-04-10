@@ -19,21 +19,6 @@ body {
     margin-right: 10px;
 }
 
-/* CENTER BOX (login & register) */
-.form-box {
-    background: white;
-    padding: 30px;
-    width: 300px;
-    margin: 100px auto;
-    border-radius: 10px;
-    box-shadow: 0 0 15px rgba(0,0,0,0.1);
-    text-align: center;
-}
-
-.logo {
-    width: 80px;
-    margin-bottom: 10px;
-}
 
 h2 {
     color: #1a2a6c;
@@ -43,8 +28,8 @@ h2 {
 input {
     width: 100%;
     padding: 10px;
-    margin: 10px 0;
-    border-radius: 6px;
+    margin: 8px 0;
+    border-radius: 8px;
     border: 1px solid #ccc;
 }
 
@@ -112,3 +97,88 @@ td {
     text-align: center;
     border-bottom: 1px solid #ddd;
 }
+/*Home pages ( index , login , register ) style*/
+/* ALL BOXES in home pages*/
+.home-box,
+.login-box,
+.register-box {
+    background: white;
+
+    width: 1100px;
+    max-width: 90%;
+
+    margin: 160px auto;   /* ⭐ THIS CENTERS IT */
+    
+    padding: 50px;
+    border-radius: 15px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+/* LEFT SIDE (HOME) */
+.home-left {
+    width: 55%;
+}
+
+/* RIGHT SIDE (HOME LOGO) */
+.home-right {
+    width: 40%;
+    display: flex;
+    justify-content: center;
+}
+
+/* FORM SIDE */
+.form-side {
+    width: 55%;
+}
+
+/* LOGO SIDE */
+.logo-side {
+    width: 40%;
+    display: flex;
+    justify-content: center;
+}
+
+/* LOGO */
+.logo {
+    width: 250px;
+}
+
+/* BUTTON ROW (HOME) */
+.btn-row {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+
+/* BUTTON */
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background: #783984;
+    color: white;
+    border-radius: 8px;
+    text-decoration: none;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.btn:hover {
+    background: #e98dda;
+}
+
+/* LINKS */
+.link-text {
+    font-size: 12px;
+    margin-top: 10px;
+}
+
+a {
+    color: #783984;
+    text-decoration: none;
+}
+/*------------------------*/
