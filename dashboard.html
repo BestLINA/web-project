@@ -6,29 +6,66 @@
   </head>
 
   <body>
-    <!-- هاي يسرى -->
-    <!-- nj -->
-    <!--Sarah trying-->
-    <!--j-->
-    <div class="header">
-      <img src="images/logo.png" />
-      <h3>Planify</h3>
-    </div>
+    <!-- TOPBAR -->
+    <header class="topbar">
+      <div class="logo-area">
+        <img src="AWJ_logo.png" />
+        <span>AWJ Planner</span>
+      </div>
 
-    <div class="dashboard">
-      <h2>Welcome to your Dashboard</h2>
+      <div class="actions">
+        <button id="darkBtn">🌙</button>
 
-      <div class="cards">
-        <div class="card">
-          <h3>Study Plan</h3>
-          <a href="studyplan.html">Open</a>
-        </div>
-
-        <div class="card">
-          <h3>Statistics</h3>
-          <a href="statistics.html">Open</a>
+        <div class="reminder">
+          🔔
+          <span class="badge">2</span>
         </div>
       </div>
-    </div>
+    </header>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <h2>Study Planner</h2>
+
+      <nav>
+        <a href="#">Dashboard</a>
+        <a href="#">Courses</a>
+        <a href="#">Deadlines</a>
+        <a href="#">Availability</a>
+        <a href="#">Study Plan</a>
+        <a href="#">Progress</a>
+      </nav>
+
+      <button class="logout">Logout</button>
+    </aside>
+
+    <!-- MAIN -->
+    <main class="main">
+      <h1>Welcome back 👋</h1>
+
+      <div class="grid">
+        <div class="card">
+          <h3>My Courses</h3>
+        </div>
+
+        <div class="card">
+          <h3>Upcoming Deadlines</h3>
+        </div>
+
+        <div class="card">
+          <h3>Study Plan</h3>
+        </div>
+
+        <div class="card">
+          <h3>Progress</h3>
+        </div>
+      </div>
+    </main>
+
+    <script>
+      document.getElementById("darkBtn").onclick = () => {
+        document.body.classList.toggle("dark");
+      };
+    </script>
   </body>
 </html>

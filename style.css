@@ -1,114 +1,174 @@
-/* GENERAL */
+/* ===== ROOT COLORS ===== */
+:root {
+  --light-bg: #fff5f7;
+  --light-sidebar: #f7c8d0;
+  --light-primary: #9b7edc;
+
+  --dark-bg: #2a1e5f;
+  --dark-surface: #3a2c5a;
+  --dark-accent: #ff8fab;
+}
+
+/* RESET */
 body {
-    margin: 0;
-    font-family: Arial;
-    background: #f5f7fa;
+  margin: 0;
+  font-family: "Segoe UI", sans-serif;
+  background: var(--light-bg);
 }
 
-/* HEADER */
-.header {
-    background: linear-gradient(to right, #4facfe, #001f5b);
-    padding: 15px;
-    color: white;
-    display: flex;
-    align-items: center;
+/* ===== TOPBAR ===== */
+.topbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 70px;
+  background: var(--light-primary);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 30px;
+  color: white;
+  z-index: 1000;
 }
 
-.header img {
-    width: 40px;
-    margin-right: 10px;
+.logo-area {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
-/* CENTER BOX (login & register) */
-.form-box {
-    background: white;
-    padding: 30px;
-    width: 300px;
-    margin: 100px auto;
-    border-radius: 10px;
-    box-shadow: 0 0 15px rgba(0,0,0,0.1);
-    text-align: center;
+.logo-area img {
+  width: 35px;
 }
 
-.logo {
-    width: 80px;
-    margin-bottom: 10px;
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 15px;
 }
 
-h2 {
-    color: #1a2a6c;
+/* ===== REMINDER ===== */
+.reminder {
+  position: relative;
+  font-size: 20px;
 }
 
-/* INPUTS */
-input {
-    width: 100%;
-    padding: 10px;
-    margin: 10px 0;
-    border-radius: 6px;
-    border: 1px solid #ccc;
+.badge {
+  position: absolute;
+  top: -6px;
+  right: -10px;
+  background: #f7c8d0;
+  color: #2a1e5f;
+  font-size: 11px;
+  padding: 3px 6px;
+  border-radius: 50%;
 }
 
-/* BUTTONS */
-button {
-    width: 100%;
-    padding: 10px;
-    background: linear-gradient(to right, #4facfe, #001f5b);
-    color: white;
-    border: none;
-    border-radius: 6px;
-    font-weight: bold;
-    cursor: pointer;
+/* ===== SIDEBAR ===== */
+.sidebar {
+  position: fixed;
+  top: 70px;
+  left: 0;
+  width: 240px;
+  height: calc(100% - 70px);
+  background: var(--light-sidebar);
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
-button:hover {
-    opacity: 0.9;
+.sidebar h2 {
+  color: #2a1e5f;
 }
 
-/* DASHBOARD */
-.dashboard {
-    text-align: center;
-    margin-top: 40px;
+.sidebar nav a {
+  display: block;
+  margin: 12px 0;
+  padding: 10px;
+  border-radius: 10px;
+  color: #2a1e5f;
+  text-decoration: none;
 }
 
-.cards {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    margin-top: 30px;
+.sidebar nav a:hover {
+  background: var(--light-primary);
+  color: white;
 }
 
+/* LOGOUT */
+.logout {
+  padding: 12px;
+  border: none;
+  background: var(--light-primary);
+  color: white;
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+/* ===== MAIN ===== */
+.main {
+  margin-left: 240px;
+  margin-top: 70px;
+  padding: 40px;
+}
+
+.main h1 {
+  color: #2a1e5f;
+}
+
+/* ===== GRID ===== */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 25px;
+  margin-top: 20px;
+}
+
+/* ===== CARD ===== */
 .card {
-    background: white;
-    padding: 25px;
-    width: 200px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  background: white;
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
 }
 
-.card a {
-    display: block;
-    margin-top: 10px;
-    color: #1a2a6c;
-    text-decoration: none;
-    font-weight: bold;
+/* ===== DARK MODE ===== */
+body.dark {
+  background: var(--dark-bg);
 }
 
-/* TABLE (study plan) */
-table {
-    margin: 30px auto;
-    border-collapse: collapse;
-    width: 70%;
-    background: white;
+body.dark .topbar {
+  background: var(--dark-surface);
 }
 
-th {
-    background: #4facfe;
-    color: white;
-    padding: 10px;
+body.dark .sidebar {
+  background: var(--dark-bg);
 }
 
-td {
-    padding: 10px;
-    text-align: center;
-    border-bottom: 1px solid #ddd;
+body.dark .sidebar nav a {
+  color: white;
+}
+
+body.dark .sidebar nav a:hover {
+  background: var(--dark-surface);
+}
+
+body.dark .main h1 {
+  color: white;
+}
+
+body.dark .card {
+  background: var(--dark-surface);
+  color: white;
+}
+
+body.dark .logout {
+  background: var(--dark-accent);
+}
+
+body.dark .badge {
+  background: var(--dark-accent);
+  color: white;
 }
