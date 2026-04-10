@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Reminders</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial;
+            background: #FFF5F7;
+        }
+
+        /* TOP */
+        .top {
+            padding: 30px 0;
+        }
+
+        h1 {
+            margin: 0;
+            color: #2A1E3F;
+        }
+
+        .subtitle {
+            color: #777;
+            margin-top: 5px;
+        }
+
+        /* MAIN */
+        .container {
+            padding: 0 30px;
+        }
+
+        /* CARD */
+        .reminder-box {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            width: 60%;
+        }
+
+        /* EACH REMINDER */
+        .reminder {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .reminder:last-child {
+            border-bottom: none;
+        }
+
+        /* LEFT SIDE */
+        .reminder-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .icon {
+            width: 30px;
+        }
+
+        .text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .title {
+            font-weight: bold;
+            color: #2A1E3F;
+        }
+
+        .course {
+            font-size: 13px;
+            color: #9B7EDC;
+        }
+
+        /* RIGHT SIDE */
+        .right-side {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* DOT (unread) */
+        .dot {
+            width: 8px;
+            height: 8px;
+            background: red;
+            border-radius: 50%;
+        }
+
+        /* BADGES */
+        .badge {
+            padding: 5px 10px;
+            border-radius: 10px;
+            font-size: 12px;
+        }
+
+        .upcoming {
+            background: #f3e5ab;
+            color: #8a6d3b;
+        }
+
+        .today {
+            background: #d0e7ff;
+            color: #2a5caa;
+        }
+
+        .overdue {
+            background: #f8d7da;
+            color: #842029;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="top">
+            <h1>Reminder Notifications</h1>
+            <p class="subtitle">
+                Stay on top of assignments, deadlines, and study sessions.
+            </p>
+        </div>
+
+        <!-- REMINDERS -->
+        <div class="reminder-box">
+
+            <!-- ITEM 1 -->
+            <div class="reminder">
+                <div class="reminder-left">
+                    <img src="purpleLightbulb.png" class="icon">
+
+                    <div class="text">
+                        <div class="title">Homework #3 due tomorrow</div>
+                        <div class="course">MATH 202: Calculus II</div>
+                    </div>
+                </div>
+
+                <div class="right-side">
+
+                    <div class="badge upcoming">Upcoming</div>
+                    <span class="dot"></span>
+                </div>
+            </div>
+
+            <!-- ITEM 2 -->
+            <div class="reminder">
+                <div class="reminder-left">
+                    <img src="clock.png" class="icon">
+
+                    <div class="text">
+                        <div class="title">Study session scheduled today</div>
+                        <div class="course">CSC 201: Data Structures</div>
+                    </div>
+                </div>
+
+                <div class="right-side">
+
+                    <div class="badge today">Today, 7:00 PM</div>
+                    <span class="dot"></span>
+                </div>
+            </div>
+
+            <!-- ITEM 3 -->
+            <div class="reminder">
+                <div class="reminder-left">
+                    <img src="warning.png" class="icon">
+
+                    <div class="text">
+                        <div class="title">Midterm Exam is overdue</div>
+                        <div class="course">SWE 101: Programming</div>
+                    </div>
+                </div>
+
+                <div class="right-side">
+                    <div class="badge overdue">Overdue</div>
+                </div>
+            </div>
+
+            <!-- ITEM 4 -->
+            <div class="reminder">
+                <div class="reminder-left">
+                    <img src="purpleLightbulb.png" class="icon">
+
+                    <div class="text">
+                        <div class="title">Plan next assignment</div>
+                        <div class="course">Due next Wednesday</div>
+                    </div>
+                </div>
+
+                <div class="right-side">
+
+                    <div class="badge upcoming">2 Days Remaining</div>
+                    <span class="dot"></span>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>
