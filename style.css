@@ -10,243 +10,337 @@
 }
 
 /* ===== RESET ===== */
-body {
-  margin: 0;
-  font-family: "Segoe UI", sans-serif;
-  background: var(--light-bg);
+* {
+  box-sizing: border-box;
 }
 
-/* ===== TOPBAR ===== */
-.topbar {
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1em;
+  background: var(--light-bg);
+  color: #2a1e5f;
+  line-height: 1.5;
+}
+
+/* ===== GENERAL LINKS ===== */
+a {
+  color: #783984;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* ===== HEADER ===== */
+.header {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  height: 70px;
+  height: 4.5em;
   background: var(--light-primary);
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding: 0 30px;
+  padding: 0 1.5em;
   color: white;
   z-index: 1000;
+  border-bottom: 1px solid #ccc;
 }
 
 .logo-area {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 0.8em;
 }
 
 .logo-area img {
-  width: 35px;
+  width: 2.5em;
+  height: 2.5em;
+  max-width: 100%;
 }
 
-.actions {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-}
-
-/* ===== REMINDER ===== */
-.reminder {
-  position: relative;
-  font-size: 20px;
-}
-
-.badge {
-  position: absolute;
-  top: -6px;
-  right: -10px;
-  background: #f7c8d0;
-  color: #2a1e5f;
-  font-size: 11px;
-  padding: 3px 6px;
-  border-radius: 50%;
+.logo-area h2 {
+  margin: 0;
+  color: white;
+  font-size: 1.3em;
 }
 
 /* ===== SIDEBAR ===== */
 .sidebar {
   position: fixed;
-  top: 70px;
+  top: 4.5em;
   left: 0;
-  width: 240px;
-  height: calc(100% - 70px);
+  width: 15%;
+  min-width: 12em;
+  height: calc(100% - 4.5em);
   background: var(--light-sidebar);
-  padding: 25px;
+  padding: 1.5em 1em;
+  overflow: auto;
+  border-right: 1px solid #ccc;
+
+  /* 🔥 الإضافة */
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
 
-.sidebar h2 {
-  color: #2a1e5f;
+/* 🔥 جديد */
+.menu {
+  width: 100%;
 }
 
-.sidebar nav a {
+.sidebar a {
   display: block;
-  margin: 12px 0;
-  padding: 10px;
-  border-radius: 10px;
+  margin: 0.6em 0;
+  padding: 0.9em 1em;
+  border-radius: 0.8em;
   color: #2a1e5f;
+  font-size: 1em;
+}
+
+.sidebar a:hover {
+  background: var(--light-primary);
+  color: white;
   text-decoration: none;
 }
 
-.sidebar nav a:hover {
-  background: var(--light-primary);
+/* 🔥 LOGOUT */
+.sidebar .logout-link {
+  display: block;
+  margin: 0.6em 0;
+  padding: 0.9em 1em;
+  border-radius: 0.8em;
+  color: red;
+  font-size: 1em;
+  text-decoration: none;
+}
+
+.sidebar .logout-link:hover {
+  background: red;
   color: white;
 }
 
-/* ===== LOGOUT ===== */
-.logout {
-  padding: 12px;
-  border: none;
-  background: var(--light-primary);
+.sidebar .logout-link:active {
+  background: #b30000;
   color: white;
-  border-radius: 12px;
-  cursor: pointer;
 }
 
-/* ===== MAIN ===== */
-.main {
-  margin-left: 240px;
-  margin-top: 70px;
-  padding: 40px;
+/* ===== CONTENT ===== */
+.content {
+  margin-left: 17%;
+  margin-top: 5.5em;
+  padding: 2em;
 }
 
-.main h1 {
+.content h1 {
+  margin-top: 0;
+  margin-bottom: 0.4em;
+  font-size: 2em;
   color: #2a1e5f;
 }
 
-/* ===== GRID ===== */
-.grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 25px;
-  margin-top: 20px;
+.content h2 {
+  margin-top: 0;
+  font-size: 1.3em;
+  color: #2a1e5f;
 }
 
-/* ===== CARD ===== */
-.card {
+.content p {
+  font-size: 1em;
+  margin: 0.5em 0;
+}
+
+/* ===== COMMON BOXES ===== */
+.card,
+.summary-box,
+.motivation-box {
   background: white;
-  padding: 30px;
-  border-radius: 20px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+  border: 1px solid #ccc;
+  border-radius: 1em;
+  padding: 1.2em;
+  margin-top: 1.2em;
+}
+
+.card:hover,
+.summary-box:hover,
+.motivation-box:hover {
+  border-color: var(--light-primary);
+}
+
+/* ===== STUDY PLAN TABLE ===== */
+.study-table {
+  width: 100%;
+  margin-top: 1.5em;
+  border-collapse: collapse;
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 1em;
+  overflow: hidden;
+  font-size: 0.95em;
+}
+
+.study-table caption {
+  caption-side: top;
+  text-align: left;
+  font-size: 1.2em;
+  font-weight: bold;
+  color: #2a1e5f;
+  padding: 0.8em 0;
+}
+
+.study-table th,
+.study-table td {
+  border: 1px solid #ccc;
+  padding: 1em 0.8em;
+  text-align: center;
+  vertical-align: top;
+}
+
+.study-table th {
+  background: var(--light-sidebar);
+  color: #2a1e5f;
+}
+
+.study-table td:first-child,
+.study-table th:first-child {
+  font-weight: bold;
+  width: 12%;
+}
+
+.study-table tr:hover td {
+  background: #fffafb;
+}
+
+/* ===== SUMMARY / MOTIVATION ===== */
+.summary-box p,
+.motivation-box p {
+  margin: 0.5em 0;
+}
+
+/* ===== PROGRESS PAGE LAYOUT ===== */
+.main-box {
+  width: 100%;
+  overflow: hidden;
+  margin-top: 1.5em;
+}
+
+.left {
+  width: 38%;
+  float: left;
+}
+
+.right {
+  width: 58%;
+  float: right;
+}
+
+/* ===== PIE CHART ===== */
+.pie-chart {
+  width: 12em;
+  height: 12em;
+  margin: 1.5em auto;
+  border-radius: 50%;
+  background: conic-gradient(
+    #9b7edc 0% 40%,
+    #f7c8d0 40% 75%,
+    #2a1e5f 75% 100%
+  );
+  position: relative;
+}
+
+.pie-chart::before {
+  content: "";
+  position: absolute;
+  width: 6.5em;
+  height: 6.5em;
+  background: white;
+  border-radius: 50%;
+  top: 2.75em;
+  left: 2.75em;
+}
+
+.center-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  font-size: 1.3em;
+  font-weight: bold;
+  color: #2a1e5f;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+}
+
+/* ===== CHART INFO ===== */
+.chart-info {
+  margin-top: 1em;
+}
+
+.chart-info div {
+  margin: 0.5em 0;
+  font-size: 0.95em;
+}
+
+.box {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  margin-right: 0.5em;
+  border-radius: 0.2em;
+  vertical-align: middle;
+}
+
+.green {
+  background: #9b7edc;
+}
+
+.blue {
+  background: #f7c8d0;
+}
+
+.yellow {
+  background: #2a1e5f;
+}
+
+/* ===== ACTIVITY (تم إصلاح الخطأ هنا) ===== */
+.activity {
+  border: 1px solid #ccc;
+  border-radius: 0.8em;
+  padding: 0.9em 1em;
+  margin-top: 0.8em;
+  background: #fff;
+}
+
+.activity:hover {
+  border-color: var(--light-primary);
+}
+
+.activity p {
+  margin: 0.3em 0;
+}
+
+/* ===== INPUTS ===== */
+input {
+  width: 100%;
+  padding: 0.8em;
+  margin: 0.5em 0;
+  border-radius: 0.5em;
+  border: 1px solid #ccc;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1em;
 }
 
 /* ===== DARK MODE ===== */
 body.dark {
   background: var(--dark-bg);
-}
-
-body.dark .topbar {
-  background: var(--dark-surface);
+  color: white;
 }
 
 body.dark .sidebar {
   background: var(--dark-bg);
 }
 
-body.dark .sidebar nav a {
-  color: white;
-}
-
-body.dark .sidebar nav a:hover {
-  background: var(--dark-surface);
-}
-
-body.dark .main h1 {
-  color: white;
-}
-
-body.dark .card {
-  background: var(--dark-surface);
-  color: white;
-}
-
-body.dark .logout {
-  background: var(--dark-accent);
-}
-
-body.dark .badge {
-  background: var(--dark-accent);
-  color: white;
-}
-
-/* ===== INPUTS (ثابتة لكل الصفحات) ===== */
-input {
-  width: 100%;
-  padding: 10px;
-  margin: 8px 0;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-}
-
-/* ===== HOME / LOGIN / REGISTER ===== */
-.home-box,
-.login-box,
-.register-box {
-  background: white;
-  width: 1100px;
-  max-width: 90%;
-  margin: 160px auto;
-  padding: 50px;
-  border-radius: 15px;
-
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-/* LEFT SIDE */
-.home-left,
-.form-side {
-  width: 55%;
-}
-
-/* RIGHT SIDE */
-.home-right,
-.logo-side {
-  width: 40%;
-  display: flex;
-  justify-content: center;
-}
-
-/* LOGO */
-.logo {
-  width: 250px;
-}
-
-/* BUTTON ROW */
-.btn-row {
-  display: flex;
-  gap: 15px;
-  margin-top: 20px;
-}
-
-/* BUTTON */
-.btn {
-  display: inline-block;
-  padding: 10px 20px;
-  background: #783984;
-  color: white;
-  border-radius: 8px;
-  text-decoration: none;
-  text-align: center;
-  margin-top: 10px;
-}
-
-.btn:hover {
-  background: #e98dda;
-}
-
-/* LINKS */
-.link-text {
-  font-size: 12px;
-  margin-top: 10px;
-}
-
-a {
-  color: #783984;
-  text-decoration: none;
+body.dark .sidebar .logout-link {
+  color: #ff8fab;
 }
