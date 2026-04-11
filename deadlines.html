@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Deadlines</title>
+<link rel="stylesheet" href="deadlines.css">
+</head>
+
+<body>
+
+<!-- Sidebar -->
+<div class="sidebar">
+    <h2>📘 Planner</h2>
+    <a href="#">🏠 Dashboard</a>
+    <a href="#">📚 Courses</a>
+    <a href="#">📅 Deadlines</a>
+    <a href="#">⏰ Availability</a>
+    <a href="#">📝 Study Plan</a>
+    <a href="#">📊 Progress</a>
+</div>
+
+<!-- Main Content -->
+<div class="main">
+
+    <h1>📅 Deadline Management</h1>
+    <p class="desc">
+        Track your academic deadlines and stay prepared. Organize assignments and exams to maintain consistent progress.
+    </p>
+
+    <!-- Add Deadline -->
+    <div class="card">
+        <h3>➕ Add a New Deadline</h3>
+
+        <div class="form-row">
+            <input type="text" placeholder="Task name (Assignment / Exam)">
+            <input type="date">
+            <button>Add</button>
+        </div>
+    </div>
+
+    <!-- Deadlines List -->
+    <div class="card">
+        <h3>⏳ Upcoming Deadlines</h3>
+
+        <div class="deadline">
+            <div>
+                <span>SWE 381 Assignment</span><br>
+                <small>Due: 2026-05-10</small><br>
+                <small class="days">5 days remaining</small>
+            </div>
+        </div>
+
+        <div class="deadline">
+            <div>
+                <span>CS 101 Final Exam</span><br>
+                <small>Due: 2026-05-20</small><br>
+                <small class="days">15 days remaining</small>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>
