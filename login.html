@@ -1,24 +1,31 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Login</title>
-
-<link rel="stylesheet" href="style.css">
-
+    <title>Login</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<div class="form-box">
+<div class="login-box">
 
-    <img src="images/logo.png" class="logo">
+    <div class="form-side">
+        <h2>Log In</h2>
 
-    <h2>Login</h2>
+        <input type="email" placeholder="Email">
+        <input type="password" placeholder="Password">
 
-    <input type="text" placeholder="Email">
-    <input type="password" placeholder="Password">
+        <a href="dashboard.html" class="btn">Log In</a>
 
-<button onclick="location.href='dashboard.html'">Login</button>
+        <p class="link-text">
+            Don't have an account? <a href="register.html">Sign Up</a>
+        </p>
+    </div>
+
+    <div class="logo-side">
+        <img src="AWJ_logo.png" class="logo">
+    </div>
+
 </div>
 
 </body>

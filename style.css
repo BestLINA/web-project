@@ -9,7 +9,7 @@
   --dark-accent: #ff8fab;
 }
 
-/* RESET */
+/* ===== RESET ===== */
 body {
   margin: 0;
   font-family: "Segoe UI", sans-serif;
@@ -97,7 +97,7 @@ body {
   color: white;
 }
 
-/* LOGOUT */
+/* ===== LOGOUT ===== */
 .logout {
   padding: 12px;
   border: none;
@@ -171,4 +171,82 @@ body.dark .logout {
 body.dark .badge {
   background: var(--dark-accent);
   color: white;
+}
+
+/* ===== INPUTS (ثابتة لكل الصفحات) ===== */
+input {
+  width: 100%;
+  padding: 10px;
+  margin: 8px 0;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+/* ===== HOME / LOGIN / REGISTER ===== */
+.home-box,
+.login-box,
+.register-box {
+  background: white;
+  width: 1100px;
+  max-width: 90%;
+  margin: 160px auto;
+  padding: 50px;
+  border-radius: 15px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* LEFT SIDE */
+.home-left,
+.form-side {
+  width: 55%;
+}
+
+/* RIGHT SIDE */
+.home-right,
+.logo-side {
+  width: 40%;
+  display: flex;
+  justify-content: center;
+}
+
+/* LOGO */
+.logo {
+  width: 250px;
+}
+
+/* BUTTON ROW */
+.btn-row {
+  display: flex;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+/* BUTTON */
+.btn {
+  display: inline-block;
+  padding: 10px 20px;
+  background: #783984;
+  color: white;
+  border-radius: 8px;
+  text-decoration: none;
+  text-align: center;
+  margin-top: 10px;
+}
+
+.btn:hover {
+  background: #e98dda;
+}
+
+/* LINKS */
+.link-text {
+  font-size: 12px;
+  margin-top: 10px;
+}
+
+a {
+  color: #783984;
+  text-decoration: none;
 }

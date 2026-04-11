@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Availability</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial;
+            background: #FFF5F7;
+        }
+
+        /* TOP TEXT */
+        .top {
+            padding: 30px 0 10px 0;
+
+        }
+
+        .top-header {
+            display: flex;
+            justify-content: flex-start;
+            align-items: flex-start;
+        }
+
+        h1 {
+            margin: 0;
+            color: #2A1E3F;
+        }
+
+        h2 {
+            margin: 0;
+            color: #2A1E3F;
+        }
+
+        .schedule h2 {
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #888;
+            margin-top: 5px;
+        }
+
+        /* BUTTON */
+        .save-btn {
+            background: #9B7EDC;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        /* MAIN LAYOUT */
+        .container {
+            display: flex;
+            gap: 30px;
+            align-items: flex-start;
+        }
+
+        /* LEFT BOX */
+        .schedule {
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 15px;
+            width: 25%;
+        }
+
+        /* RIGHT BOX */
+        .tips {
+            background: #ffffff;
+            padding: 15px;
+            border-radius: 15px;
+            width: 21%;
+        }
+
+        /* DAY ROW */
+        .day {
+            display: flex;
+            align-items: center;
+            margin: 12px 0;
+        }
+
+        .day-left {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            width: 120px;
+        }
+
+
+        select {
+            padding: 6px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+        }
+
+        .day span {
+            margin-left: 5px;
+            cursor: pointer;
+        }
+
+        /* TIPS */
+        .tip {
+            margin: 10px 0;
+            color: #444;
+            line-height: 1.6;
+        }
+
+        .time {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            margin-left: auto;
+        }
+
+        .dash {
+            margin: 0 4px;
+            color: #555;
+        }
+
+        .flower {
+            color: #9B7EDC;
+            margin-right: 6px;
+        }
+
+        .bottom {
+            padding-top: 20px;
+        }
+
+        input[type="checkbox"] {
+            width: 16px;
+            height: 16px;
+        }
+
+        .tips-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .tip-icon {
+            width: 50px;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="top">
+
+        <div class="top-header">
+            <h1>My Availability</h1>
+        </div>
+
+        <p class="subtitle">Set your weekly study hours</p>
+
+    </div>
+
+    <div class="container">
+
+        <!-- LEFT SIDE -->
+        <div class="schedule">
+            <h2>Weekly Schedule</h2>
+
+            <!-- FUNCTION: TIME OPTIONS -->
+
+            <!-- Saturday -->
+            <div class="day">
+                <div class="day-left">
+                    <input type="checkbox" checked>
+                    <label>Saturday</label>
+                </div>
+
+                <div class="time">
+                    <select>
+                        <option disabled selected>Start</option>
+                        <option>00:00</option>
+                        <option>01:00</option>
+                        <option>02:00</option>
+                        <option>03:00</option>
+                        <option>04:00</option>
+                        <option>05:00</option>
+                        <option>06:00</option>
+                        <option>07:00</option>
+                        <option>08:00</option>
+                        <option>09:00</option>
+                        <option>10:00</option>
+                        <option>11:00</option>
+                        <option>12:00</option>
+                        <option>13:00</option>
+                        <option>14:00</option>
+                        <option>15:00</option>
+                        <option>16:00</option>
+                        <option>17:00</option>
+                        <option>18:00</option>
+                        <option>19:00</option>
+                        <option>20:00</option>
+                        <option>21:00</option>
+                        <option>22:00</option>
+                        <option>23:00</option>
+                    </select>
+                    <span class="dash">-</span>
+                    <select>
+                        <option disabled selected>End</option>
+                        <option>00:00</option>
+                        <option>01:00</option>
+                        <option>02:00</option>
+                        <option>03:00</option>
+                        <option>04:00</option>
+                        <option>05:00</option>
+                        <option>06:00</option>
+                        <option>07:00</option>
+                        <option>08:00</option>
+                        <option>09:00</option>
+                        <option>10:00</option>
+                        <option>11:00</option>
+                        <option>12:00</option>
+                        <option>13:00</option>
+                        <option>14:00</option>
+                        <option>15:00</option>
+                        <option>16:00</option>
+                        <option>17:00</option>
+                        <option>18:00</option>
+                        <option>19:00</option>
+                        <option>20:00</option>
+                        <option>21:00</option>
+                        <option>22:00</option>
+                        <option>23:00</option>
+                    </select>
+
+                    <span>🗑️</span>
+                </div>
+            </div>
+
+
+            <!-- Sunday -->
+            <div class="day">
+                <div class="day-left">
+                    <input type="checkbox">
+                    <label>Sunday</label>
+                </div>
+
+                <div class="time">
+                    <select>
+                        <option disabled selected>Start</option>
+                        <option>00:00</option>
+                        <option>01:00</option>
+                        <option>02:00</option>
+                        <option>03:00</option>
+                        <option>04:00</option>
+                        <option>05:00</option>
+                        <option>06:00</option>
+                        <option>07:00</option>
+                        <option>08:00</option>
+                        <option>09:00</option>
+                        <option>10:00</option>
+                        <option>11:00</option>
+                        <option>12:00</option>
+                        <option>13:00</option>
+                        <option>14:00</option>
+                        <option>15:00</option>
+                        <option>16:00</option>
+                        <option>17:00</option>
+                        <option>18:00</option>
+                        <option>19:00</option>
+                        <option>20:00</option>
+                        <option>21:00</option>
+                        <option>22:00</option>
+                        <option>23:00</option>
+                    </select>
+                    <span class="dash">-</span>
+                    <select>
+                        <option disabled selected>End</option>
+                        <option>00:00</option>
+                        <option>01:00</option>
+                        <option>02:00</option>
+                        <option>03:00</option>
+                        <option>04:00</option>
+                        <option>05:00</option>
+                        <option>06:00</option>
+                        <option>07:00</option>
+                        <option>08:00</option>
+                        <option>09:00</option>
+                        <option>10:00</option>
+                        <option>11:00</option>
+                        <option>12:00</option>
+                        <option>13:00</option>
+                        <option>14:00</option>
+                        <option>15:00</option>
+                        <option>16:00</option>
+                        <option>17:00</option>
+                        <option>18:00</option>
+                        <option>19:00</option>
+                        <option>20:00</option>
+                        <option>21:00</option>
+                        <option>22:00</option>
+                        <option>23:00</option>
+                    </select>
+                    <span>➕</span>
+                </div>
+            </div>
+
+            <!-- Monday -->
+            <div class="day">
+                <div class="day-left">
+                    <input type="checkbox">
+                    <label>Monday</label>
+                </div>
+
+                <div class="time">
+                    <select>
+                        <option disabled selected>Start</option>
+                        <option>00:00</option>
+                        <option>01:00</option>
+                        <option>02:00</option>
+                        <option>03:00</option>
+                        <option>04:00</option>
+                        <option>05:00</option>
+                        <option>06:00</option>
+                        <option>07:00</option>
+                        <option>08:00</option>
+                        <option>09:00</option>
+                        <option>10:00</option>
+                        <option>11:00</option>
+                        <option>12:00</option>
+                        <option>13:00</option>
+                        <option>14:00</option>
+                        <option>15:00</option>
+                        <option>16:00</option>
+                        <option>17:00</option>
+                        <option>18:00</option>
+                        <option>19:00</option>
+                        <option>20:00</option>
+                        <option>21:00</option>
+                        <option>22:00</option>
+                        <option>23:00</option>
+                    </select>
+                    <span class="dash">-</span>
+                    <select>
+                        <option disabled selected>End</option>
+                        <option>00:00</option>
+                        <option>01:00</option>
+                        <option>02:00</option>
+                        <option>03:00</option>
+                        <option>04:00</option>
+                        <option>05:00</option>
+                        <option>06:00</option>
+                        <option>07:00</option>
+                        <option>08:00</option>
+                        <option>09:00</option>
+                        <option>10:00</option>
+                        <option>11:00</option>
+                        <option>12:00</option>
+                        <option>13:00</option>
+                        <option>14:00</option>
+                        <option>15:00</option>
+                        <option>16:00</option>
+                        <option>17:00</option>
+                        <option>18:00</option>
+                        <option>19:00</option>
+                        <option>20:00</option>
+                        <option>21:00</option>
+                        <option>22:00</option>
+                        <option>23:00</option>
+                    </select>
+                    <span>➕</span>
+                </div>
+            </div>
+
+            <!-- Tuesday -->
+            <div class="day">
+                <div class="day-left">
+                    <input type="checkbox">
+                    <label>Tuesday</label>
+                </div>
+
+                <div class="time">
+                    <select>
+                        <option disabled selected>Start</option>
+                        <option>00:00</option>
+                        <option>01:00</option>
+                        <option>02:00</option>
+                        <option>03:00</option>
+                        <option>04:00</option>
+                        <option>05:00</option>
+                        <option>06:00</option>
+                        <option>07:00</option>
+                        <option>08:00</option>
+                        <option>09:00</option>
+                        <option>10:00</option>
+                        <option>11:00</option>
+                        <option>12:00</option>
+                        <option>13:00</option>
+                        <option>14:00</option>
+                        <option>15:00</option>
+                        <option>16:00</option>
+                        <option>17:00</option>
+                        <option>18:00</option>
+                        <option>19:00</option>
+                        <option>20:00</option>
+                        <option>21:00</option>
+                        <option>22:00</option>
+                        <option>23:00</option>
+                    </select>
+                    <span class="dash">-</span>
+                    <select>
+                        <option disabled selected>End</option>
+                        <option>00:00</option>
+                        <option>01:00</option>
+                        <option>02:00</option>
+                        <option>03:00</option>
+                        <option>04:00</option>
+                        <option>05:00</option>
+                        <option>06:00</option>
+                        <option>07:00</option>
+                        <option>08:00</option>
+                        <option>09:00</option>
+                        <option>10:00</option>
+                        <option>11:00</option>
+                        <option>12:00</option>
+                        <option>13:00</option>
+                        <option>14:00</option>
+                        <option>15:00</option>
+                        <option>16:00</option>
+                        <option>17:00</option>
+                        <option>18:00</option>
+                        <option>19:00</option>
+                        <option>20:00</option>
+                        <option>21:00</option>
+                        <option>22:00</option>
+                        <option>23:00</option>
+                    </select>
+                    <span>➕</span>
+                </div>
+            </div>
+
+            <!-- Wednesday -->
+            <div class="day">
+                <div class="day-left">
+                    <input type="checkbox">
+                    <label>Wednesday</label>
+                </div>
+
+                <div class="time">
+                    <select>
+                        <option disabled selected>Start</option>
+                        <option>00:00</option>
+                        <option>01:00</option>
+                        <option>02:00</option>
+                        <option>03:00</option>
+                        <option>04:00</option>
+                        <option>05:00</option>
+                        <option>06:00</option>
+                        <option>07:00</option>
+                        <option>08:00</option>
+                        <option>09:00</option>
+                        <option>10:00</option>
+                        <option>11:00</option>
+                        <option>12:00</option>
+                        <option>13:00</option>
+                        <option>14:00</option>
+                        <option>15:00</option>
+                        <option>16:00</option>
+                        <option>17:00</option>
+                        <option>18:00</option>
+                        <option>19:00</option>
+                        <option>20:00</option>
+                        <option>21:00</option>
+                        <option>22:00</option>
+                        <option>23:00</option>
+                    </select>
+                    <span class="dash">-</span>
+                    <select>
+                        <option disabled selected>End</option>
+                        <option>00:00</option>
+                        <option>01:00</option>
+                        <option>02:00</option>
+                        <option>03:00</option>
+                        <option>04:00</option>
+                        <option>05:00</option>
+                        <option>06:00</option>
+                        <option>07:00</option>
+                        <option>08:00</option>
+                        <option>09:00</option>
+                        <option>10:00</option>
+                        <option>11:00</option>
+                        <option>12:00</option>
+                        <option>13:00</option>
+                        <option>14:00</option>
+                        <option>15:00</option>
+                        <option>16:00</option>
+                        <option>17:00</option>
+                        <option>18:00</option>
+                        <option>19:00</option>
+                        <option>20:00</option>
+                        <option>21:00</option>
+                        <option>22:00</option>
+                        <option>23:00</option>
+                    </select>
+                    <span>➕</span>
+                </div>
+            </div>
+
+            <!-- Thursday -->
+            <div class="day">
+                <div class="day-left">
+                    <input type="checkbox">
+                    <label>Thursday</label>
+                </div>
+
+                <div class="time">
+                    <select>
+                        <option disabled selected>Start</option>
+                        <option>00:00</option>
+                        <option>01:00</option>
+                        <option>02:00</option>
+                        <option>03:00</option>
+                        <option>04:00</option>
+                        <option>05:00</option>
+                        <option>06:00</option>
+                        <option>07:00</option>
+                        <option>08:00</option>
+                        <option>09:00</option>
+                        <option>10:00</option>
+                        <option>11:00</option>
+                        <option>12:00</option>
+                        <option>13:00</option>
+                        <option>14:00</option>
+                        <option>15:00</option>
+                        <option>16:00</option>
+                        <option>17:00</option>
+                        <option>18:00</option>
+                        <option>19:00</option>
+                        <option>20:00</option>
+                        <option>21:00</option>
+                        <option>22:00</option>
+                        <option>23:00</option>
+                    </select>
+                    <span class="dash">-</span>
+                    <select>
+                        <option disabled selected>End</option>
+                        <option>00:00</option>
+                        <option>01:00</option>
+                        <option>02:00</option>
+                        <option>03:00</option>
+                        <option>04:00</option>
+                        <option>05:00</option>
+                        <option>06:00</option>
+                        <option>07:00</option>
+                        <option>08:00</option>
+                        <option>09:00</option>
+                        <option>10:00</option>
+                        <option>11:00</option>
+                        <option>12:00</option>
+                        <option>13:00</option>
+                        <option>14:00</option>
+                        <option>15:00</option>
+                        <option>16:00</option>
+                        <option>17:00</option>
+                        <option>18:00</option>
+                        <option>19:00</option>
+                        <option>20:00</option>
+                        <option>21:00</option>
+                        <option>22:00</option>
+                        <option>23:00</option>
+                    </select>
+                    <span>➕</span>
+                </div>
+            </div>
+
+            <!-- Friday -->
+            <div class="day">
+                <div class="day-left">
+                    <input type="checkbox">
+                    <label>Friday</label>
+                </div>
+
+                <div class="time">
+                    <select>
+                        <option disabled selected>Start</option>
+                        <option>00:00</option>
+                        <option>01:00</option>
+                        <option>02:00</option>
+                        <option>03:00</option>
+                        <option>04:00</option>
+                        <option>05:00</option>
+                        <option>06:00</option>
+                        <option>07:00</option>
+                        <option>08:00</option>
+                        <option>09:00</option>
+                        <option>10:00</option>
+                        <option>11:00</option>
+                        <option>12:00</option>
+                        <option>13:00</option>
+                        <option>14:00</option>
+                        <option>15:00</option>
+                        <option>16:00</option>
+                        <option>17:00</option>
+                        <option>18:00</option>
+                        <option>19:00</option>
+                        <option>20:00</option>
+                        <option>21:00</option>
+                        <option>22:00</option>
+                        <option>23:00</option>
+                    </select>
+                    <span class="dash">-</span>
+                    <select>
+                        <option disabled selected>End</option>
+                        <option>00:00</option>
+                        <option>01:00</option>
+                        <option>02:00</option>
+                        <option>03:00</option>
+                        <option>04:00</option>
+                        <option>05:00</option>
+                        <option>06:00</option>
+                        <option>07:00</option>
+                        <option>08:00</option>
+                        <option>09:00</option>
+                        <option>10:00</option>
+                        <option>11:00</option>
+                        <option>12:00</option>
+                        <option>13:00</option>
+                        <option>14:00</option>
+                        <option>15:00</option>
+                        <option>16:00</option>
+                        <option>17:00</option>
+                        <option>18:00</option>
+                        <option>19:00</option>
+                        <option>20:00</option>
+                        <option>21:00</option>
+                        <option>22:00</option>
+                        <option>23:00</option>
+                    </select>
+                    <span>➕</span>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- RIGHT SIDE -->
+        <div class="tips">
+            <div class="tips-header">
+                <img src="purplelightbulb.png" class="tip-icon" alt="purple light bulb icon">
+                <h2>Quick Tips</h2>
+            </div>
+
+            <div class="tip"><span class="flower">✿</span> Be consistent with your study hours</div>
+            <div class="tip"><span class="flower">✿</span> Take 10–15 min breaks every 1–2 hours</div>
+            <div class="tip"><span class="flower">✿</span> Avoid over-scheduling</div>
+        </div>
+
+    </div>
+    <div class="bottom">
+        <button class="save-btn">Save Availability</button>
+    </div>
+
+</body>
+
+</html>
