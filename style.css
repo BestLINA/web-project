@@ -80,13 +80,13 @@ a:hover {
   overflow: auto;
   border-right: 1px solid #ccc;
 
-  /* 🔥 الإضافة */
+  
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
 
-/* 🔥 جديد */
+
 .menu {
   width: 100%;
 }
@@ -106,13 +106,13 @@ a:hover {
   text-decoration: none;
 }
 
-/* 🔥 LOGOUT */
+/* LOGOUT */
 .sidebar .logout-link {
   display: block;
   margin: 0.6em 0;
   padding: 0.9em 1em;
   border-radius: 0.8em;
-  color: red;
+  color: #2a1e5f;
   font-size: 1em;
   text-decoration: none;
 }
@@ -303,7 +303,7 @@ a:hover {
   background: #2a1e5f;
 }
 
-/* ===== ACTIVITY (تم إصلاح الخطأ هنا) ===== */
+/* ===== (ACTIVITY )===== */
 .activity {
   border: 1px solid #ccc;
   border-radius: 0.8em;
