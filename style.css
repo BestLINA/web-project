@@ -344,3 +344,82 @@ body.dark .sidebar {
 body.dark .sidebar .logout-link {
   color: #ff8fab;
 }
+
+/* ALL BOXES in home pages*/
+.home-box,
+.login-box,
+.register-box {
+    background: white;
+
+    width: 1100px;
+    max-width: 90%;
+
+    margin: 160px auto;   /* ⭐ THIS CENTERS IT */
+    
+    padding: 50px;
+    border-radius: 15px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+/*HOME PAGES STYLING*/
+/* LEFT SIDE (HOME) */
+.home-left {
+    width: 55%;
+}
+
+/* RIGHT SIDE (HOME LOGO) */
+.home-right {
+    width: 40%;
+    display: flex;
+    justify-content: center;
+}
+
+/* FORM SIDE */
+.form-side {
+    width: 55%;
+}
+
+/* LOGO SIDE */
+.logo-side {
+    width: 40%;
+    display: flex;
+    justify-content: center;
+}
+
+/* LOGO */
+.logo {
+    width: 250px;
+}
+
+/* BUTTON ROW (HOME) */
+.btn-row {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+/* BUTTON */
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background: #783984;
+    color: white;
+    border-radius: 8px;
+    text-decoration: none;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.btn:hover {
+    background: #e98dda;
+}
+
+/* LINKS */
+.link-text {
+    font-size: 12px;
+    margin-top: 10px;
+}
