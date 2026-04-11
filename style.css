@@ -1,348 +1,346 @@
 /* ===== ROOT COLORS ===== */
 :root {
-  --light-bg: #fff5f7;
-  --light-sidebar: #f7c8d0;
-  --light-primary: #9b7edc;
+    --light-bg: #fff5f7;
+    --light-sidebar: #f7c8d0;
+    --light-primary: #9b7edc;
 
-  --dark-bg: #2a1e5f;
-  --dark-surface: #3a2c5a;
-  --dark-accent: #ff8fab;
+    --dark-bg: #2a1e5f;
+    --dark-surface: #3a2c5a;
+    --dark-accent: #ff8fab;
 }
 
 /* ===== RESET ===== */
 * {
-  box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 body {
-  margin: 0;
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 1em;
-  background: var(--light-bg);
-  color: #2a1e5f;
-  line-height: 1.5;
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1em;
+    background: var(--light-bg);
+    color: #2a1e5f;
+    line-height: 1.5;
 }
 
 /* ===== GENERAL LINKS ===== */
 a {
-  color: #783984;
-  text-decoration: none;
+    color: #783984;
+    text-decoration: none;
 }
 
 a:hover {
-  text-decoration: underline;
+    text-decoration: underline;
 }
 
 /* ===== HEADER ===== */
 .header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 4.5em;
-  background: var(--light-primary);
-  display: flex;
-  align-items: center;
-  padding: 0 1.5em;
-  color: white;
-  z-index: 1000;
-  border-bottom: 1px solid #ccc;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4.5em;
+    background: var(--light-primary);
+    display: flex;
+    align-items: center;
+    padding: 0 1.5em;
+    color: white;
+    z-index: 1000;
+    border-bottom: 1px solid #ccc;
 }
 
 .logo-area {
-  display: flex;
-  align-items: center;
-  gap: 0.8em;
+    display: flex;
+    align-items: center;
+    gap: 0.8em;
 }
 
 .logo-area img {
-  width: 2.5em;
-  height: 2.5em;
-  max-width: 100%;
+    width: 2.5em;
+    height: 2.5em;
+    max-width: 100%;
 }
 
 .logo-area h2 {
-  margin: 0;
-  color: white;
-  font-size: 1.3em;
+    margin: 0;
+    color: white;
+    font-size: 1.3em;
 }
 
 /* ===== SIDEBAR ===== */
 .sidebar {
-  position: fixed;
-  top: 4.5em;
-  left: 0;
-  width: 15%;
-  min-width: 12em;
-  height: calc(100% - 4.5em);
-  background: var(--light-sidebar);
-  padding: 1.5em 1em;
-  overflow: auto;
-  border-right: 1px solid #ccc;
+    position: fixed;
+    top: 4.5em;
+    left: 0;
+    width: 15%;
+    min-width: 12em;
+    height: calc(100% - 4.5em);
+    background: var(--light-sidebar);
+    padding: 1.5em 1em;
+    overflow: auto;
+    border-right: 1px solid #ccc;
 
-  
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 
 .menu {
-  width: 100%;
+    width: 100%;
 }
 
 .sidebar a {
-  display: block;
-  margin: 0.6em 0;
-  padding: 0.9em 1em;
-  border-radius: 0.8em;
-  color: #2a1e5f;
-  font-size: 1em;
+    display: block;
+    margin: 0.6em 0;
+    padding: 0.9em 1em;
+    border-radius: 0.8em;
+    color: #2a1e5f;
+    font-size: 1em;
 }
 
 .sidebar a:hover {
-  background: var(--light-primary);
-  color: white;
-  text-decoration: none;
+    background: var(--light-primary);
+    color: white;
+    text-decoration: none;
 }
 
 /* LOGOUT */
 .sidebar .logout-link {
-  display: block;
-  margin: 0.6em 0;
-  padding: 0.9em 1em;
-  border-radius: 0.8em;
-  color: #2a1e5f;
-  font-size: 1em;
-  text-decoration: none;
+    display: block;
+    margin: 0.6em 0;
+    padding: 0.9em 1em;
+    border-radius: 0.8em;
+    color: #2a1e5f;
+    font-size: 1em;
+    text-decoration: none;
 }
 
 .sidebar .logout-link:hover {
-  background: red;
-  color: white;
+    background: red;
+    color: white;
 }
 
 .sidebar .logout-link:active {
-  background: #b30000;
-  color: white;
+    background: #b30000;
+    color: white;
 }
 
 /* ===== CONTENT ===== */
 .content {
-  margin-left: 17%;
-  margin-top: 5.5em;
-  padding: 2em;
+    margin-left: 17%;
+    margin-top: 5.5em;
+    padding: 2em;
 }
 
 .content h1 {
-  margin-top: 0;
-  margin-bottom: 0.4em;
-  font-size: 2em;
-  color: #2a1e5f;
+    margin-top: 0;
+    margin-bottom: 0.4em;
+    font-size: 2em;
+    color: #2a1e5f;
 }
 
 .content h2 {
-  margin-top: 0;
-  font-size: 1.3em;
-  color: #2a1e5f;
+    margin-top: 0;
+    font-size: 1.3em;
+    color: #2a1e5f;
 }
 
 .content p {
-  font-size: 1em;
-  margin: 0.5em 0;
+    font-size: 1em;
+    margin: 0.5em 0;
 }
 
 /* ===== COMMON BOXES ===== */
 .card,
 .summary-box,
 .motivation-box {
-  background: white;
-  border: 1px solid #ccc;
-  border-radius: 1em;
-  padding: 1.2em;
-  margin-top: 1.2em;
+    background: white;
+    border: 1px solid #ccc;
+    border-radius: 1em;
+    padding: 1.2em;
+    margin-top: 1.2em;
 }
 
 .card:hover,
 .summary-box:hover,
 .motivation-box:hover {
-  border-color: var(--light-primary);
+    border-color: var(--light-primary);
 }
 
 /* ===== STUDY PLAN TABLE ===== */
 .study-table {
-  width: 100%;
-  margin-top: 1.5em;
-  border-collapse: collapse;
-  background: white;
-  border: 1px solid #ccc;
-  border-radius: 1em;
-  overflow: hidden;
-  font-size: 0.95em;
+    width: 100%;
+    margin-top: 1.5em;
+    border-collapse: collapse;
+    background: white;
+    border: 1px solid #ccc;
+    border-radius: 1em;
+    overflow: hidden;
+    font-size: 0.95em;
 }
 
 .study-table caption {
-  caption-side: top;
-  text-align: left;
-  font-size: 1.2em;
-  font-weight: bold;
-  color: #2a1e5f;
-  padding: 0.8em 0;
+    caption-side: top;
+    text-align: left;
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #2a1e5f;
+    padding: 0.8em 0;
 }
 
 .study-table th,
 .study-table td {
-  border: 1px solid #ccc;
-  padding: 1em 0.8em;
-  text-align: center;
-  vertical-align: top;
+    border: 1px solid #ccc;
+    padding: 1em 0.8em;
+    text-align: center;
+    vertical-align: top;
 }
 
 .study-table th {
-  background: var(--light-sidebar);
-  color: #2a1e5f;
+    background: var(--light-sidebar);
+    color: #2a1e5f;
 }
 
 .study-table td:first-child,
 .study-table th:first-child {
-  font-weight: bold;
-  width: 12%;
+    font-weight: bold;
+    width: 12%;
 }
 
 .study-table tr:hover td {
-  background: #fffafb;
+    background: #fffafb;
 }
 
 /* ===== SUMMARY / MOTIVATION ===== */
 .summary-box p,
 .motivation-box p {
-  margin: 0.5em 0;
+    margin: 0.5em 0;
 }
 
 /* ===== PROGRESS PAGE LAYOUT ===== */
 .main-box {
-  width: 100%;
-  overflow: hidden;
-  margin-top: 1.5em;
+    width: 100%;
+    overflow: hidden;
+    margin-top: 1.5em;
 }
 
 .left {
-  width: 38%;
-  float: left;
+    width: 38%;
+    float: left;
 }
 
 .right {
-  width: 58%;
-  float: right;
+    width: 58%;
+    float: right;
 }
 
 /* ===== PIE CHART ===== */
 .pie-chart {
-  width: 12em;
-  height: 12em;
-  margin: 1.5em auto;
-  border-radius: 50%;
-  background: conic-gradient(
-    #9b7edc 0% 40%,
-    #f7c8d0 40% 75%,
-    #2a1e5f 75% 100%
-  );
-  position: relative;
+    width: 12em;
+    height: 12em;
+    margin: 1.5em auto;
+    border-radius: 50%;
+    background: conic-gradient(#9b7edc 0% 40%,
+            #f7c8d0 40% 75%,
+            #2a1e5f 75% 100%);
+    position: relative;
 }
 
 .pie-chart::before {
-  content: "";
-  position: absolute;
-  width: 6.5em;
-  height: 6.5em;
-  background: white;
-  border-radius: 50%;
-  top: 2.75em;
-  left: 2.75em;
+    content: "";
+    position: absolute;
+    width: 6.5em;
+    height: 6.5em;
+    background: white;
+    border-radius: 50%;
+    top: 2.75em;
+    left: 2.75em;
 }
 
 .center-text {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  font-size: 1.3em;
-  font-weight: bold;
-  color: #2a1e5f;
-  transform: translate(-50%, -50%);
-  z-index: 2;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    font-size: 1.3em;
+    font-weight: bold;
+    color: #2a1e5f;
+    transform: translate(-50%, -50%);
+    z-index: 2;
 }
 
 /* ===== CHART INFO ===== */
 .chart-info {
-  margin-top: 1em;
+    margin-top: 1em;
 }
 
 .chart-info div {
-  margin: 0.5em 0;
-  font-size: 0.95em;
+    margin: 0.5em 0;
+    font-size: 0.95em;
 }
 
 .box {
-  display: inline-block;
-  width: 1em;
-  height: 1em;
-  margin-right: 0.5em;
-  border-radius: 0.2em;
-  vertical-align: middle;
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    margin-right: 0.5em;
+    border-radius: 0.2em;
+    vertical-align: middle;
 }
 
 .green {
-  background: #9b7edc;
+    background: #9b7edc;
 }
 
 .blue {
-  background: #f7c8d0;
+    background: #f7c8d0;
 }
 
 .yellow {
-  background: #2a1e5f;
+    background: #2a1e5f;
 }
 
 /* ===== (ACTIVITY )===== */
 .activity {
-  border: 1px solid #ccc;
-  border-radius: 0.8em;
-  padding: 0.9em 1em;
-  margin-top: 0.8em;
-  background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 0.8em;
+    padding: 0.9em 1em;
+    margin-top: 0.8em;
+    background: #fff;
 }
 
 .activity:hover {
-  border-color: var(--light-primary);
+    border-color: var(--light-primary);
 }
 
 .activity p {
-  margin: 0.3em 0;
+    margin: 0.3em 0;
 }
 
 /* ===== INPUTS ===== */
 input {
-  width: 100%;
-  padding: 0.8em;
-  margin: 0.5em 0;
-  border-radius: 0.5em;
-  border: 1px solid #ccc;
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 1em;
+    width: 100%;
+    padding: 0.8em;
+    margin: 0.5em 0;
+    border-radius: 0.5em;
+    border: 1px solid #ccc;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1em;
 }
 
 /* ===== DARK MODE ===== */
 body.dark {
-  background: var(--dark-bg);
-  color: white;
+    background: var(--dark-bg);
+    color: white;
 }
 
 body.dark .sidebar {
-  background: var(--dark-bg);
+    background: var(--dark-bg);
 }
 
 body.dark .sidebar .logout-link {
-  color: #ff8fab;
+    color: #ff8fab;
 }
 
 /* ALL BOXES in home pages*/
@@ -354,8 +352,9 @@ body.dark .sidebar .logout-link {
     width: 1100px;
     max-width: 90%;
 
-    margin: 160px auto;   /* ⭐ THIS CENTERS IT */
-    
+    margin: 160px auto;
+    /* ⭐ THIS CENTERS IT */
+
     padding: 50px;
     border-radius: 15px;
 
@@ -422,4 +421,272 @@ body.dark .sidebar .logout-link {
 .link-text {
     font-size: 12px;
     margin-top: 10px;
+}
+
+/*reminders page*/
+/* body {
+            margin: 0;
+            font-family: Arial;
+            background: #FFF5F7;
+        } */
+
+/* TOP */
+.reminders-top {
+    padding: 30px 0;
+}
+
+/* h1 {
+            margin: 0;
+            color: #2A1E3F;
+        } */
+
+/* .subtitle {
+            color: #777;
+            margin-top: 5px;
+        } */
+
+/* MAIN */
+.reminders-container {
+    padding: 0 30px;
+}
+
+/* CARD */
+.reminder-box {
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+    width: 60%;
+}
+
+/* EACH REMINDER */
+.reminder-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.reminder-item:last-child {
+    border-bottom: none;
+}
+
+/* LEFT SIDE */
+.reminder-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.reminder-icon {
+    width: 30px;
+}
+
+.reminder-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.reminder-title {
+    font-weight: bold;
+    color: #2A1E3F;
+}
+
+.reminder-course {
+    font-size: 13px;
+    color: #9B7EDC;
+}
+
+/* RIGHT SIDE */
+.reminder-right {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+
+.reminder-dot {
+    width: 8px;
+    height: 8px;
+    background: red;
+    border-radius: 50%;
+}
+
+.reminder-badge {
+    padding: 5px 10px;
+    border-radius: 10px;
+    font-size: 12px;
+}
+
+.reminder-upcoming {
+    background: #f3e5ab;
+    color: #8a6d3b;
+}
+
+.reminder-today {
+    background: #d0e7ff;
+    color: #2a5caa;
+}
+
+.reminder-overdue {
+    background: #f8d7da;
+    color: #842029;
+}
+
+/*Availability page*/
+/* body {
+            margin: 0;
+            font-family: Arial;
+            background: #FFF5F7;
+        } */
+
+/* TOP TEXT */
+.availability-top {
+    padding: 30px 0 10px 0;
+
+}
+
+.availability-header {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+/* h1 {
+            margin: 0;
+            color: #2A1E3F;
+        }
+
+        h2 {
+            margin: 0;
+            color: #2A1E3F;
+        } */
+
+/* .schedule h2 {
+            margin-bottom: 10px;
+        } */
+
+.availability-subtitle {
+    color: #888;
+    margin-top: 5px;
+}
+
+/* BUTTON */
+.availability-save-btn {
+    background: #9B7EDC;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+/* MAIN LAYOUT */
+.availability-container {
+    display: flex;
+    gap: 30px;
+    align-items: flex-start;
+}
+
+/* LEFT BOX */
+.availability-schedule {
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 15px;
+    width: 40%;
+}
+
+/* RIGHT BOX */
+.availability-tips {
+    background: #ffffff;
+    padding: 15px;
+    border-radius: 15px;
+    width: 35%;
+}
+
+/* DAY ROW */
+.availability-day {
+    display: flex;
+    align-items: center;
+    margin: 12px 0;
+}
+
+.availability-day-left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 120px;
+}
+
+
+.availability-time select {
+    padding: 6px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+.availability-day span {
+    margin-left: 5px;
+    cursor: pointer;
+}
+
+/* TIPS */
+.availability-tip {
+    margin: 10px 0;
+    color: #444;
+    line-height: 1.6;
+}
+
+.availability-time {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-left: auto;
+}
+
+.availability-dash {
+    margin: 0 4px;
+    color: #555;
+}
+
+.availability-flower {
+    color: #9B7EDC;
+    margin-right: 6px;
+}
+
+.availability-bottom {
+    padding-top: 20px;
+}
+
+input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+}
+
+.availability-tips-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.availability-tip-icon {
+    width: 50px;
+}
+
+/*NOtification icon*/
+.reminder-icon {
+    margin-left: auto;
+    margin-right: 15px;
+}
+
+.notif-icon {
+    width: 70px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+/* hover effect */
+.notif-icon:hover {
+    transform: scale(1.15);
 }
