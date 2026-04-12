@@ -80,12 +80,10 @@ a:hover {
     overflow: auto;
     border-right: 1px solid #ccc;
 
-
     display: flex;
     flex-direction: column;
     justify-content: space-between;
 }
-
 
 .menu {
     width: 100%;
@@ -152,10 +150,11 @@ a:hover {
     margin: 0.5em 0;
 }
 
-/* ===== COMMON BOXES ===== */
+/* ===== COMMON BOXES (Shared for consistency) ===== */
 .card,
 .summary-box,
-.motivation-box {
+.motivation-box,
+.activity {
     background: white;
     border: 1px solid #ccc;
     border-radius: 1em;
@@ -165,7 +164,8 @@ a:hover {
 
 .card:hover,
 .summary-box:hover,
-.motivation-box:hover {
+.motivation-box:hover,
+.activity:hover {
     border-color: var(--light-primary);
 }
 
@@ -213,10 +213,37 @@ a:hover {
     background: #fffafb;
 }
 
-/* ===== SUMMARY / MOTIVATION ===== */
-.summary-box p,
-.motivation-box p {
-    margin: 0.5em 0;
+/* ===== TEAM CONSISTENCY ADDITIONS (In-Scope) ===== */
+.form-row {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-top: 1em;
+}
+
+.update {
+    background-color: var(--light-primary);
+    color: white;
+    padding: 0.5em 1em;
+    border-radius: 0.5em;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.delete {
+    background-color: #ff4d4d;
+    color: white;
+    padding: 0.5em 1em;
+    border-radius: 0.5em;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.days {
+    font-weight: bold;
+    color: var(--dark-accent);
 }
 
 /* ===== PROGRESS PAGE LAYOUT ===== */
@@ -236,7 +263,7 @@ a:hover {
     float: right;
 }
 
-/* ===== PIE CHART ===== */
+/* ===== PIE CHART (Out-of-source as noted) ===== */
 .pie-chart {
     width: 12em;
     height: 12em;
@@ -289,37 +316,17 @@ a:hover {
     vertical-align: middle;
 }
 
-.green {
-    background: #9b7edc;
-}
+.green { background: #9b7edc; }
+.blue { background: #f7c8d0; }
+.yellow { background: #2a1e5f; }
 
-.blue {
-    background: #f7c8d0;
-}
-
-.yellow {
-    background: #2a1e5f;
-}
-
-/* ===== (ACTIVITY )===== */
-.activity {
-    border: 1px solid #ccc;
-    border-radius: 0.8em;
-    padding: 0.9em 1em;
-    margin-top: 0.8em;
-    background: #fff;
-}
-
-.activity:hover {
-    border-color: var(--light-primary);
-}
-
+/* ===== ACTIVITY SECTION ===== */
 .activity p {
     margin: 0.3em 0;
 }
 
 /* ===== INPUTS ===== */
-input {
+input, select {
     width: 100%;
     padding: 0.8em;
     margin: 0.5em 0;
@@ -343,65 +350,43 @@ body.dark .sidebar .logout-link {
     color: #ff8fab;
 }
 
-/* ALL BOXES in home pages*/
+/* ===== HOME & AUTH PAGES ===== */
 .home-box,
 .login-box,
 .register-box {
     background: white;
-
     width: 1100px;
     max-width: 90%;
-
     margin: 160px auto;
-    /* ⭐ THIS CENTERS IT */
-
     padding: 50px;
     border-radius: 15px;
-
     display: flex;
     justify-content: space-between;
     align-items: center;
-
 }
 
-/*HOME PAGES STYLING*/
-/* LEFT SIDE (HOME) */
-.home-left {
-    width: 55%;
-}
-
-/* RIGHT SIDE (HOME LOGO) */
+.home-left { width: 55%; }
 .home-right {
     width: 40%;
     display: flex;
     justify-content: center;
 }
 
-/* FORM SIDE */
-.form-side {
-    width: 55%;
-}
-
-/* LOGO SIDE */
+.form-side { width: 55%; }
 .logo-side {
     width: 40%;
     display: flex;
     justify-content: center;
 }
 
-/* LOGO */
-.logo {
-    width: 250px;
-}
+.logo { width: 250px; }
 
-/* BUTTON ROW (HOME) */
 .btn-row {
     display: flex;
     gap: 15px;
     margin-top: 20px;
 }
 
-/* BUTTON */
 .btn {
     display: inline-block;
     padding: 10px 20px;
@@ -411,46 +396,21 @@ body.dark .sidebar .logout-link {
     text-decoration: none;
     text-align: center;
     margin-top: 10px;
+    border: none;
+    cursor: pointer;
 }
 
-.btn:hover {
-    background: #e98dda;
-}
+.btn:hover { background: #e98dda; }
 
-/* LINKS */
 .link-text {
     font-size: 12px;
     margin-top: 10px;
 }
 
-/*reminders page*/
-/* body {
-            margin: 0;
-            font-family: Arial;
-            background: #FFF5F7;
-        } */
+/* ===== REMINDERS PAGE ===== */
+.reminders-top { padding: 30px 0; }
+.reminders-container { padding: 0 30px; }
 
-/* TOP */
-.reminders-top {
-    padding: 30px 0;
-}
-
-/* h1 {
-            margin: 0;
-            color: #2A1E3F;
-        } */
-
-/* .subtitle {
-            color: #777;
-            margin-top: 5px;
-        } */
-
-/* MAIN */
-.reminders-container {
-    padding: 0 30px;
-}
-
-/* CARD */
 .reminder-box {
     background: white;
     padding: 20px;
@@ -458,7 +418,6 @@ body.dark .sidebar .logout-link {
     width: 60%;
 }
 
-/* EACH REMINDER */
 .reminder-item {
     display: flex;
     align-items: center;
@@ -467,20 +426,15 @@ body.dark .sidebar .logout-link {
     border-bottom: 1px solid #eee;
 }
 
-.reminder-item:last-child {
-    border-bottom: none;
-}
+.reminder-item:last-child { border-bottom: none; }
 
-/* LEFT SIDE */
 .reminder-left {
     display: flex;
     align-items: center;
     gap: 12px;
 }
 
-.reminder-icon {
-    width: 30px;
-}
+.reminder-icon { width: 30px; }
 
 .reminder-text {
     display: flex;
@@ -497,13 +451,11 @@ body.dark .sidebar .logout-link {
     color: #9B7EDC;
 }
 
-/* RIGHT SIDE */
 .reminder-right {
     display: flex;
     align-items: center;
     gap: 8px;
 }
-
 
 .reminder-dot {
     width: 8px;
@@ -518,60 +470,23 @@ body.dark .sidebar .logout-link {
     font-size: 12px;
 }
 
-.reminder-upcoming {
-    background: #f3e5ab;
-    color: #8a6d3b;
-}
+.reminder-upcoming { background: #f3e5ab; color: #8a6d3b; }
+.reminder-today { background: #d0e7ff; color: #2a5caa; }
+.reminder-overdue { background: #f8d7da; color: #842029; }
 
-.reminder-today {
-    background: #d0e7ff;
-    color: #2a5caa;
-}
-
-.reminder-overdue {
-    background: #f8d7da;
-    color: #842029;
-}
-
-/*Availability page*/
-/* body {
-            margin: 0;
-            font-family: Arial;
-            background: #FFF5F7;
-        } */
-
-/* TOP TEXT */
-.availability-top {
-    padding: 30px 0 10px 0;
-
-}
-
+/* ===== AVAILABILITY PAGE ===== */
+.availability-top { padding: 30px 0 10px 0; }
 .availability-header {
     display: flex;
     justify-content: flex-start;
     align-items: flex-start;
 }
 
-/* h1 {
-            margin: 0;
-            color: #2A1E3F;
-        }
-
-        h2 {
-            margin: 0;
-            color: #2A1E3F;
-        } */
-
-/* .schedule h2 {
-            margin-bottom: 10px;
-        } */
-
 .availability-subtitle {
     color: #888;
     margin-top: 5px;
 }
 
-/* BUTTON */
 .availability-save-btn {
     background: #9B7EDC;
     color: white;
@@ -581,14 +496,12 @@ body.dark .sidebar .logout-link {
     cursor: pointer;
 }
 
-/* MAIN LAYOUT */
 .availability-container {
     display: flex;
     gap: 30px;
     align-items: flex-start;
 }
 
-/* LEFT BOX */
 .availability-schedule {
     background: #ffffff;
     padding: 20px;
@@ -596,7 +509,6 @@ body.dark .sidebar .logout-link {
     width: 40%;
 }
 
-/* RIGHT BOX */
 .availability-tips {
     background: #ffffff;
     padding: 15px;
@@ -604,7 +516,6 @@ body.dark .sidebar .logout-link {
     width: 35%;
 }
 
-/* DAY ROW */
 .availability-day {
     display: flex;
     align-items: center;
@@ -618,19 +529,11 @@ body.dark .sidebar .logout-link {
     width: 120px;
 }
 
-
-.availability-time select {
-    padding: 6px;
-    border-radius: 6px;
-    border: 1px solid #ccc;
-}
-
 .availability-day span {
     margin-left: 5px;
     cursor: pointer;
 }
 
-/* TIPS */
 .availability-tip {
     margin: 10px 0;
     color: #444;
@@ -654,9 +557,7 @@ body.dark .sidebar .logout-link {
     margin-right: 6px;
 }
 
-.availability-bottom {
-    padding-top: 20px;
-}
+.availability-bottom { padding-top: 20px; }
 
 input[type="checkbox"] {
     width: 16px;
@@ -670,9 +571,9 @@ input[type="checkbox"] {
     margin-bottom: 10px;
 }
 
-.availability-tip-icon {
-    width: 50px;
-}
+.availability-tip-icon { width: 50px; }
+
+/* ===== NOTIFICATION ICON ===== */
 
 /*NOtification icon*/
 .reminder-icon {
@@ -686,7 +587,4 @@ input[type="checkbox"] {
     transition: 0.2s;
 }
 
-/* hover effect */
-.notif-icon:hover {
-    transform: scale(1.15);
-}
+.notif-icon:hover { transform: scale(1.15); }

@@ -1,66 +1,76 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<meta charset="UTF-8">
-<title>Deadlines</title>
-<link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <title>AWJ - Deadlines</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<!-- Sidebar -->
-<div class="sidebar">
-    <h2>📘 Planner</h2>
-    <a href="#">🏠 Dashboard</a>
-    <a href="#">📚 Courses</a>
-    <a href="#">📅 Deadlines</a>
-    <a href="#">⏰ Availability</a>
-    <a href="#">📝 Study Plan</a>
-    <a href="#">📊 Progress</a>
-</div>
-
-<!-- Main Content -->
-<div class="main">
-
-    <h1>📅 Deadline Management</h1>
-    <p class="desc">
-        Track your academic deadlines and stay prepared. Organize assignments and exams to maintain consistent progress.
-    </p>
-
-    <!-- Add Deadline -->
-    <div class="card">
-        <h3>➕ Add a New Deadline</h3>
-
-        <div class="form-row">
-            <input type="text" placeholder="Task name (Assignment / Exam)">
-            <input type="date">
-            <button>Add</button>
+    <div class="header">
+        <div class="logo-area">
+            <img src="imgs/AWJ_logo.png" alt="AWJ logo" width="100" height="auto">
+            <h2>AWJ</h2>
+        </div>
+        <div class="reminder-icon">
+            <a href="Reminders.html">
+                <img src="imgs/Notification.png" class="notif-icon" alt="notifications">
+            </a>
         </div>
     </div>
 
-    <!-- Deadlines List -->
-    <div class="card">
-        <h3>⏳ Upcoming Deadlines</h3>
+    <div class="sidebar">
+        <div class="menu">
+            <a href="dashboard.html">🏠 Dashboard</a>
+            <a href="courses.html">📚 Courses</a>
+            <a href="deadlines.html">📅 Deadlines</a>
+            <a href="availability.html">⏰ Availability</a>
+            <a href="studyplan.html">📝 Study Plan</a>
+            <a href="progress.html">📈 Progress</a>
+        </div>
+        <a href="login.html" class="logout-link">🚪 Logout</a>
+    </div>
 
-        <div class="deadline">
-            <div>
-                <span>SWE 381 Assignment</span><br>
-                <small>Due: 2026-05-10</small><br>
-                <small class="days">5 days remaining</small>
+    <div class="content">
+
+        <h1>📅 Deadline Management</h1>
+        <p>
+            Track your academic deadlines and stay prepared. Organize assignments and exams to maintain consistent progress.
+        </p>
+
+        <div class="card">
+            <h2>➕ Add a New Deadline</h2>
+
+            <div class="btn-row" style="flex-wrap: wrap;">
+                <input type="text" placeholder="Task name (Assignment / Exam)" style="flex: 2; min-width: 200px;">
+                <input type="date" style="flex: 1; min-width: 150px;">
+                <button class="btn">Add</button>
             </div>
         </div>
 
-        <div class="deadline">
-            <div>
-                <span>CS 101 Final Exam</span><br>
-                <small>Due: 2026-05-20</small><br>
-                <small class="days">15 days remaining</small>
+        <div class="card">
+            <h2>⏳ Upcoming Deadlines</h2>
+
+            <div class="activity">
+                <div>
+                    <span style="font-weight: bold; color: var(--dark-bg);">SWE 381 Assignment</span><br>
+                    <small>📅 Due: 2026-05-10</small><br>
+                    <small style="color: #ff4d4d; font-weight: bold;">⚠️ 5 days remaining</small>
+                </div>
             </div>
+
+            <div class="activity">
+                <div>
+                    <span style="font-weight: bold; color: var(--dark-bg);">CS 101 Final Exam</span><br>
+                    <small>📅 Due: 2026-05-20</small><br>
+                    <small style="color: var(--light-primary); font-weight: bold;">⏳ 15 days remaining</small>
+                </div>
+            </div>
+
         </div>
 
     </div>
-
-</div>
 
 </body>
 </html>

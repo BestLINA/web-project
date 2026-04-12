@@ -1,65 +1,74 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<meta charset="UTF-8">
-<title>Courses</title>
-<link rel="stylesheet" href="courses.css">
+    <meta charset="UTF-8">
+    <title>AWJ - Courses</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<!-- Sidebar -->
-<div class="sidebar">
-    <h2>📘 Planner</h2>
-    <a href="#">🏠 Dashboard</a>
-    <a href="#">📚 Courses</a>
-    <a href="#">📅 Deadlines</a>
-    <a href="#">⏰ Availability</a>
-    <a href="#">📝 Study Plan</a>
-    <a href="#">📊 Progress</a>
-</div>
-
-<!-- Main Content -->
-<div class="main">
-
-    <h1>📚 Course Management</h1>
-    <p class="desc">
-        Manage your academic courses efficiently. Add, update, or remove courses to keep your study planner organized.
-    </p>
-
-    <!-- Add Course -->
-    <div class="card">
-        <h3>➕ Add a New Course</h3>
-
-        <div class="form-row">
-            <input type="text" placeholder="Enter course name (e.g., SWE 381)">
-            <button>Add</button>
+    <div class="header">
+        <div class="logo-area">
+            <img src="imgs/AWJ_logo.png" alt="AWJ logo" width="100" height="auto">
+            <h2>AWJ</h2>
+        </div>
+        <div class="reminder-icon">
+            <a href="Reminders.html">
+                <img src="imgs/Notification.png" class="notif-icon" alt="notifications">
+            </a>
         </div>
     </div>
 
-    <!-- Courses List -->
-    <div class="card">
-        <h3>📖 My Courses</h3>
-
-        <div class="course">
-            <span>SWE 381 - Web Applications Development</span>
-            <div>
-                <button class="update">Update</button>
-                <button class="delete">Delete</button>
-            </div>
+    <div class="sidebar">
+        <div class="menu">
+            <a href="dashboard.html">🏠 Dashboard</a>
+            <a href="courses.html">📚 Courses</a>
+            <a href="deadlines.html">📅 Deadlines</a>
+            <a href="availability.html">⏰ Availability</a>
+            <a href="studyplan.html">📝 Study Plan</a>
+            <a href="progress.html">📈 Progress</a>
         </div>
-
-        <div class="course">
-            <span>CS 101 - Introduction to Programming</span>
-            <div>
-                <button class="update">Update</button>
-                <button class="delete">Delete</button>
-            </div>
-        </div>
-
+        <a href="login.html" class="logout-link">🚪 Logout</a>
     </div>
 
-</div>
+    <div class="content">
+
+        <h1>📚 Course Management</h1>
+        <p>
+            Manage your academic courses efficiently. Add, update, or remove courses to keep your study planner organized.
+        </p>
+
+        <div class="card">
+            <h2>➕ Add a New Course</h2>
+            <div class="btn-row"> <input type="text" placeholder="Enter course name (e.g., SWE 381)">
+                <button class="btn">Add</button> </div>
+        </div>
+
+        <div class="card">
+            <h2>📖 My Courses</h2>
+
+            <div class="activity"> <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <span><strong>SWE 381</strong> - Web Applications Development</span>
+                    <div>
+                        <button class="btn" style="background-color: var(--light-primary);">Update</button>
+                        <button class="btn" style="background-color: #ff4d4d;">Delete</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="activity">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <span><strong>CS 101</strong> - Introduction to Programming</span>
+                    <div>
+                        <button class="btn" style="background-color: var(--light-primary);">Update</button>
+                        <button class="btn" style="background-color: #ff4d4d;">Delete</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
 
 </body>
 </html>
