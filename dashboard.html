@@ -6,38 +6,33 @@
   </head>
 
   <body>
-    <!-- TOPBAR -->
-    <header class="topbar">
-      <div class="logo-area">
-        <img src="imgs/AWJ_logo.png" alt="AWJ logo" >
-        <span>AWJ Planner</span>
-      </div>
-
-      <div class="actions">
-        <button id="darkBtn">🌙</button>
-
-        <div class="reminder">
-          🔔
-          <span class="badge">2</span>
+     <!-- Header -->
+    <div class="header">
+        <div class="logo-area">
+            <img src="imgs/AWJ_logo.png" alt="AWJ logo" width="100" height="auto">
+            <h2>AWJ</h2>
         </div>
+        <div class="reminder-icon">
+            <a href="Reminders.html">
+                <img src="imgs/Notification.png" class="notif-icon" alt="notifications">
+            </a>
+        </div>
+    </div>
+
+
+      
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <div class="menu">
+        <a href="dashboard.html">🏠 Dashboard</a>
+        <a href="courses.html">📚 Courses</a>
+        <a href="deadlines.html">📅 Deadlines</a>
+        <a href="availability.html">⏰ Availability</a>
+        <a href="studyplan.html">📝 Study Plan</a>
+        <a href="progress.html">📈 Progress</a>
       </div>
-    </header>
-
-    
-    <aside class="sidebar">
-      <h2>Study Planner</h2>
-
-      <nav>
-        <a href="#">Dashboard</a>
-        <a href="#">Courses</a>
-        <a href="#">Deadlines</a>
-        <a href="#">Availability</a>
-        <a href="#">Study Plan</a>
-        <a href="#">Progress</a>
-      </nav>
-
-      <button class="logout">Logout</button>
-    </aside>
+      <a href="login.html" class="logout-link">🚪 Logout</a>
+    </div>
 
     <!-- MAIN -->
     <main class="main">
