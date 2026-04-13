@@ -19,7 +19,7 @@ body {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 1em;
     background: var(--light-bg);
-    color: 	#6C3594;
+    color: #6C3594;
     line-height: 1.5;
 }
 
@@ -316,9 +316,17 @@ a:hover {
     vertical-align: middle;
 }
 
-.green { background: #9b7edc; }
-.blue { background: #f7c8d0; }
-.yellow { background: #2a1e5f; }
+.green {
+    background: #9b7edc;
+}
+
+.blue {
+    background: #f7c8d0;
+}
+
+.yellow {
+    background: #2a1e5f;
+}
 
 /* ===== ACTIVITY SECTION ===== */
 .activity p {
@@ -326,7 +334,8 @@ a:hover {
 }
 
 /* ===== INPUTS ===== */
-input, select {
+input,
+select {
     width: 100%;
     padding: 0.8em;
     margin: 0.5em 0;
@@ -365,21 +374,29 @@ body.dark .sidebar .logout-link {
     align-items: center;
 }
 
-.home-left { width: 55%; }
+.home-left {
+    width: 55%;
+}
+
 .home-right {
     width: 40%;
     display: flex;
     justify-content: center;
 }
 
-.form-side { width: 55%; }
+.form-side {
+    width: 55%;
+}
+
 .logo-side {
     width: 40%;
     display: flex;
     justify-content: center;
 }
 
-.logo { width: 250px; }
+.logo {
+    width: 250px;
+}
 
 .btn-row {
     display: flex;
@@ -400,7 +417,9 @@ body.dark .sidebar .logout-link {
     cursor: pointer;
 }
 
-.btn:hover { background: #e98dda; }
+.btn:hover {
+    background: #e98dda;
+}
 
 .link-text {
     font-size: 12px;
@@ -408,8 +427,13 @@ body.dark .sidebar .logout-link {
 }
 
 /* ===== REMINDERS PAGE ===== */
-.reminders-top { padding: 30px 0; }
-.reminders-container { padding: 0 30px; }
+.reminders-top {
+    padding: 30px 0;
+}
+
+.reminders-container {
+    padding: 0 30px;
+}
 
 .reminder-box {
     background: white;
@@ -426,7 +450,9 @@ body.dark .sidebar .logout-link {
     border-bottom: 1px solid #eee;
 }
 
-.reminder-item:last-child { border-bottom: none; }
+.reminder-item:last-child {
+    border-bottom: none;
+}
 
 .reminder-left {
     display: flex;
@@ -434,7 +460,9 @@ body.dark .sidebar .logout-link {
     gap: 12px;
 }
 
-.reminder-icon { width: 30px; }
+.reminder-icon {
+    width: 30px;
+}
 
 .reminder-text {
     display: flex;
@@ -470,9 +498,20 @@ body.dark .sidebar .logout-link {
     font-size: 12px;
 }
 
-.reminder-upcoming { background: #f3e5ab; color: #8a6d3b; }
-.reminder-today { background: #d0e7ff; color: #2a5caa; }
-.reminder-overdue { background: #f8d7da; color: #842029; }
+.reminder-upcoming {
+    background: #f3e5ab;
+    color: #8a6d3b;
+}
+
+.reminder-today {
+    background: #d0e7ff;
+    color: #2a5caa;
+}
+
+.reminder-overdue {
+    background: #f8d7da;
+    color: #842029;
+}
 
 /* ===== AVAILABILITY PAGE ===== */
 .availability-subtitle {
@@ -489,9 +528,9 @@ body.dark .sidebar .logout-link {
     cursor: pointer;
 }
 
-.availability-save-btn:hover{
+.availability-save-btn:hover {
     background: #e98dda;
-} 
+}
 
 .availability-container {
     display: flex;
@@ -554,7 +593,9 @@ body.dark .sidebar .logout-link {
     margin-right: 6px;
 }
 
-.availability-bottom { padding-top: 20px; }
+.availability-bottom {
+    padding-top: 20px;
+}
 
 input[type="checkbox"] {
     width: 16px;
@@ -568,7 +609,9 @@ input[type="checkbox"] {
     margin-bottom: 10px;
 }
 
-.availability-tip-icon { width: 50px; }
+.availability-tip-icon {
+    width: 50px;
+}
 
 /* ===== NOTIFICATION ICON ===== */
 
@@ -584,4 +627,6 @@ input[type="checkbox"] {
     transition: 0.2s;
 }
 
-.notif-icon:hover { transform: scale(1.15); }
+.notif-icon:hover {
+    transform: scale(1.15);
+}

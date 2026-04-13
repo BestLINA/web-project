@@ -1,68 +1,66 @@
 <!doctype html>
-<html>
-  <head>
-    <meta charset="UTF-8">
-    <title>Dashboard</title>
-    <link rel="stylesheet" href="style.css" />
-  </head>
+<html lang="en">
 
-  <body>
-    <!-- Header -->
-    <div class="header">
-      <div class="logo-area">
-        <img src="imgs/AWJ_logo.png" alt="AWJ logo" width="100" height="auto" />
-      
-      </div>
-      <div class="reminder-icon">
-        <a href="Reminders.html">
-          <img
-            src="imgs/Notification.png"
-            class="notif-icon"
-            alt="notifications"
-          />
-        </a>
-      </div>
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <!-- Header -->
+  <div class="header">
+    <div class="logo-area">
+      <img src="imgs/AWJ_logo.png" alt="AWJ logo" width="100">
+
+    </div>
+    <div class="reminder-icon">
+      <a href="Reminders.html">
+        <img src="imgs/Notification.png" class="notif-icon" alt="notifications">
+      </a>
+    </div>
+  </div>
+
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <div class="menu">
+      <a href="dashboard.html">🏠 Dashboard</a>
+      <a href="courses.html">📚 Courses</a>
+      <a href="deadlines.html">📅 Deadlines</a>
+      <a href="availability.html">⏰ Availability</a>
+      <a href="studyplan.html">📝 Study Plan</a>
+      <a href="progress.html">📈 Progress</a>
+    </div>
+    <a href="login.html" class="logout-link">🚪 Logout</a>
+  </div>
+
+  <main class="content">
+    <h1>Welcome back 👋</h1>
+
+    <div class="summary-box">
+      <h2>Study Hours Statistics</h2>
+      <p>Sunday: 2 hours</p>
+      <p>Monday: 3 hours</p>
+      <p>Tuesday: 1 hour</p>
+      <p>Wednesday: 4 hours</p>
+      <p>Thursday: 2 hours</p>
+      <p><strong>Total: 12 hours</strong></p>
     </div>
 
-    <!-- Sidebar -->
-    <div class="sidebar">
-      <div class="menu">
-        <a href="dashboard.html">🏠 Dashboard</a>
-        <a href="courses.html">📚 Courses</a>
-        <a href="deadlines.html">📅 Deadlines</a>
-        <a href="availability.html">⏰ Availability</a>
-        <a href="studyplan.html">📝 Study Plan</a>
-        <a href="progress.html">📈 Progress</a>
+    <div class="card">
+      <h2>Study Habits Trends</h2>
+
+      <div class="pie-chart">
+        <div class="center-text">35%</div>
       </div>
-      <a href="login.html" class="logout-link">🚪 Logout</a>
+
+      <div class="chart-info">
+        <div><span class="box green"></span> Studied on time</div>
+        <div><span class="box blue"></span> Studied late</div>
+        <div><span class="box yellow"></span> Skipped session</div>
+      </div>
     </div>
+  </main>
+</body>
 
-    <main class="content">
-      <h1>Welcome back 👋</h1>
-
-      <div class="summary-box">
-        <h3>Study Hours Statistics</h3>
-        <p>Sunday: 2 hours</p>
-        <p>Monday: 3 hours</p>
-        <p>Tuesday: 1 hour</p>
-        <p>Wednesday: 4 hours</p>
-        <p>Thursday: 2 hours</p>
-        <p><strong>Total: 12 hours</strong></p>
-      </div>
-
-      <div class="card">
-        <h3>Study Habits Trends</h3>
-
-        <div class="pie-chart">
-          <div class="center-text">35%</div>
-        </div>
-
-        <div class="chart-info">
-          <div><span class="box green"></span> Studied on time</div>
-          <div><span class="box blue"></span> Studied late</div>
-          <div><span class="box yellow"></span> Skipped session</div>
-        </div>
-      </div>
-    </main>
-  </body>
 </html>
