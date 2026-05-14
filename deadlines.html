@@ -1,80 +1,80 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Deadlines</title>
-    <link rel="stylesheet" href="style.css">
-</head>
+    <link rel="stylesheet" href="style.css" />
+  </head>
 
-<body>
-
+  <body>
     <div class="header">
-        <div class="logo-area">
-            <img src="imgs/AWJ_logo.png" alt="AWJ logo" width="100">
-
-        </div>
-        <div class="reminder-icon">
-            <a href="Reminders.html">
-                <img src="imgs/Notification.png" class="notif-icon" alt="notifications">
-            </a>
-        </div>
+      <div class="logo-area">
+        <img src="imgs/AWJ_logo.png" alt="AWJ logo" width="100" />
+      </div>
+      <div class="reminder-icon">
+        <a href="Reminders.html">
+          <img
+            src="imgs/Notification.png"
+            class="notif-icon"
+            alt="notifications"
+          />
+        </a>
+      </div>
     </div>
 
     <div class="sidebar">
-        <div class="menu">
-            <a href="dashboard.html">🏠 Dashboard</a>
-            <a href="courses.html">📚 Courses</a>
-            <a href="deadlines.html">📅 Deadlines</a>
-            <a href="availability.html">⏰ Availability</a>
-            <a href="studyplan.html">📝 Study Plan</a>
-            <a href="progress.html">📈 Progress</a>
-        </div>
-        <a href="login.html" class="logout-link">🚪 Logout</a>
+      <div class="menu">
+        <a href="dashboard.html">🏠 Dashboard</a>
+        <a href="courses.html">📚 Courses</a>
+        <a href="deadlines.html">📅 Deadlines</a>
+        <a href="availability.html">⏰ Availability</a>
+        <a href="studyplan.html">📝 Study Plan</a>
+        <a href="progress.html">📈 Progress</a>
+      </div>
+      <a href="login.html" class="logout-link">🚪 Logout</a>
     </div>
 
     <div class="content">
+      <h1>📅 Deadline Management</h1>
+      <p>
+        Track your academic deadlines and stay prepared. Organize assignments
+        and exams to maintain consistent progress.
+      </p>
 
-        <h1>📅 Deadline Management</h1>
-        <p>
-            Track your academic deadlines and stay prepared. Organize assignments and exams to maintain consistent
-            progress.
-        </p>
+      <div class="card">
+        <h2>➕ Add a New Deadline</h2>
 
-        <div class="card">
-            <h2>➕ Add a New Deadline</h2>
+        <div class="btn-row deadline-row">
+          <input
+            type="text"
+            class="deadline-input"
+            placeholder="Task name (Assignment / Exam)"
+          />
+          <input type="text" placeholder="Enter date (e.g, 10 May 2026)" />
+          <button class="btn">Add</button>
+        </div>
+      </div>
 
-            <div class="btn-row deadline-row">
-                <input type="text" class="deadline-input" placeholder="Task name (Assignment / Exam)">
-                <input type="text" placeholder="Enter date (e.g, 10 May 2026)">
-                <button class="btn">Add</button>
-            </div>
+      <div class="card">
+        <h2>⏳ Upcoming Deadlines</h2>
+
+        <div class="activity">
+          <div>
+            <span class="deadline-title">SWE 381 Assignment</span><br />
+            <small>📅 Due: 2026-05-10</small><br />
+            <small class="deadline-warning">⚠️ 5 days remaining</small>
+          </div>
         </div>
 
-        <div class="card">
-            <h2>⏳ Upcoming Deadlines</h2>
-
-            <div class="activity">
-                <div>
-                   <span class="deadline-title">SWE 381 Assignment</span><br>
-                    <small>📅 Due: 2026-05-10</small><br>
-                   <small class="deadline-warning">⚠️ 5 days remaining</small>
-                </div>
-            </div>
-
-            <div class="activity">
-                <div>
-                   <span class="deadline-title">CS 101 Final Exam</span><br>
-                    <small>📅 Due: 2026-05-20</small><br>
-                    <small class="deadline-info">⏳ 15 days remaining</small>
-                </div>
-            </div>
-
+        <div class="activity">
+          <div>
+            <span class="deadline-title">CS 101 Final Exam</span><br />
+            <small>📅 Due: 2026-05-20</small><br />
+            <small class="deadline-info">⏳ 15 days remaining</small>
+          </div>
         </div>
-
+      </div>
     </div>
-
-</body>
-
+  </body>
 </html>
