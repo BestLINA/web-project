@@ -1,204 +1,125 @@
 <!doctype html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Dashboard</title>
 
-<head>
-  <meta charset="UTF-8">
-  <title>Dashboard</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
 
-  <link rel="stylesheet" href="style.css">
-</head>
+  <body>
+    <!-- HEADER -->
 
-<body>
-
-  <!-- HEADER -->
-
-  <header class="header">
-
-    <div class="logo-area">
-      <img src="imgs/AWJ_logo.png" alt="AWJ logo" width="90">
-    </div>
-
-    <div class="header-right">
-
-      <button id="darkModeBtn" class="dark-mode-btn">
-        🌙 Dark Mode
-      </button>
-
-      <img
-        src="imgs/Notification.png"
-        alt="notifications"
-        class="notif-icon"
-      >
-
-    </div>
-
-  </header>
-
-  <!-- SIDEBAR -->
-
-  <aside class="sidebar">
-
-    <div class="menu">
-
-      <a href="dashboard.html" class="menu-link active">
-        🏠 Dashboard
-      </a>
-
-      <a href="courses.html" class="menu-link">
-        📚 Courses
-      </a>
-
-      <a href="availability.html" class="menu-link">
-        ⏰ Availability
-      </a>
-
-      <a href="studyplan.html" class="menu-link">
-        📝 Study Plan
-      </a>
-
-      <a href="progress.html" class="menu-link">
-        📈 Progress
-      </a>
-
-    </div>
-
-    <a href="login.html" class="logout-link">
-      🚪 Logout
-    </a>
-
-  </aside>
-
-  <!-- MAIN CONTENT -->
-
-  <main class="content">
-
-    <!-- WELCOME -->
-
-    <section class="welcome-section">
-
-      <h1 id="welcomeText" class="welcome-title"></h1>
-
-      <p class="welcome-subtitle">
-        Stay focused and achieve your goals ✨
-      </p>
-
-    </section>
-
-    <!-- STATISTICS -->
-
-    <section class="stats-grid">
-
-      <div class="card stat-card">
-
-        <h3 class="card-title">
-          Total Study Hours
-        </h3>
-
-        <p class="big-number" id="hoursNumber">
-          0
-        </p>
-
+    <header class="header">
+      <div class="logo-area">
+        <img src="imgs/AWJ_logo.png" alt="AWJ logo" width="90" />
       </div>
 
-      <div class="card stat-card">
+      <div class="header-right">
+        <button id="darkModeBtn" class="dark-mode-btn">🌙 Dark Mode</button>
 
-        <h3 class="card-title">
-          Completed Sessions
-        </h3>
+        <img
+          src="imgs/Notification.png"
+          alt="notifications"
+          class="notif-icon"
+        />
+      </div>
+    </header>
 
-        <p class="big-number" id="sessionsNumber">
-          0
-        </p>
+    <!-- SIDEBAR -->
 
+    <aside class="sidebar">
+      <div class="menu">
+        <a href="dashboard.html" class="menu-link active"> 🏠 Dashboard </a>
+
+        <a href="courses.html" class="menu-link"> 📚 Courses </a>
+
+        <a href="availability.html" class="menu-link"> ⏰ Availability </a>
+
+        <a href="studyplan.html" class="menu-link"> 📝 Study Plan </a>
+
+        <a href="progress.html" class="menu-link"> 📈 Progress </a>
       </div>
 
-      <div class="card stat-card">
+      <a href="login.html" class="logout-link"> 🚪 Logout </a>
+    </aside>
 
-        <h3 class="card-title">
-          Focus Rate
-        </h3>
+    <!-- MAIN CONTENT -->
 
-        <p class="big-number" id="focusNumber">
-          0%
-        </p>
+    <main class="content">
+      <!-- WELCOME -->
 
-      </div>
+      <section class="welcome-section">
+        <h1 id="welcomeText" class="welcome-title"></h1>
 
-      <div class="card stat-card">
+        <p class="welcome-subtitle">Stay focused and achieve your goals ✨</p>
+      </section>
 
-        <h3 class="card-title">
-          Productivity
-        </h3>
+      <!-- STATISTICS -->
 
-        <p class="big-number" id="productivityNumber">
-          0%
-        </p>
+      <section class="stats-grid">
+        <div class="card stat-card">
+          <h3 class="card-title">Total Study Hours</h3>
 
-      </div>
-
-    </section>
-
-    <!-- DASHBOARD GRID -->
-
-    <section class="dashboard-grid">
-
-      <!-- PROGRESS -->
-
-      <div class="card progress-card">
-
-        <h2 class="section-title">
-          Weekly Progress
-        </h2>
-
-        <div class="progress-circle">
-
-          <div class="progress-inner">
-
-            <span id="progressText" class="progress-text">
-              0%
-            </span>
-
-          </div>
-
+          <p class="big-number" id="hoursNumber">0</p>
         </div>
 
-      </div>
+        <div class="card stat-card">
+          <h3 class="card-title">Completed Sessions</h3>
 
-      <!-- STUDY HOURS -->
+          <p class="big-number" id="sessionsNumber">0</p>
+        </div>
 
-      <div class="card hours-card">
+        <div class="card stat-card">
+          <h3 class="card-title">Focus Rate</h3>
 
-        <h2 class="section-title">
-          Weekly Study Hours
-        </h2>
+          <p class="big-number" id="focusNumber">0%</p>
+        </div>
 
-        <div id="studyStats" class="study-stats"></div>
+        <div class="card stat-card">
+          <h3 class="card-title">Productivity</h3>
 
-      </div>
+          <p class="big-number" id="productivityNumber">0%</p>
+        </div>
+      </section>
 
-    </section>
+      <!-- DASHBOARD GRID -->
 
-    <!-- AI TIPS -->
+      <section class="dashboard-grid">
+        <!-- PROGRESS -->
 
-    <section class="card ai-card">
+        <div class="card progress-card">
+          <h2 class="section-title">Weekly Progress</h2>
 
-      <h2 class="section-title">
-        AI Study Tips
-      </h2>
+          <div class="progress-circle">
+            <div class="progress-inner">
+              <span id="progressText" class="progress-text"> 0% </span>
+            </div>
+          </div>
+        </div>
 
-      <p id="tipText" class="tip-text">
-        Click the button to generate a study tip ✨
-      </p>
+        <!-- STUDY HOURS -->
 
-      <button id="tipBtn" class="tip-btn">
-        Generate Tip
-      </button>
+        <div class="card hours-card">
+          <h2 class="section-title">Weekly Study Hours</h2>
 
-    </section>
+          <div id="studyStats" class="study-stats"></div>
+        </div>
+      </section>
 
-  </main>
+      <!-- AI TIPS -->
 
-  <script src="dashboard.js"></script>
+      <section class="card ai-card">
+        <h2 class="section-title">AI Study Tips</h2>
 
-</body>
+        <p id="tipText" class="tip-text">
+          Click the button to generate a study tip ✨
+        </p>
+
+        <button id="tipBtn" class="tip-btn">Generate Tip</button>
+      </section>
+    </main>
+
+    <script src="dashboard.js"></script>
+  </body>
 </html>
