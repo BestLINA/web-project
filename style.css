@@ -630,3 +630,43 @@ input[type="checkbox"] {
 .notif-icon:hover {
     transform: scale(1.15);
 }
+
+
+.course-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.update-btn {
+    background-color: var(--light-primary);
+}
+
+.delete-btn {
+    background-color: #ff4d4d;
+}
+
+/*Deadlines*/
+.deadline-row {
+    flex-wrap: wrap;
+}
+
+.deadline-input {
+    flex: 2;
+    min-width: 200px;
+}
+
+.deadline-title {
+    font-weight: bold;
+    color: var(--dark-bg);
+}
+
+.deadline-warning {
+    color: #ff4d4d;
+    font-weight: bold;
+}
+
+.deadline-info {
+    color: var(--light-primary);
+    font-weight: bold;
+}
