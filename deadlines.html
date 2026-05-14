@@ -3,6 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Deadlines</title>
     <link rel="stylesheet" href="style.css">
 </head>
@@ -44,8 +45,8 @@
         <div class="card">
             <h2>➕ Add a New Deadline</h2>
 
-            <div class="btn-row" style="flex-wrap: wrap;">
-                <input type="text" placeholder="Task name (Assignment / Exam)" style="flex: 2; min-width: 200px;">
+            <div class="btn-row deadline-row">
+                <input type="text" class="deadline-input" placeholder="Task name (Assignment / Exam)">
                 <input type="text" placeholder="Enter date (e.g, 10 May 2026)">
                 <button class="btn">Add</button>
             </div>
@@ -56,17 +57,17 @@
 
             <div class="activity">
                 <div>
-                    <span style="font-weight: bold; color: var(--dark-bg);">SWE 381 Assignment</span><br>
+                   <span class="deadline-title">SWE 381 Assignment</span><br>
                     <small>📅 Due: 2026-05-10</small><br>
-                    <small style="color: #ff4d4d; font-weight: bold;">⚠️ 5 days remaining</small>
+                   <small class="deadline-warning">⚠️ 5 days remaining</small>
                 </div>
             </div>
 
             <div class="activity">
                 <div>
-                    <span style="font-weight: bold; color: var(--dark-bg);">CS 101 Final Exam</span><br>
+                   <span class="deadline-title">CS 101 Final Exam</span><br>
                     <small>📅 Due: 2026-05-20</small><br>
-                    <small style="color: var(--light-primary); font-weight: bold;">⏳ 15 days remaining</small>
+                    <small class="deadline-info">⏳ 15 days remaining</small>
                 </div>
             </div>
 
