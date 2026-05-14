@@ -1,1 +1,179 @@
-alert("JS CONNECTED");
+/* =========================
+   DASHBOARD SCRIPT
+========================= */
+
+document.addEventListener("DOMContentLoaded", () => {
+  /* =========================
+       WELCOME MESSAGE
+    ========================= */
+
+  const welcomeText = document.getElementById("welcomeText");
+
+  const hour = new Date().getHours();
+
+  let greeting = "";
+
+  if (hour < 12) {
+    greeting = "Good Morning";
+  } else if (hour < 18) {
+    greeting = "Good Afternoon";
+  } else {
+    greeting = "Good Evening";
+  }
+
+  welcomeText.innerText = `${greeting}, Sara 👋`;
+
+  /* =========================
+       STATISTICS
+    ========================= */
+
+  const totalHours = 18;
+
+  const completedSessions = 12;
+
+  const focusRate = 78;
+
+  const productivity = 85;
+
+  /* Display Statistics */
+
+  document.getElementById("hoursNumber").innerText = totalHours;
+
+  document.getElementById("sessionsNumber").innerText = completedSessions;
+
+  document.getElementById("focusNumber").innerText = `${focusRate}%`;
+
+  document.getElementById("productivityNumber").innerText = `${productivity}%`;
+
+  /* =========================
+       WEEKLY PROGRESS
+    ========================= */
+
+  const weeklyProgress = 75;
+
+  document.getElementById("progressText").innerText = `${weeklyProgress}%`;
+
+  /* =========================
+       STUDY HOURS
+    ========================= */
+
+  const studyHours = [
+    {
+      day: "Sunday",
+      hours: 2,
+    },
+
+    {
+      day: "Monday",
+      hours: 3,
+    },
+
+    {
+      day: "Tuesday",
+      hours: 4,
+    },
+
+    {
+      day: "Wednesday",
+      hours: 5,
+    },
+
+    {
+      day: "Thursday",
+      hours: 4,
+    },
+  ];
+
+  const studyStats = document.getElementById("studyStats");
+
+  studyHours.forEach((item) => {
+    studyStats.innerHTML += `
+
+            <p>
+                📚 ${item.day} :
+                ${item.hours} hours
+            </p>
+
+        `;
+  });
+
+  /* =========================
+       AI STUDY TIPS
+    ========================= */
+
+  const tips = [
+    "Study in short focused sessions.",
+
+    "Review notes before sleeping.",
+
+    "Practice active recall daily.",
+
+    "Take breaks every 25 minutes.",
+
+    "Solve exercises instead of rereading.",
+
+    "Stay hydrated while studying.",
+
+    "Use flashcards to improve memory.",
+
+    "Study difficult subjects first.",
+  ];
+
+  const tipBtn = document.getElementById("tipBtn");
+
+  const tipText = document.getElementById("tipText");
+
+  tipBtn.addEventListener("click", () => {
+    const randomTip = tips[Math.floor(Math.random() * tips.length)];
+
+    tipText.innerText = randomTip;
+  });
+
+  /* =========================
+       DARK MODE
+    ========================= */
+
+  const darkBtn = document.getElementById("darkModeBtn");
+
+  /* Load Saved Theme */
+
+  if (localStorage.getItem("theme") === "dark") {
+    document.body.classList.add("dark");
+
+    darkBtn.innerText = "☀️ Light Mode";
+  } else {
+    darkBtn.innerText = "🌙 Dark Mode";
+  }
+
+  /* Toggle Theme */
+
+  darkBtn.addEventListener("click", () => {
+    document.body.classList.toggle("dark");
+
+    if (document.body.classList.contains("dark")) {
+      localStorage.setItem("theme", "dark");
+
+      darkBtn.innerText = "☀️ Light Mode";
+    } else {
+      localStorage.setItem("theme", "light");
+
+      darkBtn.innerText = "🌙 Dark Mode";
+    }
+  });
+
+  /* =========================
+       CARD ANIMATION
+    ========================= */
+
+  const cards = document.querySelectorAll(".card");
+
+  cards.forEach((card) => {
+    card.addEventListener("mouseenter", () => {
+      card.style.transform = "translateY(-5px)";
+    });
+
+    card.addEventListener("mouseleave", () => {
+      card.style.transform = "translateY(0px)";
+    });
+  });
+});
