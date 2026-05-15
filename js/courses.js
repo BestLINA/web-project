@@ -3,12 +3,17 @@
 ========================= */
 
 document.addEventListener("DOMContentLoaded", () => {
-  
-  const currentUser =
-JSON.parse(localStorage.getItem("currentUser"));
+  /* CHECK LOGIN */
 
-const storageKey =
-"courses_" + currentUser.id;
+  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+
+  if (!currentUser) {
+    window.location.href = "../html/login.html";
+  }
+
+  /* STORAGE KEY */
+
+  const storageKey = "courses_" + currentUser.id;
   /* ELEMENTS */
 
   const courseCode = document.getElementById("courseCode");
@@ -31,8 +36,7 @@ const storageKey =
 
   /* LOAD COURSES */
 
-let courses =
-JSON.parse(localStorage.getItem(storageKey)) || [];
+  let courses = JSON.parse(localStorage.getItem(storageKey)) || [];
   /* RENDER COURSES */
 
   function renderCourses(filteredCourses = courses) {
@@ -131,16 +135,36 @@ JSON.parse(localStorage.getItem(storageKey)) || [];
   /* ADD COURSE */
 
   addCourseBtn.addEventListener("click", () => {
-    if (courseCode.value.trim() === "" || courseName.value.trim() === "") {
-      alert("Please fill all fields.");
+    const code = courseCode.value.trim();
+
+    const name = courseName.value.trim();
+
+    /* EMPTY FIELDS */
+
+    if (code === "" || name === "") {
+      showToast(" Please fill all fields.", "error");
 
       return;
     }
 
-    const newCourse = {
-      code: courseCode.value,
+    /* DUPLICATE COURSE CODE */
 
-      name: courseName.value,
+    const duplicateCourse = courses.find(
+      (course) => course.code.toLowerCase() === code.toLowerCase(),
+    );
+
+    if (duplicateCourse) {
+      showToast(" Course code already exists.", "error");
+
+      return;
+    }
+
+    /* CREATE COURSE */
+
+    const newCourse = {
+      code: code,
+
+      name: name,
 
       color: courseColor.value,
 
@@ -153,9 +177,15 @@ JSON.parse(localStorage.getItem(storageKey)) || [];
 
     renderCourses();
 
+    /* CLEAR INPUTS */
+
     courseCode.value = "";
 
     courseName.value = "";
+
+    /* SUCCESS MESSAGE */
+
+    showToast("Course added successfully!", "success");
   });
 
   /* SAVE */
@@ -288,3 +318,35 @@ JSON.parse(localStorage.getItem(storageKey)) || [];
 
   renderCourses();
 });
+
+/* =========================
+   TOAST NOTIFICATION
+========================= */
+
+function showToast(text, type) {
+  let toast = document.getElementById("toast");
+
+  /* CREATE TOAST IF NOT FOUND */
+
+  if (!toast) {
+    toast = document.createElement("div");
+
+    toast.id = "toast";
+
+    document.body.appendChild(toast);
+  }
+
+  toast.textContent = text;
+
+  toast.className = "";
+
+  toast.classList.add("toast");
+
+  toast.classList.add(type === "success" ? "toast-success" : "toast-error");
+
+  toast.classList.add("toast-visible");
+
+  setTimeout(() => {
+    toast.classList.remove("toast-visible");
+  }, 3000);
+}
