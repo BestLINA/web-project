@@ -1762,3 +1762,79 @@ body.dark #editCourseName {
 .toast-visible {
   display: block;
 }
+
+/* =========================
+   DEADLINE ITEM (MAIN CARD)
+========================= */
+.deadline-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  background: white;
+  padding: 12px;
+  margin-top: 10px;
+  border-radius: 10px;
+  border: 1px solid #eacce0;
+  cursor: pointer;
+}
+
+/* LEFT SIDE TEXT */
+.deadline-info {
+  display: flex;
+  flex-direction: column;
+}
+
+/* RIGHT ACTION BUTTONS */
+.deadline-actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+/* =========================
+   COMPLETED / PAST DEADLINE
+========================= */
+.deadline-completed {
+  background-color: #f0f0f0 !important;
+  color: #888 !important;
+  opacity: 0.7;
+}
+
+.deadline-completed .deadline-title {
+  text-decoration: line-through;
+  color: #888 !important;
+}
+
+/* =========================
+   LAYOUT ROW (INPUT AREA)
+========================= */
+.deadline-row {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: nowrap;
+}
+
+.deadline-row input,
+.deadline-row select {
+  flex: 1;
+}
+
+.deadline-row button {
+  white-space: nowrap;
+}
+
+/* =========================
+   DAYS LEFT TEXT
+========================= */
+.days-left {
+  font-size: 12px;
+  font-weight: bold;
+  color: #5c2d7a;
+}
+
+.deadline-done .days-left {
+  color: #999;
+  text-decoration: line-through;
+}
