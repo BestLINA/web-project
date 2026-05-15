@@ -13,6 +13,7 @@ signupBtn.addEventListener("click", function () {
     }
 
     const user = {
+        id: Date.now().toString(),
         fullName: fullName,
         email: email,
         password: password
