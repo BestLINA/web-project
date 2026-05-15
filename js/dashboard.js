@@ -24,8 +24,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const currentUser =
   JSON.parse(localStorage.getItem("currentUser"));
 
-  welcomeText.innerText =
-  `${greeting}, ${currentUser.fullName} 👋`;
+  welcomeText.innerHTML =
+  `${greeting}, ${currentUser.fullName} <img src="../imgs/wavingHand.png" alt="waving hand" class="wave-icon">`;
   /* =========================
        STATISTICS
     ========================= */

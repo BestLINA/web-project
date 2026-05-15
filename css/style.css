@@ -1838,3 +1838,9 @@ body.dark #editCourseName {
   color: #999;
   text-decoration: line-through;
 }
+
+.wave-icon {
+  width: 60px;
+  height: 60px;
+  vertical-align: middle;
+}
