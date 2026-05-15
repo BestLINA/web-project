@@ -419,6 +419,10 @@ input[type="checkbox"] {
   cursor: pointer;
 }
 
+body.dark input[type="checkbox"] {
+  accent-color: #ffb3c7;
+}
+
 /* ── BTN ROW ──────────────────────────────── */
 .btn-row {
   display: flex;
@@ -1235,7 +1239,7 @@ body.dark .availability-flower {
 .availability-bottom {
   padding-top: 20px;
   display: flex;
-  justify-content: flex-end;
+  justify-content: flex-start;
 }
 
 .availability-save-btn {
@@ -1522,4 +1526,35 @@ body.dark ::-webkit-scrollbar-thumb:hover {
   .reminder-box {
     width: 100%;
   }
+}
+
+/* ── TOAST NOTIFICATION ───────────────────── */
+.toast {
+  position: fixed;
+  top: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 14px 28px;
+  border-radius: 10px;
+  font-size: 0.95em;
+  font-weight: 600;
+  z-index: 9999;
+  pointer-events: none;
+  min-width: 220px;
+  text-align: center;
+  display: none;
+}
+
+.toast-success {
+  background: #4a9e7a;
+  color: white;
+}
+
+.toast-error {
+  background: #b84a6a;
+  color: white;
+}
+
+.toast-visible {
+  display: block;
 }

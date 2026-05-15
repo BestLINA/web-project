@@ -9,6 +9,10 @@
 </head>
 
 <body>
+
+    <!-- Toast notification -->
+    <div id="toast"></div>
+
     <!-- Header -->
     <div class="header">
         <div class="logo-area">
@@ -41,519 +45,170 @@
         </div>
         <a href="login.html" class="logout-link"> Logout</a>
     </div>
+
     <div class="content">
 
         <div class="availability-top">
-
             <div class="availability-header">
                 <h1>My Availability</h1>
             </div>
-
             <p class="availability-subtitle">Set your weekly study hours</p>
-
         </div>
 
         <div class="availability-container">
 
-            <!-- LEFT SIDE -->
+            <!-- LEFT SIDE — Weekly Schedule -->
             <div class="availability-schedule">
                 <h2>Weekly Schedule</h2>
-
-                <!-- FUNCTION: TIME OPTIONS -->
 
                 <!-- Saturday -->
                 <div class="availability-day">
                     <div class="availability-day-left">
-                        <input type="checkbox" checked>
-                        <label>Saturday</label>
+                        <input type="checkbox" id="check-saturday">
+                        <label for="check-saturday">Saturday</label>
                     </div>
-
                     <div class="availability-time">
-                        <select>
-                            <option disabled selected>Start</option>
-                            <option>00:00</option>
-                            <option>01:00</option>
-                            <option>02:00</option>
-                            <option>03:00</option>
-                            <option>04:00</option>
-                            <option>05:00</option>
-                            <option>06:00</option>
-                            <option>07:00</option>
-                            <option>08:00</option>
-                            <option>09:00</option>
-                            <option>10:00</option>
-                            <option>11:00</option>
-                            <option>12:00</option>
-                            <option>13:00</option>
-                            <option>14:00</option>
-                            <option>15:00</option>
-                            <option>16:00</option>
-                            <option>17:00</option>
-                            <option>18:00</option>
-                            <option>19:00</option>
-                            <option>20:00</option>
-                            <option>21:00</option>
-                            <option>22:00</option>
-                            <option>23:00</option>
+                        <select id="start-saturday">
+                            <option value="" disabled selected>Start</option>
                         </select>
                         <span class="availability-dash">-</span>
-                        <select>
-                            <option disabled selected>End</option>
-                            <option>00:00</option>
-                            <option>01:00</option>
-                            <option>02:00</option>
-                            <option>03:00</option>
-                            <option>04:00</option>
-                            <option>05:00</option>
-                            <option>06:00</option>
-                            <option>07:00</option>
-                            <option>08:00</option>
-                            <option>09:00</option>
-                            <option>10:00</option>
-                            <option>11:00</option>
-                            <option>12:00</option>
-                            <option>13:00</option>
-                            <option>14:00</option>
-                            <option>15:00</option>
-                            <option>16:00</option>
-                            <option>17:00</option>
-                            <option>18:00</option>
-                            <option>19:00</option>
-                            <option>20:00</option>
-                            <option>21:00</option>
-                            <option>22:00</option>
-                            <option>23:00</option>
+                        <select id="end-saturday">
+                            <option value="" disabled selected>End</option>
                         </select>
-
-                        <span>🗑️</span>
                     </div>
                 </div>
-
 
                 <!-- Sunday -->
                 <div class="availability-day">
                     <div class="availability-day-left">
-                        <input type="checkbox">
-                        <label>Sunday</label>
+                        <input type="checkbox" id="check-sunday">
+                        <label for="check-sunday">Sunday</label>
                     </div>
-
                     <div class="availability-time">
-                        <select>
-                            <option disabled selected>Start</option>
-                            <option>00:00</option>
-                            <option>01:00</option>
-                            <option>02:00</option>
-                            <option>03:00</option>
-                            <option>04:00</option>
-                            <option>05:00</option>
-                            <option>06:00</option>
-                            <option>07:00</option>
-                            <option>08:00</option>
-                            <option>09:00</option>
-                            <option>10:00</option>
-                            <option>11:00</option>
-                            <option>12:00</option>
-                            <option>13:00</option>
-                            <option>14:00</option>
-                            <option>15:00</option>
-                            <option>16:00</option>
-                            <option>17:00</option>
-                            <option>18:00</option>
-                            <option>19:00</option>
-                            <option>20:00</option>
-                            <option>21:00</option>
-                            <option>22:00</option>
-                            <option>23:00</option>
+                        <select id="start-sunday">
+                            <option value="" disabled selected>Start</option>
                         </select>
                         <span class="availability-dash">-</span>
-                        <select>
-                            <option disabled selected>End</option>
-                            <option>00:00</option>
-                            <option>01:00</option>
-                            <option>02:00</option>
-                            <option>03:00</option>
-                            <option>04:00</option>
-                            <option>05:00</option>
-                            <option>06:00</option>
-                            <option>07:00</option>
-                            <option>08:00</option>
-                            <option>09:00</option>
-                            <option>10:00</option>
-                            <option>11:00</option>
-                            <option>12:00</option>
-                            <option>13:00</option>
-                            <option>14:00</option>
-                            <option>15:00</option>
-                            <option>16:00</option>
-                            <option>17:00</option>
-                            <option>18:00</option>
-                            <option>19:00</option>
-                            <option>20:00</option>
-                            <option>21:00</option>
-                            <option>22:00</option>
-                            <option>23:00</option>
+                        <select id="end-sunday">
+                            <option value="" disabled selected>End</option>
                         </select>
-                        <span>➕</span>
                     </div>
                 </div>
 
                 <!-- Monday -->
                 <div class="availability-day">
                     <div class="availability-day-left">
-                        <input type="checkbox">
-                        <label>Monday</label>
+                        <input type="checkbox" id="check-monday">
+                        <label for="check-monday">Monday</label>
                     </div>
-
                     <div class="availability-time">
-                        <select>
-                            <option disabled selected>Start</option>
-                            <option>00:00</option>
-                            <option>01:00</option>
-                            <option>02:00</option>
-                            <option>03:00</option>
-                            <option>04:00</option>
-                            <option>05:00</option>
-                            <option>06:00</option>
-                            <option>07:00</option>
-                            <option>08:00</option>
-                            <option>09:00</option>
-                            <option>10:00</option>
-                            <option>11:00</option>
-                            <option>12:00</option>
-                            <option>13:00</option>
-                            <option>14:00</option>
-                            <option>15:00</option>
-                            <option>16:00</option>
-                            <option>17:00</option>
-                            <option>18:00</option>
-                            <option>19:00</option>
-                            <option>20:00</option>
-                            <option>21:00</option>
-                            <option>22:00</option>
-                            <option>23:00</option>
+                        <select id="start-monday">
+                            <option value="" disabled selected>Start</option>
                         </select>
                         <span class="availability-dash">-</span>
-                        <select>
-                            <option disabled selected>End</option>
-                            <option>00:00</option>
-                            <option>01:00</option>
-                            <option>02:00</option>
-                            <option>03:00</option>
-                            <option>04:00</option>
-                            <option>05:00</option>
-                            <option>06:00</option>
-                            <option>07:00</option>
-                            <option>08:00</option>
-                            <option>09:00</option>
-                            <option>10:00</option>
-                            <option>11:00</option>
-                            <option>12:00</option>
-                            <option>13:00</option>
-                            <option>14:00</option>
-                            <option>15:00</option>
-                            <option>16:00</option>
-                            <option>17:00</option>
-                            <option>18:00</option>
-                            <option>19:00</option>
-                            <option>20:00</option>
-                            <option>21:00</option>
-                            <option>22:00</option>
-                            <option>23:00</option>
+                        <select id="end-monday">
+                            <option value="" disabled selected>End</option>
                         </select>
-                        <span>➕</span>
                     </div>
                 </div>
 
                 <!-- Tuesday -->
                 <div class="availability-day">
                     <div class="availability-day-left">
-                        <input type="checkbox">
-                        <label>Tuesday</label>
+                        <input type="checkbox" id="check-tuesday">
+                        <label for="check-tuesday">Tuesday</label>
                     </div>
-
                     <div class="availability-time">
-                        <select>
-                            <option disabled selected>Start</option>
-                            <option>00:00</option>
-                            <option>01:00</option>
-                            <option>02:00</option>
-                            <option>03:00</option>
-                            <option>04:00</option>
-                            <option>05:00</option>
-                            <option>06:00</option>
-                            <option>07:00</option>
-                            <option>08:00</option>
-                            <option>09:00</option>
-                            <option>10:00</option>
-                            <option>11:00</option>
-                            <option>12:00</option>
-                            <option>13:00</option>
-                            <option>14:00</option>
-                            <option>15:00</option>
-                            <option>16:00</option>
-                            <option>17:00</option>
-                            <option>18:00</option>
-                            <option>19:00</option>
-                            <option>20:00</option>
-                            <option>21:00</option>
-                            <option>22:00</option>
-                            <option>23:00</option>
+                        <select id="start-tuesday">
+                            <option value="" disabled selected>Start</option>
                         </select>
                         <span class="availability-dash">-</span>
-                        <select>
-                            <option disabled selected>End</option>
-                            <option>00:00</option>
-                            <option>01:00</option>
-                            <option>02:00</option>
-                            <option>03:00</option>
-                            <option>04:00</option>
-                            <option>05:00</option>
-                            <option>06:00</option>
-                            <option>07:00</option>
-                            <option>08:00</option>
-                            <option>09:00</option>
-                            <option>10:00</option>
-                            <option>11:00</option>
-                            <option>12:00</option>
-                            <option>13:00</option>
-                            <option>14:00</option>
-                            <option>15:00</option>
-                            <option>16:00</option>
-                            <option>17:00</option>
-                            <option>18:00</option>
-                            <option>19:00</option>
-                            <option>20:00</option>
-                            <option>21:00</option>
-                            <option>22:00</option>
-                            <option>23:00</option>
+                        <select id="end-tuesday">
+                            <option value="" disabled selected>End</option>
                         </select>
-                        <span>➕</span>
                     </div>
                 </div>
 
                 <!-- Wednesday -->
                 <div class="availability-day">
                     <div class="availability-day-left">
-                        <input type="checkbox">
-                        <label>Wednesday</label>
+                        <input type="checkbox" id="check-wednesday">
+                        <label for="check-wednesday">Wednesday</label>
                     </div>
-
                     <div class="availability-time">
-                        <select>
-                            <option disabled selected>Start</option>
-                            <option>00:00</option>
-                            <option>01:00</option>
-                            <option>02:00</option>
-                            <option>03:00</option>
-                            <option>04:00</option>
-                            <option>05:00</option>
-                            <option>06:00</option>
-                            <option>07:00</option>
-                            <option>08:00</option>
-                            <option>09:00</option>
-                            <option>10:00</option>
-                            <option>11:00</option>
-                            <option>12:00</option>
-                            <option>13:00</option>
-                            <option>14:00</option>
-                            <option>15:00</option>
-                            <option>16:00</option>
-                            <option>17:00</option>
-                            <option>18:00</option>
-                            <option>19:00</option>
-                            <option>20:00</option>
-                            <option>21:00</option>
-                            <option>22:00</option>
-                            <option>23:00</option>
+                        <select id="start-wednesday">
+                            <option value="" disabled selected>Start</option>
                         </select>
                         <span class="availability-dash">-</span>
-                        <select>
-                            <option disabled selected>End</option>
-                            <option>00:00</option>
-                            <option>01:00</option>
-                            <option>02:00</option>
-                            <option>03:00</option>
-                            <option>04:00</option>
-                            <option>05:00</option>
-                            <option>06:00</option>
-                            <option>07:00</option>
-                            <option>08:00</option>
-                            <option>09:00</option>
-                            <option>10:00</option>
-                            <option>11:00</option>
-                            <option>12:00</option>
-                            <option>13:00</option>
-                            <option>14:00</option>
-                            <option>15:00</option>
-                            <option>16:00</option>
-                            <option>17:00</option>
-                            <option>18:00</option>
-                            <option>19:00</option>
-                            <option>20:00</option>
-                            <option>21:00</option>
-                            <option>22:00</option>
-                            <option>23:00</option>
+                        <select id="end-wednesday">
+                            <option value="" disabled selected>End</option>
                         </select>
-                        <span>➕</span>
                     </div>
                 </div>
 
                 <!-- Thursday -->
                 <div class="availability-day">
                     <div class="availability-day-left">
-                        <input type="checkbox">
-                        <label>Thursday</label>
+                        <input type="checkbox" id="check-thursday">
+                        <label for="check-thursday">Thursday</label>
                     </div>
-
                     <div class="availability-time">
-                        <select>
-                            <option disabled selected>Start</option>
-                            <option>00:00</option>
-                            <option>01:00</option>
-                            <option>02:00</option>
-                            <option>03:00</option>
-                            <option>04:00</option>
-                            <option>05:00</option>
-                            <option>06:00</option>
-                            <option>07:00</option>
-                            <option>08:00</option>
-                            <option>09:00</option>
-                            <option>10:00</option>
-                            <option>11:00</option>
-                            <option>12:00</option>
-                            <option>13:00</option>
-                            <option>14:00</option>
-                            <option>15:00</option>
-                            <option>16:00</option>
-                            <option>17:00</option>
-                            <option>18:00</option>
-                            <option>19:00</option>
-                            <option>20:00</option>
-                            <option>21:00</option>
-                            <option>22:00</option>
-                            <option>23:00</option>
+                        <select id="start-thursday">
+                            <option value="" disabled selected>Start</option>
                         </select>
                         <span class="availability-dash">-</span>
-                        <select>
-                            <option disabled selected>End</option>
-                            <option>00:00</option>
-                            <option>01:00</option>
-                            <option>02:00</option>
-                            <option>03:00</option>
-                            <option>04:00</option>
-                            <option>05:00</option>
-                            <option>06:00</option>
-                            <option>07:00</option>
-                            <option>08:00</option>
-                            <option>09:00</option>
-                            <option>10:00</option>
-                            <option>11:00</option>
-                            <option>12:00</option>
-                            <option>13:00</option>
-                            <option>14:00</option>
-                            <option>15:00</option>
-                            <option>16:00</option>
-                            <option>17:00</option>
-                            <option>18:00</option>
-                            <option>19:00</option>
-                            <option>20:00</option>
-                            <option>21:00</option>
-                            <option>22:00</option>
-                            <option>23:00</option>
+                        <select id="end-thursday">
+                            <option value="" disabled selected>End</option>
                         </select>
-                        <span>➕</span>
                     </div>
                 </div>
 
                 <!-- Friday -->
                 <div class="availability-day">
                     <div class="availability-day-left">
-                        <input type="checkbox">
-                        <label>Friday</label>
+                        <input type="checkbox" id="check-friday">
+                        <label for="check-friday">Friday</label>
                     </div>
-
                     <div class="availability-time">
-                        <select>
-                            <option disabled selected>Start</option>
-                            <option>00:00</option>
-                            <option>01:00</option>
-                            <option>02:00</option>
-                            <option>03:00</option>
-                            <option>04:00</option>
-                            <option>05:00</option>
-                            <option>06:00</option>
-                            <option>07:00</option>
-                            <option>08:00</option>
-                            <option>09:00</option>
-                            <option>10:00</option>
-                            <option>11:00</option>
-                            <option>12:00</option>
-                            <option>13:00</option>
-                            <option>14:00</option>
-                            <option>15:00</option>
-                            <option>16:00</option>
-                            <option>17:00</option>
-                            <option>18:00</option>
-                            <option>19:00</option>
-                            <option>20:00</option>
-                            <option>21:00</option>
-                            <option>22:00</option>
-                            <option>23:00</option>
+                        <select id="start-friday">
+                            <option value="" disabled selected>Start</option>
                         </select>
                         <span class="availability-dash">-</span>
-                        <select>
-                            <option disabled selected>End</option>
-                            <option>00:00</option>
-                            <option>01:00</option>
-                            <option>02:00</option>
-                            <option>03:00</option>
-                            <option>04:00</option>
-                            <option>05:00</option>
-                            <option>06:00</option>
-                            <option>07:00</option>
-                            <option>08:00</option>
-                            <option>09:00</option>
-                            <option>10:00</option>
-                            <option>11:00</option>
-                            <option>12:00</option>
-                            <option>13:00</option>
-                            <option>14:00</option>
-                            <option>15:00</option>
-                            <option>16:00</option>
-                            <option>17:00</option>
-                            <option>18:00</option>
-                            <option>19:00</option>
-                            <option>20:00</option>
-                            <option>21:00</option>
-                            <option>22:00</option>
-                            <option>23:00</option>
+                        <select id="end-friday">
+                            <option value="" disabled selected>End</option>
                         </select>
-                        <span>➕</span>
                     </div>
                 </div>
 
             </div>
 
-            <!-- RIGHT SIDE -->
+            <!-- RIGHT SIDE — Quick Tips -->
             <div class="availability-tips">
                 <div class="availability-tips-header">
                     <img src="../imgs/purpleLightbulb.png" class="availability-tip-icon" alt="purple light bulb icon">
                     <h2>Quick Tips</h2>
                 </div>
 
-                <div class="availability-tip"><span class="availability-flower">✿</span> Be consistent with your study
-                    hours
+                <div class="availability-tip">
+                    <span class="availability-flower">✿</span> Be consistent with your study hours
                 </div>
-                <div class="availability-tip"><span class="availability-flower">✿</span> Take 10–15 min breaks every 1–2
-                    hours</div>
-                <div class="availability-tip"><span class="availability-flower">✿</span> Avoid over-scheduling</div>
+                <div class="availability-tip">
+                    <span class="availability-flower">✿</span> Take 10–15 min breaks every 1–2 hours
+                </div>
+                <div class="availability-tip">
+                    <span class="availability-flower">✿</span> Avoid over-scheduling
+                </div>
             </div>
 
         </div>
+
+        <!-- Save button -->
         <div class="availability-bottom">
             <button class="availability-save-btn">Save Availability</button>
         </div>
+
     </div>
+
     <script src="../js/theme.js"></script>
     <script src="../js/availability.js"></script>
 </body>
