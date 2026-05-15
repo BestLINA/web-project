@@ -21,8 +21,11 @@ document.addEventListener("DOMContentLoaded", () => {
     greeting = "Good Evening";
   }
 
-  welcomeText.innerText = `${greeting}, Sara 👋`;
+  const currentUser =
+  JSON.parse(localStorage.getItem("currentUser"));
 
+  welcomeText.innerText =
+  `${greeting}, ${currentUser.fullName} 👋`;
   /* =========================
        STATISTICS
     ========================= */
