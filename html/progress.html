@@ -8,107 +8,158 @@
     <link rel="stylesheet" href="../css/style.css">
 </head>
 
-<body>
+<body class="studyplan-page">
 
     <!-- Header -->
     <div class="header">
         <div class="logo-area">
             <img src="../imgs/AWJ_logo.png" alt="AWJ logo" width="100" id="siteLogo">
-
         </div>
-        <div class="header-right">
 
-            <!-- Notification (clickable) -->
-            <a href="Reminders.html" id="notifLink">
+        <div class="header-right">
+            <!-- Notification -->
+            <a href="Reminders.html" id="notifLink" class="header-action-btn">
                 <img src="../imgs/Notification.png" class="notif-icon" alt="notifications">
             </a>
 
             <!-- Theme toggle -->
-            <button id="themeToggle" class="dark-mode-btn">
+            <button id="themeToggle" class="dark-mode-btn header-action-btn" aria-label="Toggle theme">
                 <img id="themeIcon" src="../imgs/Moon.png" alt="theme icon">
             </button>
-
         </div>
     </div>
 
     <!-- Sidebar -->
     <div class="sidebar">
         <div class="menu">
-            <a href="dashboard.html"> Dashboard</a>
-            <a href="courses.html"> Courses</a>
-            <a href="deadlines.html"> Deadlines</a>
-            <a href="availability.html"> Availability</a>
-            <a href="studyplan.html"> Study Plan</a>
-            <a href="progress.html"> Progress</a>
+            <a href="dashboard.html">Dashboard</a>
+            <a href="courses.html">Courses</a>
+            <a href="deadlines.html">Deadlines</a>
+            <a href="availability.html">Availability</a>
+            <a href="studyplan.html">Study Plan</a>
+            <a href="progress.html" class="active">Progress</a>
         </div>
-        <a href="login.html" class="logout-link"> Logout</a>
+
+        <a href="login.html" class="logout-link">Logout</a>
     </div>
 
-    <!-- Content -->
+    <!-- Main Content Area -->
     <div class="content">
 
-        <h1> Study Progress</h1>
-
-        <div class="card">
-            <p>Track your completed, pending, and missed study sessions through a simple progress overview.</p>
+        <!-- Welcome Hero Section / Page Header -->
+        <div class="welcome-hero">
+            <h1>Study Progress Tracking</h1>
+            <p>Monitor your completed, pending, and missed study sessions through an interactive, live-updated performance breakdown.</p>
         </div>
 
-        <div class="main-box">
+        <!-- Quick Statistics Tiles Grid -->
+        <div class="progress-stats-grid">
 
-            <!-- LEFT SECTION -->
-            <div class="left">
-                <div class="card">
-                    <h2>📈 Progress Overview</h2>
-
-                    <div class="pie-chart">
-                        <div class="center-text">75%</div>
-                    </div>
-
-                    <div class="chart-info">
-                        <div><span class="box green"></span> ✔ Completed (40%)</div>
-                        <div><span class="box blue"></span> ⏳ Pending (35%)</div>
-                        <div><span class="box yellow"></span> ❌ Missed (25%)</div>
-                    </div>
+            <div class="grid-card stat-tile-card border-completed">
+                <div class="stat-header">
+                    <span class="stat-tile-icon">✔</span>
+                    <p>Completed Tasks</p>
                 </div>
+                <div class="big-number" id="completedNumber">0</div>
             </div>
 
-            <!-- RIGHT SECTION -->
-            <div class="right">
-
-                <div class="card">
-                    <h2>🕒 Recent Activity</h2>
-
-                    <div class="activity">
-                        <p><strong>📘 SWE 381</strong></p>
-                        <p>✔ Completed</p>
-                    </div>
-
-                    <div class="activity">
-                        <p><strong>📗 MATH 106</strong></p>
-                        <p>⏳ Pending</p>
-                    </div>
-
-                    <div class="activity">
-                        <p><strong>📕 SWE 333</strong></p>
-                        <p>❌ Missed</p>
-                    </div>
+            <div class="grid-card stat-tile-card border-pending">
+                <div class="stat-header">
+                    <span class="stat-tile-icon">⏳</span>
+                    <p>Pending Tasks</p>
                 </div>
+                <div class="big-number" id="pendingNumber">0</div>
+            </div>
 
-                <div class="summary-box">
-                    <h2>📌 Summary</h2>
-                    <p>✔ Completed Tasks: 8</p>
-                    <p>⏳ Pending Tasks: 2</p>
-                    <p>❌ Missed Tasks: 1</p>
-                    <p>⏱ Study Hours: 12</p>
+            <div class="grid-card stat-tile-card border-missed">
+                <div class="stat-header">
+                    <span class="stat-tile-icon">❌</span>
+                    <p>Missed Tasks</p>
                 </div>
+                <div class="big-number" id="missedNumber">0</div>
+            </div>
 
+            <div class="grid-card stat-tile-card border-hours">
+                <div class="stat-header">
+                    <span class="stat-tile-icon">⏱</span>
+                    <p>Study Hours</p>
+                </div>
+                <div class="big-number" id="hoursNumber">0</div>
             </div>
 
         </div>
 
+        <!-- Main Layout Split Grid (Charts & Activities) -->
+        <div class="study-grid">
+
+            <!-- Left Column: Progress Chart Analytics -->
+            <div class="grid-card overview-analytics-card">
+                <div class="card-header">
+                    <div class="card-icon">📈</div>
+                    <h2>Progress Overview Analytics</h2>
+                </div>
+
+                <div class="analytics-wrapper">
+                    <!-- Circular Progress Display Frame -->
+                   <div class="pie-chart-container" style="position: relative; width: 100%; max-width: 280px; margin: 0 auto;">
+                    <canvas id="progressChart"></canvas>
+                </div>
+
+                    <!-- Progress Percentage Indicators Linear Trackers -->
+                    <div class="chart-info-metrics">
+
+                        <div class="chart-row-metric">
+                            <div class="metric-label">
+                                <span class="indicator-box color-completed"></span>
+                                <span class="label-text">Completed Sessions</span>
+                            </div>
+                            <div class="progress-linear-track">
+                                <span class="bar-fill fill-completed" style="width: 40%;"></span>
+                            </div>
+                        </div>
+
+                        <div class="chart-row-metric">
+                            <div class="metric-label">
+                                <span class="indicator-box color-pending"></span>
+                                <span class="label-text">Pending Sessions</span>
+                            </div>
+                            <div class="progress-linear-track">
+                                <span class="bar-fill fill-pending" style="width: 35%;"></span>
+                            </div>
+                        </div>
+
+                        <div class="chart-row-metric">
+                            <div class="metric-label">
+                                <span class="indicator-box color-missed"></span>
+                                <span class="label-text">Missed Sessions</span>
+                            </div>
+                            <div class="progress-linear-track">
+                                <span class="bar-fill fill-missed" style="width: 25%;"></span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column: Recent Activity Feed Ledger -->
+            <div class="grid-card recent-activity-card">
+                <div class="card-header">
+                    <div class="card-icon">🕒</div>
+                    <h2>Recent Activity Feed</h2>
+                </div>
+
+                <div id="activityList" class="activity-timeline-feed">
+                    <!-- Activity logs dynamically pushed via JavaScript here -->
+                </div>
+            </div>
+
+        </div> <!-- End Study Grid -->
     </div>
-    <script src="../js/theme.js"></script>
-    <script src="../js/progress.js"></script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="../js/progress.js"></script>
 </body>
 
 </html>

@@ -4,141 +4,101 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Studyplan</title>
+    <title>AWJ - Weekly Study Plan</title>
     <link rel="stylesheet" href="../css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 
-<body>
+<body class="study-plan-view">
 
-    <!-- Header -->
     <div class="header">
         <div class="logo-area">
             <img src="../imgs/AWJ_logo.png" alt="AWJ logo" width="100" id="siteLogo">
-
         </div>
         <div class="header-right">
-
-            <!-- Notification (clickable) -->
-            <a href="Reminders.html" id="notifLink">
+            <a href="Reminders.html" id="notifLink" class="header-action-btn">
                 <img src="../imgs/Notification.png" class="notif-icon" alt="notifications">
             </a>
 
-            <!-- Theme toggle -->
-            <button id="themeToggle" class="dark-mode-btn">
+            <button id="themeToggle" class="dark-mode-btn header-action-btn">
                 <img id="themeIcon" src="../imgs/Moon.png" alt="theme icon">
             </button>
-
         </div>
     </div>
 
-    <!-- Sidebar -->
     <div class="sidebar">
         <div class="menu">
             <a href="dashboard.html"> Dashboard</a>
             <a href="courses.html"> Courses</a>
             <a href="deadlines.html"> Deadlines</a>
             <a href="availability.html"> Availability</a>
-            <a href="studyplan.html"> Study Plan</a>
+            <a href="studyplan.html" class="active"> Study Plan</a>
             <a href="progress.html"> Progress</a>
         </div>
         <a href="login.html" class="logout-link"> Logout</a>
     </div>
 
-    <!-- Content -->
     <div class="content">
-
-        <h1> Your Weekly Study Plan</h1>
-
-        <p>
-            Welcome to your weekly study schedule. This plan is organized based on your
-            personalized time and availability to help you stay consistent and focused.
-        </p>
-
-        <p><strong>📆 Week:</strong> 11/05/2026 - 17/05/2026</p>
-
-        <p>
-            Your sessions are designed to keep you on track and prepared for your academic goals.
-        </p>
-
-        <!-- Table -->
-        <table class="study-table">
-
-            <caption>📊 Weekly Study Schedule</caption>
-
-            <tr>
-                <th>⏰ Time</th>
-                <th>Sunday<br>11/05</th>
-                <th>Monday<br>12/05</th>
-                <th>Tuesday<br>13/05</th>
-                <th>Wednesday<br>14/05</th>
-                <th>Thursday<br>15/05</th>
-                <th>Friday<br>16/05</th>
-                <th>Saturday<br>17/05</th>
-            </tr>
-
-            <tr>
-                <td>16:00 - 17:30</td>
-                <td>💻 SWE 381 <br>Web application development</td>
-                <td></td>
-                <td>📊 SWE 333<br>Quality Assurance</td>
-                <td>📝 Study Review<br>Weekly Revision</td>
-                <td></td>
-                <td>📌 Free Slot<br>Catch-up Study</td>
-                <td></td>
-            </tr>
-
-            <tr>
-                <td>18:00 - 19:30</td>
-                <td></td>
-                <td>📐 MATH 106<br>Calculus II</td>
-                <td></td>
-                <td></td>
-                <td>🧪 SWE 321<br>Software Design and Architecture</td>
-                <td></td>
-                <td>📍 Preparation<br>Next Week Planning</td>
-            </tr>
-
-            <tr>
-                <td>19:00 - 20:30</td>
-                <td>📖 Reading<br>Lecture Notes</td>
-                <td>🧠 Practice<br>Problem Solving</td>
-                <td>🖥 SWE 321<br>Lab Preparation</td>
-                <td>📐 MATH 106<br>Exercise Practice</td>
-                <td>⌨ SWE 381<br>Coding Practice</td>
-                <td>🔁 Summary<br>Review Missed Topics</td>
-                <td>📂 Project Work<br>Assignment Progress</td>
-            </tr>
-
-        </table>
-
-        <!-- Summary -->
-        <div class="summary-box">
-            <h2>🌟 Weekly Summary</h2>
-
-            <p>Focus this week on:</p>
-
-            <p>📘 SWE 381: Web Application Development</p>
-            <p>📗 SWE 333: Quality Assurance</p>
-            <p>📐 MATH 106: Calculus II</p>
-            <p>🧪 SWE 333: Quality Assurance</p>
-            <p>📂 Project work and revision sessions</p>
+        
+        <div class="welcome-hero">
+            <h1>Your Weekly Study Plan</h1>
+            <p>Welcome to your personalized schedule. Your sessions are organized based on your availability to ensure peak productivity and consistent progress.</p>
+            <div class="hero-meta">
+                <span class="week-tag">📆 Current Week: <strong id="currentWeekRange">11/05/2026 - 17/05/2026</strong></span>
+            </div>
         </div>
 
-        <!-- Motivation -->
-        <div class="motivation-box">
-            <h2>💡 Stay Motivated</h2>
+        <div class="grid-card plan-container">
+            <div class="card-header">
+                <div class="card-icon">📊</div>
+                <h2>Weekly Schedule</h2>
+                <p class="subtitle">Check off completed sessions to update your progress automatically.</p>
+            </div>
 
-            <p>
-                ✔ Stay consistent with your plan<br>
-                ✔ Focus on one task at a time<br>
-                ✔ Progress matters more than perfection
-            </p>
+            <div class="table-responsive">
+                <table class="study-table" id="dynamicStudyTable">
+                    <thead>
+                        <tr id="tableHeaderRow">
+                            <th>⏰ Time Slot</th>
+                            </tr>
+                    </thead>
+                    <tbody id="tableBody">
+                        </tbody>
+                </table>
+            </div>
 
-            <p>🌱 Every small step you take today builds your success tomorrow.
-            </p>
+            <div id="tableEmptyState" style="display:none; text-align:center; padding:40px;">
+                <p style="color: #a4508b; font-weight: 500;">No study hours selected yet. Please visit the "Availability" page to set your schedule.</p>
+            </div>
         </div>
 
+        <div class="study-grid">
+            
+            <div class="grid-card summary-card">
+                <div class="card-header">
+                    <div class="card-icon">🌟</div>
+                    <h2>Weekly Summary</h2>
+                </div>
+                <div id="dynamicSummaryContent" class="summary-content-list">
+                    </div>
+            </div>
+
+            <div class="grid-card motivation-card">
+                <div class="card-header">
+                    <div class="card-icon">💡</div>
+                    <h2>Stay Motivated</h2>
+                </div>
+                <ul class="motivation-list">
+                    </ul>
+                <div class="motivation-footer">
+                    </div>
+            </div>
+
+        </div>
     </div>
+
+    <div id="toastNotification" class="toast"></div>
+
     <script src="../js/theme.js"></script>
     <script src="../js/studyplan.js"></script>
 </body>

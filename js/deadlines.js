@@ -5,127 +5,327 @@ if (!currentUser) {
     window.location.href = "../html/login.html";
 }
 
+// ================= STORAGE KEYS =================
 const storageKey = "deadlines_" + currentUser.id;
 
-let deadlines = JSON.parse(localStorage.getItem(storageKey)) || [];
+// courses storage key
+const coursesKey = "courses_" + currentUser.id;
+
+// ================= LOAD DATA =================
+let deadlines =
+    JSON.parse(localStorage.getItem(storageKey)) || [];
+
+// load saved courses
+const savedCourses =
+    JSON.parse(localStorage.getItem(coursesKey)) || [];
 
 // ================= ELEMENTS =================
-const taskName = document.getElementById("taskName");
-const taskType = document.getElementById("taskType");
-const taskDate = document.getElementById("taskDate");
-const addBtn = document.getElementById("addDeadlineBtn");
 
-const container = document.getElementById("deadlinesContainer");
-const emptyBox = document.getElementById("emptyDeadlines");
+// COURSE DROPDOWN
+const taskCourse =
+    document.getElementById("taskCourse");
 
-// MODAL
-const modal = document.getElementById("editModal");
-const closeModal = document.getElementById("closeModal");
-const editTitle = document.getElementById("editTitle");
-const editType = document.getElementById("editType");
-const editDate = document.getElementById("editDate");
-const saveEditBtn = document.getElementById("saveEditBtn");
+// TASK TITLE
+const taskName =
+    document.getElementById("taskName");
 
+// TYPE
+const taskType =
+    document.getElementById("taskType");
+
+// DATE
+const taskDate =
+    document.getElementById("taskDate");
+
+// ADD BUTTON
+const addBtn =
+    document.getElementById("addDeadlineBtn");
+
+// CONTAINER
+const container =
+    document.getElementById("deadlinesContainer");
+
+// EMPTY STATE
+const emptyBox =
+    document.getElementById("emptyDeadlines");
+
+// ================= MODAL ELEMENTS =================
+const modal =
+    document.getElementById("editModal");
+
+const closeModal =
+    document.getElementById("closeModal");
+
+const editTitle =
+    document.getElementById("editTitle");
+
+const editType =
+    document.getElementById("editType");
+
+const editDate =
+    document.getElementById("editDate");
+
+const saveEditBtn =
+    document.getElementById("saveEditBtn");
+
+// CURRENT EDIT INDEX
 let currentEditIndex = null;
 
+// ================= LOAD COURSES INTO DROPDOWN =================
+
+// add saved courses to dropdown
+savedCourses.forEach(course => {
+
+    const option = document.createElement("option");
+
+    option.value = course.name;
+
+    option.textContent = course.name;
+
+    taskCourse.appendChild(option);
+});
+
 // ================= HELPERS =================
+
+// SAVE DATA
 function saveData() {
-    localStorage.setItem(storageKey, JSON.stringify(deadlines));
+
+    localStorage.setItem(
+        storageKey,
+        JSON.stringify(deadlines)
+    );
 }
 
-// DAYS LEFT CALCULATION ⭐
+// ================= DAYS LEFT =================
 function getDaysLeft(date) {
+
     const today = new Date();
+
     const target = new Date(date);
 
     const diff = target - today;
-    const days = Math.ceil(diff / (1000 * 60 * 60 * 24));
+
+    const days = Math.ceil(
+        diff / (1000 * 60 * 60 * 24)
+    );
 
     return days;
 }
 
-// TOAST
+// ================= TOAST =================
 function showToast(text, type) {
-    const toast = document.getElementById("toast");
+
+    const toast =
+        document.getElementById("toast");
 
     toast.textContent = text;
-    toast.className = "toast toast-visible";
-    toast.classList.add(type === "success" ? "toast-success" : "toast-error");
+
+    toast.className =
+        "toast toast-visible";
+
+    toast.classList.add(
+        type === "success"
+            ? "toast-success"
+            : "toast-error"
+    );
 
     setTimeout(() => {
-        toast.classList.remove("toast-visible");
+
+        toast.classList.remove(
+            "toast-visible"
+        );
+
     }, 3000);
 }
 
 // ================= RENDER =================
 function render() {
+
+    // clear old items
     container.innerHTML = "";
 
+    // show empty state
     if (deadlines.length === 0) {
+
         emptyBox.style.display = "block";
+
         return;
     }
 
     emptyBox.style.display = "none";
 
+    // loop through deadlines
     deadlines.forEach((item, index) => {
 
-        const daysLeft = getDaysLeft(item.date);
+        const daysLeft =
+            getDaysLeft(item.date);
 
-        const div = document.createElement("div");
-        div.className = "card deadline-item";
+        // warning border
+        let warningClass = "";
 
-        // AUTO COMPLETE IF PAST
+        if (daysLeft <= 2 && daysLeft >= 0) {
+
+            warningClass = "deadline-warning";
+        }
+
+        // create card
+        const div =
+            document.createElement("div");
+
+        div.className =
+            `card deadline-item ${warningClass}`;
+
+        // auto complete if overdue
         if (daysLeft < 0) {
+
             item.completed = true;
         }
 
+        // completed style
         if (item.completed) {
-            div.classList.add("deadline-done");
+
+            div.classList.add(
+                "deadline-completed"
+            );
         }
 
+        // ================= CARD HTML =================
         div.innerHTML = `
+
             <div class="deadline-info">
-                <strong>${item.title}</strong>
-                <small>${item.type} | ${item.date}</small>
+
+                <!-- COURSE -->
+                <strong class="deadline-title">
+
+                    <img
+                        src="../imgs/purpleBook.png"
+                        class="mini-icon"
+                    >
+
+                    ${item.course}
+
+                </strong>
+
+                <!-- TASK TITLE -->
+                <small>
+
+                    ${item.title}
+
+                </small>
+
+                <!-- TYPE + DATE -->
+                <small>
+
+                    <img
+                        src="${
+                            item.type === "Exam"
+                                ? "../imgs/warning.png"
+                                : "../imgs/pinkBook.png"
+                        }"
+                        class="mini-icon"
+                    >
+
+                    ${item.type} | ${item.date}
+
+                </small>
+
+                <!-- DAYS LEFT -->
                 <span class="days-left">
-                    ${item.completed ? "Completed" : daysLeft + " days left"}
+
+                    <img
+                        src="../imgs/hourglass.png"
+                        class="mini-icon"
+                    >
+
+                    ${
+                        item.completed
+
+                        ? `
+
+                        <img
+                            src="../imgs/success.png"
+                            class="mini-icon"
+                        >
+
+                        Completed
+                        `
+
+                        : daysLeft + " days left"
+                    }
+
                 </span>
+
             </div>
 
+            <!-- ACTION BUTTONS -->
             <div class="deadline-actions">
-                <button class="btn update-btn">Update</button>
-                <button class="btn delete-btn">Delete</button>
+
+                <button class="btn update-btn">
+                    Update
+                </button>
+
+                <button class="btn delete-btn">
+                    Delete
+                </button>
+
             </div>
         `;
 
-        // ================= DOUBLE CLICK (COMPLETE) =================
+        // ================= DOUBLE CLICK COMPLETE =================
         div.addEventListener("dblclick", () => {
-            item.completed = !item.completed;
+
+            item.completed =
+                !item.completed;
+
             saveData();
+
             render();
+
+            showToast(
+
+                item.completed
+                    ? "✅ Marked as completed"
+                    : "↩️ Marked as incomplete",
+
+                "success"
+            );
         });
 
         // ================= DELETE =================
-        div.querySelector(".delete-btn").addEventListener("click", () => {
+        div.querySelector(".delete-btn")
+            .addEventListener("click", () => {
+
             deadlines.splice(index, 1);
+
             saveData();
+
             render();
-            showToast("Deleted successfully", "success");
+
+            showToast(
+                "🗑️ Deadline deleted successfully",
+                "success"
+            );
         });
 
-        // ================= OPEN MODAL EDIT =================
-        div.querySelector(".update-btn").addEventListener("click", () => {
+        // ================= OPEN EDIT MODAL =================
+        div.querySelector(".update-btn")
+            .addEventListener("click", () => {
 
             currentEditIndex = index;
 
-            editTitle.value = item.title;
-            editType.value = item.type;
-            editDate.value = item.date;
+            editTitle.value =
+                item.title;
+
+            editType.value =
+                item.type;
+
+            editDate.value =
+                item.date;
 
             modal.style.display = "flex";
         });
 
+        // append card
         container.appendChild(div);
     });
 }
@@ -133,71 +333,167 @@ function render() {
 // ================= ADD DEADLINE =================
 addBtn.addEventListener("click", () => {
 
-    const title = taskName.value.trim();
-    const type = taskType.value;
-    const date = taskDate.value;
+    // values
+    const course =
+        taskCourse.value;
 
-    const today = new Date().toISOString().split("T")[0];
+    const title =
+        taskName.value.trim();
 
-    if (!title || !type || !date) {
-        showToast("Please fill all fields", "error");
+    const type =
+        taskType.value;
+
+    const date =
+        taskDate.value;
+
+    // today date
+    const today =
+        new Date()
+            .toISOString()
+            .split("T")[0];
+
+    // ================= VALIDATION =================
+
+    // empty fields
+    if (!course || !title || !type || !date) {
+
+        showToast(
+            "⚠️ Please complete all fields.",
+            "error"
+        );
+
         return;
     }
 
+    // prevent old dates
     if (date < today) {
-        showToast("⚠️ Please choose a future date", "error");
+
+        showToast(
+            "⚠️ Please choose a future date.",
+            "error"
+        );
+
         return;
     }
 
+    // ================= SAVE =================
     deadlines.push({
+
+        course,
         title,
         type,
         date,
+
         completed: false
     });
 
+    // save
     saveData();
+
+    // rerender
     render();
 
+    // clear inputs
+    taskCourse.value = "";
+
     taskName.value = "";
+
     taskType.value = "";
+
     taskDate.value = "";
 
-    showToast("Added successfully", "success");
+    // success toast
+    showToast(
+        "✅ Deadline added successfully!",
+        "success"
+    );
 });
 
 // ================= SAVE EDIT =================
 saveEditBtn.addEventListener("click", () => {
 
-    const today = new Date().toISOString().split("T")[0];
+    const today =
+        new Date()
+            .toISOString()
+            .split("T")[0];
 
+    // prevent old dates
     if (editDate.value < today) {
-        showToast("❌ Cannot set past date", "error");
+
+        showToast(
+            "⚠️ Please choose a future date.",
+            "error"
+        );
+
         return;
     }
 
-    deadlines[currentEditIndex].title = editTitle.value;
-    deadlines[currentEditIndex].type = editType.value;
-    deadlines[currentEditIndex].date = editDate.value;
+    // update values
+    deadlines[currentEditIndex].title =
+        editTitle.value;
 
+    deadlines[currentEditIndex].type =
+        editType.value;
+
+    deadlines[currentEditIndex].date =
+        editDate.value;
+
+    // save
     saveData();
+
+    // rerender
     render();
 
+    // close modal
     modal.style.display = "none";
-    showToast("Updated successfully", "success");
+
+    // success toast
+    showToast(
+        "✅ Deadline updated successfully!",
+        "success"
+    );
 });
 
-// CLOSE MODAL
+// ================= CLOSE MODAL =================
 closeModal.addEventListener("click", () => {
+
     modal.style.display = "none";
 });
 
-// CLOSE OUTSIDE CLICK
+// ================= CLOSE OUTSIDE MODAL =================
 window.addEventListener("click", (e) => {
+
     if (e.target === modal) {
+
         modal.style.display = "none";
     }
 });
+// ================= DARK MODE =================
 
-// INIT
+const themeToggle =
+    document.getElementById("themeToggle");
+
+// load saved theme
+if (localStorage.getItem("theme") === "dark") {
+
+    document.body.classList.add("dark");
+}
+
+// toggle theme
+themeToggle.addEventListener("click", () => {
+
+    document.body.classList.toggle("dark");
+
+    // save mode
+    if (document.body.classList.contains("dark")) {
+
+        localStorage.setItem("theme", "dark");
+
+    } else {
+
+        localStorage.setItem("theme", "light");
+    }
+});
+
+// ================= INITIAL RENDER =================
 render();

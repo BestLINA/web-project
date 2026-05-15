@@ -4,9 +4,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
   <title>Deadlines</title>
 
-  <!-- Main CSS -->
+  <!-- CSS -->
   <link rel="stylesheet" href="../css/style.css" />
 </head>
 
@@ -14,75 +15,209 @@
 
   <!-- ================= HEADER ================= -->
   <div class="header">
+
     <div class="logo-area">
-      <img src="../imgs/AWJ_logo.png" alt="AWJ logo" width="100" />
+      <img 
+        src="../imgs/AWJ_logo.png" 
+        alt="AWJ logo" 
+        width="100"
+      />
     </div>
 
     <div class="header-right">
+
+      <!-- Notifications -->
       <a href="Reminders.html">
-        <img src="../imgs/Notification.png" class="notif-icon" alt="notifications">
+        <img 
+          src="../imgs/Notification.png"
+          class="notif-icon"
+          alt="notifications"
+        >
       </a>
 
+      <!-- Theme Toggle -->
       <button id="themeToggle" class="dark-mode-btn">
-        <img src="../imgs/Moon.png" alt="theme icon">
+
+        <img 
+          src="../imgs/Moon.png"
+          alt="theme icon"
+        >
+
       </button>
+
     </div>
+
   </div>
 
   <!-- ================= SIDEBAR ================= -->
   <div class="sidebar">
+
     <div class="menu">
-      <a href="dashboard.html">Dashboard</a>
-      <a href="courses.html">Courses</a>
-      <a href="deadlines.html">Deadlines</a>
-      <a href="availability.html">Availability</a>
-      <a href="studyplan.html">Study Plan</a>
-      <a href="progress.html">Progress</a>
+
+      <a href="dashboard.html">
+        Dashboard
+      </a>
+
+      <a href="courses.html">
+        Courses
+      </a>
+
+      <a href="deadlines.html">
+        Deadlines
+      </a>
+
+      <a href="availability.html">
+        Availability
+      </a>
+
+      <a href="studyplan.html">
+        Study Plan
+      </a>
+
+      <a href="progress.html">
+        Progress
+      </a>
+
     </div>
 
-    <a href="login.html" class="logout-link">Logout</a>
+    <a href="login.html" class="logout-link">
+      Logout
+    </a>
+
   </div>
 
   <!-- ================= MAIN CONTENT ================= -->
   <div class="content">
 
-    <h1>Deadline Management</h1>
-    <p>Track your assignments and exams easily.</p>
+    <!-- PAGE TITLE -->
+    <h1>
 
-    <!-- ================= ADD DEADLINE ================= -->
+      <img 
+        src="../imgs/hourglass.png"
+        class="title-icon"
+        alt=""
+      >
+
+      Deadline Management
+
+    </h1>
+
+    <p>
+
+      <img 
+        src="../imgs/checkMark.png"
+        class="mini-icon"
+        alt=""
+      >
+
+      Track your assignments and exams easily.
+
+    </p>
+
+    <!-- ================= ADD DEADLINE CARD ================= -->
     <div class="card">
-      <h2>Add New Deadline</h2>
+
+      <h2>
+
+        <img 
+          src="../imgs/purpleBook.png"
+          class="section-icon"
+          alt=""
+        >
+
+        Add New Deadline
+
+      </h2>
 
       <div class="deadline-row">
 
-        <!-- Task Name -->
-        <input type="text" id="taskName" placeholder="Enter subject / task name" />
+        <!-- COURSE -->
+        <select id="taskCourse">
 
-        <!-- Type -->
-        <select id="taskType">
-          <option value="">Type</option>
-          <option value="Exam">Exam</option>
-          <option value="Assignment">Assignment</option>
+          <option value="">
+            Select Course
+          </option>
+
         </select>
 
-        <!-- Date -->
-        <input type="date" id="taskDate" />
+        <!-- TASK TITLE -->
+        <input
+          type="text"
+          id="taskName"
+          placeholder="Enter task title"
+        />
 
-        <!-- Add Button (right side) -->
-        <button id="addDeadlineBtn" class="btn">Add</button>
+        <!-- TYPE -->
+        <select id="taskType">
+
+          <option value="">
+            Type
+          </option>
+
+          <option value="Exam">
+            Exam
+          </option>
+
+          <option value="Assignment">
+            Assignment
+          </option>
+
+        </select>
+
+        <!-- DATE -->
+        <input 
+          type="date" 
+          id="taskDate" 
+        />
+
+        <!-- ADD BUTTON -->
+        <button id="addDeadlineBtn" class="btn">
+
+          <img 
+            src="../imgs/checkMark.png"
+            class="btn-icon"
+            alt=""
+          >
+
+          Add
+
+        </button>
 
       </div>
+
     </div>
 
-    <!-- ================= DEADLINE LIST ================= -->
+    <!-- ================= DEADLINES LIST ================= -->
     <div class="card">
-      <h2>Upcoming Deadlines</h2>
 
+      <h2>
+
+        <img 
+          src="../imgs/clock.png"
+          class="section-icon"
+          alt=""
+        >
+
+        Upcoming Deadlines
+
+      </h2>
+
+      <!-- DEADLINES -->
       <div id="deadlinesContainer"></div>
 
+      <!-- EMPTY STATE -->
       <div id="emptyDeadlines" class="empty-state">
-        No deadlines added yet.
+
+        <img 
+          src="../imgs/wavingHand.png"
+          class="empty-icon"
+          alt=""
+        >
+
+        <p>No deadlines added yet.</p>
+
       </div>
+
     </div>
 
   </div>
@@ -92,22 +227,64 @@
 
     <div class="modal-content">
 
-      <span class="close-modal" id="closeModal">✖</span>
+      <!-- CLOSE -->
+      <span class="close-modal" id="closeModal">
+        ✖
+      </span>
 
-      <h2>Edit Deadline</h2>
+      <h2>
 
-      <input type="text" id="editTitle" placeholder="Edit title" />
+        <img 
+          src="../imgs/pinkBook.png"
+          class="section-icon"
+          alt=""
+        >
 
+        Edit Deadline
+
+      </h2>
+
+      <!-- TITLE -->
+      <input
+        type="text"
+        id="editTitle"
+        placeholder="Edit title"
+      />
+
+      <!-- TYPE -->
       <select id="editType">
-        <option value="Exam">Exam</option>
-        <option value="Assignment">Assignment</option>
+
+        <option value="Exam">
+          Exam
+        </option>
+
+        <option value="Assignment">
+          Assignment
+        </option>
+
       </select>
 
-      <input type="date" id="editDate" />
+      <!-- DATE -->
+      <input 
+        type="date" 
+        id="editDate" 
+      />
 
-      <button id="saveEditBtn" class="btn">Save Changes</button>
+      <!-- SAVE -->
+      <button id="saveEditBtn" class="btn">
+
+        <img 
+          src="../imgs/success.png"
+          class="btn-icon"
+          alt=""
+        >
+
+        Save Changes
+
+      </button>
 
     </div>
+
   </div>
 
   <!-- ================= TOAST ================= -->
@@ -117,4 +294,5 @@
   <script src="../js/deadlines.js"></script>
 
 </body>
+
 </html>
