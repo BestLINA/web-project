@@ -18,8 +18,12 @@ signupBtn.addEventListener("click", function () {
         password: password
     };
 
-    localStorage.setItem("user", JSON.stringify(user));
+let users = JSON.parse(localStorage.getItem("users")) || [];
 
+users.push(user);
+
+localStorage.setItem("users", JSON.stringify(users));
+localStorage.setItem("currentUser", JSON.stringify(user));
     alert("Account created successfully");
 
 window.location.href = "dashboard.html";});

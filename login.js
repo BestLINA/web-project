@@ -5,9 +5,14 @@ loginBtn.addEventListener("click", function () {
     const email = document.getElementById("loginEmail").value;
     const password = document.getElementById("loginPassword").value;
 
-    const savedUser = JSON.parse(localStorage.getItem("user"));
+    const users = JSON.parse(localStorage.getItem("users")) || [];
 
-    if (savedUser.email === email && savedUser.password === password) {
+    const foundUser = users.find(function (user) {
+    return user.email === email && user.password === password;
+    });
+
+    if (foundUser) {
+        localStorage.setItem("currentUser", JSON.stringify(foundUser));
 
         alert("Login successful");
 
