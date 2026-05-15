@@ -1,89 +1,155 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
     <title>Courses</title>
-    <link rel="stylesheet" href="../css/style.css">
-</head>
 
-<body>
+    <link rel="stylesheet" href="../css/style.css" />
+  </head>
 
-    <div class="header">
-        <div class="logo-area">
-            <img src="../imgs/AWJ_logo.png" alt="AWJ logo" width="100" id="siteLogo">
+  <body>
+    <!-- HEADER -->
 
+    <header class="header">
+      <div class="logo-area">
+        <img
+          src="../imgs/AWJ_logo.png"
+          alt="AWJ logo"
+          width="100"
+          id="siteLogo"
+        />
+      </div>
+
+      <div class="header-right">
+        <!-- Notification -->
+
+        <a href="Reminders.html" id="notifLink">
+          <img
+            src="../imgs/Notification.png"
+            class="notif-icon"
+            alt="notifications"
+          />
+        </a>
+
+        <!-- Theme Toggle -->
+
+        <button id="themeToggle" class="dark-mode-btn">
+          <img id="themeIcon" src="../imgs/Moon.png" alt="theme icon" />
+        </button>
+      </div>
+    </header>
+
+    <!-- SIDEBAR -->
+
+    <aside class="sidebar">
+      <div class="menu">
+        <a href="dashboard.html"> Dashboard </a>
+
+        <a href="courses.html" class="active"> Courses </a>
+
+        <a href="deadlines.html"> Deadlines </a>
+
+        <a href="availability.html"> Availability </a>
+
+        <a href="studyplan.html"> Study Plan </a>
+
+        <a href="progress.html"> Progress </a>
+      </div>
+
+      <a href="login.html" class="logout-link"> Logout </a>
+    </aside>
+
+    <!-- CONTENT -->
+
+    <main class="content">
+      <!-- PAGE TITLE -->
+
+      <div class="page-header">
+        <h1>📚 Course Management</h1>
+
+        <p>Organize and manage your courses easily.</p>
+      </div>
+
+      <!-- STATISTICS -->
+
+      <section class="stats-grid">
+        <div class="card stat-card">
+          <h3>Total Courses</h3>
+
+          <p class="big-number" id="totalCourses">0</p>
         </div>
-        <div class="header-right">
 
-            <!-- Notification (clickable) -->
-            <a href="Reminders.html" id="notifLink">
-                <img src="../imgs/Notification.png" class="notif-icon" alt="notifications">
-            </a>
+        <div class="card stat-card">
+          <h3>Most Active</h3>
 
-            <!-- Theme toggle -->
-            <button id="themeToggle" class="dark-mode-btn">
-                <img id="themeIcon" src="../imgs/Moon.png" alt="theme icon">
-            </button>
-
+          <p class="big-number small-text" id="activeCourse">-</p>
         </div>
-    </div>
+      </section>
 
-    <div class="sidebar">
-        <div class="menu">
-            <a href="dashboard.html"> Dashboard</a>
-            <a href="courses.html"> Courses</a>
-            <a href="deadlines.html"> Deadlines</a>
-            <a href="availability.html"> Availability</a>
-            <a href="studyplan.html"> Study Plan</a>
-            <a href="progress.html"> Progress</a>
+      <!-- ADD COURSE -->
+
+      <section class="card">
+        <h2>➕ Add New Course</h2>
+
+        <div class="course-form">
+          <input type="text" id="courseCode" placeholder="Course Code" />
+
+          <input type="text" id="courseName" placeholder="Course Name" />
+
+          <select id="courseColor">
+            <option value="#9b7edc">Purple</option>
+
+            <option value="#ff8fab">Pink</option>
+
+            <option value="#7ec8e3">Blue</option>
+
+            <option value="#8bd3c7">Mint</option>
+          </select>
+
+          <button id="addCourseBtn">Add Course</button>
         </div>
-        <a href="login.html" class="logout-link"> Logout</a>
-    </div>
+      </section>
 
-    <div class="content">
+      <!-- SEARCH -->
 
-        <h1> Course Management</h1>
-        <p>
-            Manage your academic courses efficiently. Add, update, or remove courses to keep your study planner
-            organized.
-        </p>
+      <section class="card">
+        <input
+          type="text"
+          id="searchInput"
+          placeholder="🔍 Search courses..."
+        />
+      </section>
 
-        <div class="card">
-            <h2>➕ Add a New Course</h2>
-            <div class="btn-row"> <input type="text" placeholder="Enter course name (e.g., SWE 381)">
-                <button class="btn">Add</button>
-            </div>
+      <!-- EMPTY STATE -->
+
+      <div id="emptyState" class="empty-state">No courses added yet 📚</div>
+
+      <!-- COURSES CONTAINER -->
+
+      <section id="coursesContainer" class="courses-grid"></section>
+
+      <!-- EDIT MODAL -->
+
+      <div id="editModal" class="modal">
+        <div class="modal-content">
+          <span id="closeModal" class="close-modal"> ✕ </span>
+
+          <h2>✏️ Edit Course</h2>
+
+          <input type="text" id="editCourseCode" placeholder="Course Code" />
+
+          <input type="text" id="editCourseName" placeholder="Course Name" />
+
+          <button id="saveEditBtn">Save Changes</button>
         </div>
+      </div>
+    </main>
 
-        <div class="card">
-            <h2>📖 My Courses</h2>
-
-            <div class="activity">
-                <div class="course-actions">
-                    <span><strong>SWE 381</strong> - Web Applications Development</span>
-                    <div>
-                        <button class="btn update-btn">Update🔄</button>
-                        <button class="btn delete-btn">Delete🗑️</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="activity">
-                <div class="course-actions">
-                    <span><strong>CS 101</strong> - Introduction to Programming</span>
-                    <div>
-                        <button class="btn update-btn">Update🔄</button>
-                        <button class="btn delete-btn">Delete🗑️</button>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </div>
     <script src="../js/theme.js"></script>
-    <script src="../js/courses.js"></script>
-</body>
 
+    <script src="../js/courses.js"></script>
+  </body>
 </html>
