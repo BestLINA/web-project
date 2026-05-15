@@ -5,40 +5,48 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Availability</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../css/style.css">
 </head>
 
 <body>
     <!-- Header -->
     <div class="header">
         <div class="logo-area">
-            <img src="imgs/AWJ_logo.png" alt="AWJ logo" width="100">
+            <img src="../imgs/AWJ_logo.png" alt="AWJ logo" width="100" id="siteLogo">
         </div>
-        <div class="reminder-icon">
-            <a href="Reminders.html">
-                <img src="imgs/Notification.png" class="notif-icon" alt="notifications">
+        <div class="header-right">
+
+            <!-- Notification (clickable) -->
+            <a href="Reminders.html" id="notifLink">
+                <img src="../imgs/Notification.png" class="notif-icon" alt="notifications">
             </a>
+
+            <!-- Theme toggle -->
+            <button id="themeToggle" class="dark-mode-btn">
+                <img id="themeIcon" src="../imgs/Moon.png" alt="theme icon">
+            </button>
+
         </div>
     </div>
 
     <!-- Sidebar -->
     <div class="sidebar">
         <div class="menu">
-            <a href="dashboard.html">🏠 Dashboard</a>
-            <a href="courses.html">📚 Courses</a>
-            <a href="deadlines.html">📅 Deadlines</a>
-            <a href="availability.html">⏰ Availability</a>
-            <a href="studyplan.html">📝 Study Plan</a>
-            <a href="progress.html">📈 Progress</a>
+            <a href="dashboard.html"> Dashboard</a>
+            <a href="courses.html"> Courses</a>
+            <a href="deadlines.html"> Deadlines</a>
+            <a href="availability.html"> Availability</a>
+            <a href="studyplan.html"> Study Plan</a>
+            <a href="progress.html"> Progress</a>
         </div>
-        <a href="login.html" class="logout-link">🚪 Logout</a>
+        <a href="login.html" class="logout-link"> Logout</a>
     </div>
     <div class="content">
 
         <div class="availability-top">
 
             <div class="availability-header">
-                <h1>⏰My Availability</h1>
+                <h1>My Availability</h1>
             </div>
 
             <p class="availability-subtitle">Set your weekly study hours</p>
@@ -529,7 +537,7 @@
             <!-- RIGHT SIDE -->
             <div class="availability-tips">
                 <div class="availability-tips-header">
-                    <img src="imgs/purpleLightbulb.png" class="availability-tip-icon" alt="purple light bulb icon">
+                    <img src="../imgs/purpleLightbulb.png" class="availability-tip-icon" alt="purple light bulb icon">
                     <h2>Quick Tips</h2>
                 </div>
 
@@ -546,6 +554,8 @@
             <button class="availability-save-btn">Save Availability</button>
         </div>
     </div>
+    <script src="../js/theme.js"></script>
+    <script src="../js/availability.js"></script>
 </body>
 
 </html>

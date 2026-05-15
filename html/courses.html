@@ -5,38 +5,46 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Courses</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../css/style.css">
 </head>
 
 <body>
 
     <div class="header">
         <div class="logo-area">
-            <img src="imgs/AWJ_logo.png" alt="AWJ logo" width="100">
+            <img src="../imgs/AWJ_logo.png" alt="AWJ logo" width="100" id="siteLogo">
 
         </div>
-        <div class="reminder-icon">
-            <a href="Reminders.html">
-                <img src="imgs/Notification.png" class="notif-icon" alt="notifications">
+        <div class="header-right">
+
+            <!-- Notification (clickable) -->
+            <a href="Reminders.html" id="notifLink">
+                <img src="../imgs/Notification.png" class="notif-icon" alt="notifications">
             </a>
+
+            <!-- Theme toggle -->
+            <button id="themeToggle" class="dark-mode-btn">
+                <img id="themeIcon" src="../imgs/Moon.png" alt="theme icon">
+            </button>
+
         </div>
     </div>
 
     <div class="sidebar">
         <div class="menu">
-            <a href="dashboard.html">🏠 Dashboard</a>
-            <a href="courses.html">📚 Courses</a>
-            <a href="deadlines.html">📅 Deadlines</a>
-            <a href="availability.html">⏰ Availability</a>
-            <a href="studyplan.html">📝 Study Plan</a>
-            <a href="progress.html">📈 Progress</a>
+            <a href="dashboard.html"> Dashboard</a>
+            <a href="courses.html"> Courses</a>
+            <a href="deadlines.html"> Deadlines</a>
+            <a href="availability.html"> Availability</a>
+            <a href="studyplan.html"> Study Plan</a>
+            <a href="progress.html"> Progress</a>
         </div>
-        <a href="login.html" class="logout-link">🚪 Logout</a>
+        <a href="login.html" class="logout-link"> Logout</a>
     </div>
 
     <div class="content">
 
-        <h1>📚 Course Management</h1>
+        <h1> Course Management</h1>
         <p>
             Manage your academic courses efficiently. Add, update, or remove courses to keep your study planner
             organized.
@@ -56,8 +64,8 @@
                 <div class="course-actions">
                     <span><strong>SWE 381</strong> - Web Applications Development</span>
                     <div>
-                      <button class="btn update-btn">Update🔄</button>
-                       <button class="btn delete-btn">Delete🗑️</button>
+                        <button class="btn update-btn">Update🔄</button>
+                        <button class="btn delete-btn">Delete🗑️</button>
                     </div>
                 </div>
             </div>
@@ -66,15 +74,16 @@
                 <div class="course-actions">
                     <span><strong>CS 101</strong> - Introduction to Programming</span>
                     <div>
-                       <button class="btn update-btn">Update🔄</button>
-                       <button class="btn delete-btn">Delete🗑️</button>
+                        <button class="btn update-btn">Update🔄</button>
+                        <button class="btn delete-btn">Delete🗑️</button>
                     </div>
                 </div>
             </div>
 
         </div>
     </div>
-
+    <script src="../js/theme.js"></script>
+    <script src="../js/courses.js"></script>
 </body>
 
 </html>

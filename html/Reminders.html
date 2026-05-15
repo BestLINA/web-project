@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reminders</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../css/style.css">
 
 </head>
 
@@ -13,27 +13,35 @@
     <!-- Header -->
     <div class="header">
         <div class="logo-area">
-            <img src="imgs/AWJ_logo.png" alt="AWJ logo" width="100">
+            <img src="../imgs/AWJ_logo.png" alt="AWJ logo" width="100" id="siteLogo">
 
         </div>
-        <div class="reminder-icon">
-            <a href="Reminders.html">
-                <img src="imgs/Notification.png" class="notif-icon" alt="notifications">
+        <div class="header-right">
+
+            <!-- Notification (clickable) -->
+            <a href="Reminders.html" id="notifLink">
+                <img src="../imgs/Notification.png" class="notif-icon" alt="notifications">
             </a>
+
+            <!-- Theme toggle -->
+            <button id="themeToggle" class="dark-mode-btn">
+                <img id="themeIcon" src="../imgs/Moon.png" alt="theme icon">
+            </button>
+
         </div>
     </div>
 
     <!-- Sidebar -->
     <div class="sidebar">
         <div class="menu">
-            <a href="dashboard.html">🏠 Dashboard</a>
-            <a href="courses.html">📚 Courses</a>
-            <a href="deadlines.html">📅 Deadlines</a>
-            <a href="availability.html">⏰ Availability</a>
-            <a href="studyplan.html">📝 Study Plan</a>
-            <a href="progress.html">📈 Progress</a>
+            <a href="dashboard.html"> Dashboard</a>
+            <a href="courses.html"> Courses</a>
+            <a href="deadlines.html"> Deadlines</a>
+            <a href="availability.html"> Availability</a>
+            <a href="studyplan.html"> Study Plan</a>
+            <a href="progress.html"> Progress</a>
         </div>
-        <a href="login.html" class="logout-link">🚪 Logout</a>
+        <a href="login.html" class="logout-link"> Logout</a>
     </div>
     <div class=" content reminders-container">
 
@@ -50,7 +58,7 @@
             <!-- ITEM 1 -->
             <div class="reminder-item">
                 <div class="reminder-left">
-                    <img src="imgs/purpleLightbulb.png" class="reminder-icon" alt="purple light bulb icon">
+                    <img src="../imgs/purpleLightbulb.png" class="reminder-icon" alt="purple light bulb icon">
 
                     <div class="reminder-text">
                         <div class="reminder-title">Homework #3 due tomorrow</div>
@@ -67,7 +75,7 @@
             <!-- ITEM 2 -->
             <div class="reminder-item">
                 <div class="reminder-left">
-                    <img src="imgs/clock.png" class="reminder-icon" alt="clock icon">
+                    <img src="../imgs/clock.png" class="reminder-icon" alt="clock icon">
 
                     <div class="reminder-text">
                         <div class="reminder-title">Study session scheduled today</div>
@@ -85,7 +93,7 @@
             <!-- ITEM 3 -->
             <div class="reminder-item">
                 <div class="reminder-left">
-                    <img src="imgs/warning.png" class="reminder-icon" alt="warning icon">
+                    <img src="../imgs/warning.png" class="reminder-icon" alt="warning icon">
 
                     <div class="reminder-text">
                         <div class="reminder-title">Midterm Exam is overdue</div>
@@ -101,7 +109,7 @@
             <!-- ITEM 4 -->
             <div class="reminder-item">
                 <div class="reminder-left">
-                    <img src="imgs/purpleLightbulb.png" class="reminder-icon" alt="purple light bulb icon">
+                    <img src="../imgs/purpleLightbulb.png" class="reminder-icon" alt="purple light bulb icon">
 
                     <div class="reminder-text">
                         <div class="reminder-title">Plan next assignment</div>
@@ -119,7 +127,8 @@
         </div>
 
     </div>
-
+    <script src="../js/theme.js"></script>
+    <script src="../js/Reminders.js"></script>
 </body>
 
 </html>
