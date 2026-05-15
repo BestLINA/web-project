@@ -3,6 +3,12 @@
 ========================= */
 
 document.addEventListener("DOMContentLoaded", () => {
+  
+  const currentUser =
+JSON.parse(localStorage.getItem("currentUser"));
+
+const storageKey =
+"courses_" + currentUser.id;
   /* ELEMENTS */
 
   const courseCode = document.getElementById("courseCode");
@@ -25,8 +31,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   /* LOAD COURSES */
 
-  let courses = JSON.parse(localStorage.getItem("courses")) || [];
-
+let courses =
+JSON.parse(localStorage.getItem(storageKey)) || [];
   /* RENDER COURSES */
 
   function renderCourses(filteredCourses = courses) {
@@ -156,7 +162,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function saveCourses() {
     localStorage.setItem(
-      "courses",
+      storageKey,
 
       JSON.stringify(courses),
     );
