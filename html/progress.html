@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Your Progress</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../css/style.css">
 </head>
 
 <body>
@@ -13,33 +13,41 @@
     <!-- Header -->
     <div class="header">
         <div class="logo-area">
-            <img src="imgs/AWJ_logo.png" alt="AWJ logo" width="100">
+            <img src="../imgs/AWJ_logo.png" alt="AWJ logo" width="100" id="siteLogo">
 
         </div>
-        <div class="reminder-icon">
-            <a href="Reminders.html">
-                <img src="imgs/Notification.png" class="notif-icon" alt="notifications">
+        <div class="header-right">
+
+            <!-- Notification (clickable) -->
+            <a href="Reminders.html" id="notifLink">
+                <img src="../imgs/Notification.png" class="notif-icon" alt="notifications">
             </a>
+
+            <!-- Theme toggle -->
+            <button id="themeToggle" class="dark-mode-btn">
+                <img id="themeIcon" src="../imgs/Moon.png" alt="theme icon">
+            </button>
+
         </div>
     </div>
 
     <!-- Sidebar -->
     <div class="sidebar">
         <div class="menu">
-            <a href="dashboard.html">🏠 Dashboard</a>
-            <a href="courses.html">📚 Courses</a>
-            <a href="deadlines.html">📅 Deadlines</a>
-            <a href="availability.html">⏰ Availability</a>
-            <a href="studyplan.html">📝 Study Plan</a>
-            <a href="progress.html">📈 Progress</a>
+            <a href="dashboard.html"> Dashboard</a>
+            <a href="courses.html"> Courses</a>
+            <a href="deadlines.html"> Deadlines</a>
+            <a href="availability.html"> Availability</a>
+            <a href="studyplan.html"> Study Plan</a>
+            <a href="progress.html"> Progress</a>
         </div>
-        <a href="login.html" class="logout-link">🚪 Logout</a>
+        <a href="login.html" class="logout-link"> Logout</a>
     </div>
 
     <!-- Content -->
     <div class="content">
 
-        <h1>📊 Study Progress</h1>
+        <h1> Study Progress</h1>
 
         <div class="card">
             <p>Track your completed, pending, and missed study sessions through a simple progress overview.</p>
@@ -99,7 +107,8 @@
         </div>
 
     </div>
-
+    <script src="../js/theme.js"></script>
+    <script src="../js/progress.js"></script>
 </body>
 
 </html>
