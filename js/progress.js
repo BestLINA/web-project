@@ -1,102 +1,284 @@
-// ========================================================
+/* =========================
+   PROGRESS SYSTEM
+========================= */
 
-document.addEventListener('DOMContentLoaded', () => {
-    // Kick unauthorized users out back to login immediately
-    const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+document.addEventListener("DOMContentLoaded", () => {
+
+    /* =========================
+       LOGIN CHECK
+    ========================= */
+
+    const currentUser =
+    JSON.parse(localStorage.getItem("currentUser"));
+
     if (!currentUser) {
         window.location.href = "../html/login.html";
-        return;
     }
 
-    // DOM Elements
-    const themeButton = document.getElementById("themeToggle");
-    const themeIcon = document.getElementById("themeIcon");
-    const siteLogo = document.getElementById("siteLogo");
-    const notificationLink = document.getElementById("notifLink");
+    /* =========================
+       STORAGE KEYS
+    ========================= */
 
-    // Unified helper to check if dark class is active on body
-    function isDarkMode() {
-        return document.body.classList.contains("dark");
+    const coursesKey =
+    "courses_" + currentUser.id;
+
+    const deadlinesKey =
+    "deadlines_" + currentUser.id;
+
+    const availabilityKey =
+    "availability_" + currentUser.id;
+
+    /* =========================
+       LOAD DATA
+    ========================= */
+
+    const courses =
+    JSON.parse(localStorage.getItem(coursesKey)) || [];
+
+    const deadlines =
+    JSON.parse(localStorage.getItem(deadlinesKey)) || [];
+
+    const availability =
+    JSON.parse(localStorage.getItem(availabilityKey)) || [];
+
+    /* =========================
+       ELEMENTS
+    ========================= */
+
+    const progressPercent =
+    document.getElementById("progressPercent");
+
+    const completedInfo =
+    document.getElementById("completedInfo");
+
+    const pendingInfo =
+    document.getElementById("pendingInfo");
+
+    const missedInfo =
+    document.getElementById("missedInfo");
+
+    const recentActivity =
+    document.getElementById("recentActivity");
+
+    const completedTasks =
+    document.getElementById("completedTasks");
+
+    const pendingTasks =
+    document.getElementById("pendingTasks");
+
+    const missedTasks =
+    document.getElementById("missedTasks");
+
+    const studyHours =
+    document.getElementById("studyHours");
+
+    const pieChart =
+    document.getElementById("pieChart");
+
+    /* =========================
+       COUNTERS
+    ========================= */
+
+    let completed = 0;
+
+    let pending = 0;
+
+    let missed = 0;
+
+    let totalStudyHours = 0;
+
+    /* =========================
+       DAYS LEFT FUNCTION
+    ========================= */
+
+    function getDaysLeft(date) {
+
+        const today = new Date();
+
+        const target = new Date(date);
+
+        const diff =
+        target - today;
+
+        return Math.ceil(
+            diff / (1000 * 60 * 60 * 24)
+        );
     }
 
-    // Switch image assets dynamically based on current theme state
-    function updateThemeAssets() {
-        if (isDarkMode()) {
-            if (themeIcon) themeIcon.src = "../imgs/Sun.png";
-            if (siteLogo) siteLogo.src = "../imgs/AWJ_logo_pink.png";
-        } else {
-            if (themeIcon) themeIcon.src = "../imgs/Moon.png";
-            if (siteLogo) siteLogo.src = "../imgs/AWJ_logo.png";
+    /* =========================
+       CALCULATE DEADLINES
+    ========================= */
+
+    deadlines.forEach(item => {
+
+        const daysLeft =
+        getDaysLeft(item.date);
+
+        if (item.completed) {
+
+            completed++;
+
         }
-    }
 
-    // Sync theme settings with global key used across all project files
-    function loadSavedTheme() {
-        const savedTheme = localStorage.getItem("awj_dark_mode");
+        else if (daysLeft < 0) {
 
-        if (savedTheme === "enabled") {
-            document.body.classList.add("dark");
-        } else {
-            document.body.classList.remove("dark");
+            missed++;
+
         }
-        updateThemeAssets();
-    }
 
-    // Toggle theme and update persistent storage tracking state
-    function toggleTheme() {
-        document.body.classList.toggle("dark");
-        
-        if (isDarkMode()) {
-            localStorage.setItem("awj_dark_mode", "enabled");
-        } else {
-            localStorage.setItem("awj_dark_mode", "disabled");
+        else {
+
+            pending++;
+
         }
-        updateThemeAssets();
+    });
+
+    /* =========================
+       CALCULATE STUDY HOURS
+    ========================= */
+
+    availability.forEach(day => {
+
+        const start =
+        parseInt(day.start);
+
+        const end =
+        parseInt(day.end);
+
+        totalStudyHours +=
+        end - start;
+    });
+
+    /* =========================
+       PROGRESS PERCENTAGE
+    ========================= */
+
+    const totalTasks =
+    completed + pending + missed;
+
+    let completedPercent = 0;
+
+    if (totalTasks > 0) {
+
+        completedPercent =
+        Math.floor(
+            (completed / totalTasks) * 100
+        );
     }
 
-    // Handle smart notification navigation paths
-    function handleNotificationNavigation(event) {
-        const currentPage = window.location.pathname;
+    /* =========================
+       PIE CHART
+    ========================= */
 
-        if (currentPage.includes("html/Reminders.html")) {
-            event.preventDefault();
-            window.location.href = "../html/dashboard.html";
+    progressPercent.innerText =
+    `${completedPercent}%`;
+
+    pieChart.style.background = `
+
+        conic-gradient(
+
+            #22c55e 0%
+            ${completedPercent}%,
+
+            #3b82f6
+            ${completedPercent}%
+            ${completedPercent + 25}%,
+
+            #facc15
+            ${completedPercent + 25}% 100%
+
+        )
+
+    `;
+
+    /* =========================
+       OVERVIEW INFO
+    ========================= */
+
+    completedInfo.innerHTML = `
+        <span class="box green"></span>
+        ✔ Completed (${completed})
+    `;
+
+    pendingInfo.innerHTML = `
+        <span class="box blue"></span>
+        ⏳ Pending (${pending})
+    `;
+
+    missedInfo.innerHTML = `
+        <span class="box yellow"></span>
+        ❌ Missed (${missed})
+    `;
+
+    /* =========================
+       RECENT ACTIVITY
+    ========================= */
+
+    recentActivity.innerHTML = "";
+
+    deadlines.slice(0, 5).forEach(item => {
+
+        let status = "";
+
+        let icon = "";
+
+        const daysLeft =
+        getDaysLeft(item.date);
+
+        if (item.completed) {
+
+            status = "Completed";
+
+            icon = "✔";
         }
-    }
 
-    // Highlight the active menu item inside sidebar component navigation
-    function activateCurrentMenuItem() {
-        const links = document.querySelectorAll(".sidebar .menu a");
-        links.forEach((link) => {
-            const linkFile = link.getAttribute("href");
-            
-            // Strictly highlight progress page on this view
-            if (linkFile === "progress.html") {
-                link.classList.add("active");
-            } else {
-                link.classList.remove("active");
-            }
-        });
-    }
+        else if (daysLeft < 0) {
 
-    // Trigger visual entry animations for the loaded progress cards
-    function animateProgressCards() {
-        window.requestAnimationFrame(() => {
-            document.body.classList.add("ready");
-        });
-    }
+            status = "Missed";
 
-    // Fire initialization setup routines
-    loadSavedTheme();
-    activateCurrentMenuItem();
-    animateProgressCards();
+            icon = "❌";
+        }
 
-    // Event Listeners bind setup
-    if (themeButton) {
-        themeButton.addEventListener("click", toggleTheme);
-    }
+        else {
 
-    if (notificationLink) {
-        notificationLink.addEventListener("click", handleNotificationNavigation);
-    }
+            status = "Pending";
+
+            icon = "⏳";
+        }
+
+        recentActivity.innerHTML += `
+
+            <div class="activity">
+
+                <p>
+                    <strong>
+                        📘 ${item.title}
+                    </strong>
+                </p>
+
+                <p>
+                    ${icon} ${status}
+                </p>
+
+            </div>
+
+        `;
+    });
+
+    /* =========================
+       SUMMARY
+    ========================= */
+
+    completedTasks.innerText =
+    `✔ Completed Tasks: ${completed}`;
+
+    pendingTasks.innerText =
+    `⏳ Pending Tasks: ${pending}`;
+
+    missedTasks.innerText =
+    `❌ Missed Tasks: ${missed}`;
+
+    studyHours.innerText =
+    `⏱ Study Hours: ${totalStudyHours}`;
+
 });
