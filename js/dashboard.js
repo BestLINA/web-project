@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
- 
+    
     // ── 1. LOGIN CHECK ────────────────────────────────────────
     const currentUser = JSON.parse(localStorage.getItem("currentUser"));
     if (!currentUser) {
@@ -33,7 +33,6 @@ document.addEventListener("DOMContentLoaded", () => {
         studyProgress.missedSessions = [];
     }
  
-    // Convert availability array to slot map
     const availabilityMap = {};
     rawAvailability.forEach(entry => {
         const startH = parseInt(entry.start.split(":")[0], 10);
@@ -67,7 +66,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const focusRate         = totalSessions > 0 ? Math.round((completed / (completed + missed || 1)) * 100) : 0;
     const productivityScore = progressPercent;
  
-    // Update metric cards
     document.getElementById("hoursNumber").innerText        = totalSessions;
     document.getElementById("sessionsNumber").innerText     = completed;
     document.getElementById("focusNumber").innerText        = `${focusRate}%`;
@@ -112,7 +110,6 @@ document.addEventListener("DOMContentLoaded", () => {
  
     const API_KEY = "AIzaSyBCOGvtuTuQkJPHVjiABvjJT7mWeUexk4E";
  
-    // Toggle Chat Window
     if (openChatBtn && aiWindow) {
         openChatBtn.addEventListener("click", () => aiWindow.classList.add("open"));
     }
@@ -129,7 +126,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
  
     if (sendBtn && userInput && chatBox) {
-        sendBtn.addEventListener("click", async () => {
+        const handleSendMessage = async () => {
             const userMessage = userInput.value.trim();
             if (userMessage === "") return;
  
@@ -137,34 +134,47 @@ document.addEventListener("DOMContentLoaded", () => {
             userInput.value = "";
  
             try {
-                const response = await fetch(
-                    "https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent",
-                    {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json",
-                            "x-goog-api-key": API_KEY
-                        },
-                        body: JSON.stringify({
-                            contents: [{
-                                parts: [{
-                                    text: `You are a helpful study assistant for university students. Keep answers short and helpful. User: ${userMessage}`
-                                }]
-                            }]
-                        })
-                    }
-                );
+                const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${API_KEY}`;
  
-                const data    = await response.json();
+                const response = await fetch(url, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        contents: [{
+                            parts: [{
+                                text: `You are a helpful study assistant for university students. Keep answers short and helpful. User: ${userMessage}`
+                            }]
+                        }]
+                    })
+                });
+ 
+                const data = await response.json();
+                
+                if (!response.ok) {
+                    const geoError = data.error?.message || JSON.stringify(data);
+                    throw new Error(`API Error (${response.status}): ${geoError}`);
+                }
+
                 const aiReply = data?.candidates?.[0]?.content?.parts?.[0]?.text;
  
                 if (aiReply) {
                     appendMessage(aiReply, "ai");
                 } else {
-                    throw new Error("Invalid response schema");
+                    throw new Error("Invalid response structure from server infrastructure");
                 }
             } catch (error) {
-                appendMessage("⚠️ Error connecting to Gemini AI.", "ai");
+                console.error("Fetch Error:", error);
+                appendMessage(`⚠️ Connection Error: ${error.message}`, "ai");
+            }
+        };
+
+        sendBtn.addEventListener("click", handleSendMessage);
+
+        userInput.addEventListener("keydown", (event) => {
+            if (event.key === "Enter") {
+                handleSendMessage();
             }
         });
     }
