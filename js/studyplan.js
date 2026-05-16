@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Redirect to login if no user session is found
     if (!currentUser) {
-        window.location.href = "login.html";
+        window.location.href = "../html/login.html";
         return;
     }
 
@@ -23,11 +23,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const summaryContainer = document.getElementById('dynamicSummaryContent');
 
     // Fetch user-specific data from LocalStorage
-    const userAvailability = JSON.parse(localStorage.getItem(`availability_${currentUser.email}`)) || {};
-    const userCourses = JSON.parse(localStorage.getItem(`courses_${currentUser.email}`)) || [];
+    const userAvailability = JSON.parse(localStorage.getItem(`availability_${currentUser.id}`)) || {};
+    const userCourses = JSON.parse(localStorage.getItem(`courses_${currentUser.id}`)) || [];
     
     // Initialize or load existing progress data
-    let studyProgress = JSON.parse(localStorage.getItem(`progress_${currentUser.email}`)) || { 
+    let studyProgress = JSON.parse(localStorage.getItem(`progress_${currentUser.id}`)) || { 
         completedSessions: [], 
         totalSessions: 0 
     };
@@ -123,7 +123,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         // Persist data to LocalStorage
-        localStorage.setItem(`progress_${currentUser.email}`, JSON.stringify(studyProgress));
+        localStorage.setItem(`progress_${currentUser.id}`, JSON.stringify(studyProgress));
         updateSummary();
         
         // Visual feedback to user
