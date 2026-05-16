@@ -91,3 +91,11 @@ function updateNotifDot() {
 }
 
 updateNotifDot();
+// highlight the current page in the sidebar
+const currentPage = window.location.pathname.split("/").pop().toLowerCase();
+const links = document.querySelectorAll(".sidebar a");
+links.forEach(link => {
+    if (link.getAttribute("href").toLowerCase() === currentPage) {
+        link.classList.add("active");
+    }
+});

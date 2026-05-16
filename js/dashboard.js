@@ -92,12 +92,12 @@ document.addEventListener("DOMContentLoaded", () => {
   studyHours.forEach((item) => {
     studyStats.innerHTML += `
 
-            <p>
-                📚 ${item.day} :
-                ${item.hours} hours
-            </p>
+        <p>
+            <img src="../imgs/books.png" class="mini-icon" alt=""> ${item.day} :
+            ${item.hours} hours
+        </p>
 
-        `;
+    `;
   });
 
   /* =========================
