@@ -1625,14 +1625,13 @@ body.dark .availability-tip {
   border-bottom: none;
 }
 
-.availability-flower {
-  color: #9b7edc;
+.availability-pin {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
   margin-right: 4px;
   flex-shrink: 0;
-}
-
-body.dark .availability-flower {
-  color: #ffb3c7;
+  vertical-align: middle;
 }
 
 .availability-bottom {
