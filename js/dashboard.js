@@ -1,40 +1,39 @@
 document.addEventListener("DOMContentLoaded", () => {
-    
-    // Check if user is logged in safely
+ 
+    // ── 1. LOGIN CHECK ────────────────────────────────────────
     const currentUser = JSON.parse(localStorage.getItem("currentUser"));
     if (!currentUser) {
         window.location.href = "../html/login.html";
         return;
     }
-
-    /* ==========================================
-       WELCOME MESSAGE GREETING
-       ========================================== */
+ 
+    // ── 2. WELCOME GREETING ───────────────────────────────────
     const welcomeText = document.getElementById("welcomeText");
     const hour = new Date().getHours();
     let greeting = "Good Evening";
-
+ 
     if (hour < 12) {
         greeting = "Good Morning";
     } else if (hour < 18) {
         greeting = "Good Afternoon";
     }
-
+ 
     if (welcomeText) {
-        welcomeText.innerHTML = `${greeting}, ${currentUser.fullName} <img src="../imgs/wavingHand.png" alt="waving hand" class="wave-icon">`;
+        welcomeText.innerHTML = `
+            ${greeting}, ${currentUser.fullName} 
+            <img src="../imgs/wavingHand.png" alt="waving hand" class="wave-icon">
+        `;
     }
-
-    /* ==========================================
-       DYNAMIC SYNCHRONIZATION WITH PROGRESS DATA
-       ========================================== */
+ 
+    // ── 3. LOAD & SYNC DATA ───────────────────────────────────
     const rawAvailability = JSON.parse(localStorage.getItem(`availability_${currentUser.id}`)) || [];
-    const studyProgress = JSON.parse(localStorage.getItem(`progress_${currentUser.id}`)) || { completedSessions: [], missedSessions: [] };
-    
+    const studyProgress   = JSON.parse(localStorage.getItem(`progress_${currentUser.id}`)) || { completedSessions: [], missedSessions: [] };
+ 
     if (!studyProgress.missedSessions) {
         studyProgress.missedSessions = [];
     }
-
-    // Build map structure of hours slots per active days
+ 
+    // Convert availability array to slot map
     const availabilityMap = {};
     rawAvailability.forEach(entry => {
         const startH = parseInt(entry.start.split(":")[0], 10);
@@ -47,128 +46,99 @@ document.addEventListener("DOMContentLoaded", () => {
             availabilityMap[entry.day] = slots;
         }
     });
-
+ 
+    // ── 4. CALCULATE METRICS ──────────────────────────────────
     const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
     let totalSessions = 0;
     const weeklyHoursArray = [];
-
+ 
     daysOfWeek.forEach(day => {
         const hoursCount = availabilityMap[day] ? availabilityMap[day].length : 0;
         totalSessions += hoursCount;
         if (hoursCount > 0) {
-            weeklyHoursArray.push({ day: day, hours: hoursCount });
+            weeklyHoursArray.push({ day, hours: hoursCount });
         }
     });
-
+ 
     const completed = studyProgress.completedSessions.length;
-    const missed = studyProgress.missedSessions.length;
-
-    // Calculate percentage rates out of total generated slots
-    const progressPercent = totalSessions > 0 ? Math.floor((completed / totalSessions) * 100) : 0;
-    
-    // Productivity calculation formulation variants for UI metrics display
-    const focusRate = totalSessions > 0 ? Math.round(((completed) / (completed + missed || 1)) * 100) : 0;
-    const productivityScore = progressPercent; 
-
-    // Render calculated metric numbers cleanly to elements
-    document.getElementById("hoursNumber").innerText = totalSessions;
-    document.getElementById("sessionsNumber").innerText = completed;
-    document.getElementById("focusNumber").innerText = `${totalSessions > 0 ? focusRate : 0}%`;
+    const missed    = studyProgress.missedSessions.length;
+ 
+    const progressPercent   = totalSessions > 0 ? Math.floor((completed / totalSessions) * 100) : 0;
+    const focusRate         = totalSessions > 0 ? Math.round((completed / (completed + missed || 1)) * 100) : 0;
+    const productivityScore = progressPercent;
+ 
+    // Update metric cards
+    document.getElementById("hoursNumber").innerText        = totalSessions;
+    document.getElementById("sessionsNumber").innerText     = completed;
+    document.getElementById("focusNumber").innerText        = `${focusRate}%`;
     document.getElementById("productivityNumber").innerText = `${productivityScore}%`;
-
-    /* ==========================================
-       PROGRESS CIRCLE RENDERING
-       ========================================== */
+ 
+    // ── 5. PROGRESS CIRCLE ────────────────────────────────────
     const progressTextEl = document.getElementById("progressText");
     if (progressTextEl) {
         progressTextEl.innerText = `${progressPercent}%`;
     }
-
-    // Update circular progress via conical gradient masking dynamically
+ 
     const progressCircle = document.getElementById("dashboardProgressCircle");
     if (progressCircle) {
-        progressCircle.style.background = `conic-gradient(#22c55e 0% ${progressPercent}%, #e2e8f0 ${progressPercent}% 100%)`;
+        progressCircle.style.setProperty("--progress", `${progressPercent}%`);
     }
-
-    /* ==========================================
-       WEEKLY STUDY HOURS TRACKER
-       ========================================== */
+ 
+    // ── 6. WEEKLY STUDY HOURS LIST ────────────────────────────
     const studyStats = document.getElementById("studyStats");
     if (studyStats) {
-        studyStats.innerHTML = "";
         if (weeklyHoursArray.length === 0) {
-            studyStats.innerHTML = `<p style="color:#aaa;">No availability configurations submitted yet.</p>`;
+            studyStats.innerHTML = `<p class="study-stats-empty">No availability configurations submitted yet.</p>`;
         } else {
-            weeklyHoursArray.forEach(item => {
-                studyStats.innerHTML += `
+            studyStats.innerHTML = weeklyHoursArray
+                .map(item => `
                     <p>
-                        <img src="../imgs/books.png" class="mini-icon" alt=""> ${item.day} : ${item.hours} hours
+                        <img src="../imgs/books.png" class="mini-icon" alt="">
+                        ${item.day} : ${item.hours} hours
                     </p>
-                `;
-            });
+                `).join("");
         }
     }
-
-    /* ==========================================
-       HOVER EFFECT CARDS ANIMATIONS
-       ========================================== */
-    const cards = document.querySelectorAll(".card");
-    cards.forEach(card => {
-        card.addEventListener("mouseenter", () => {
-            card.style.transform = "translateY(-5px)";
-        });
-        card.addEventListener("mouseleave", () => {
-            card.style.transform = "translateY(0px)";
-        });
-    });
 });
-
-/* ==========================================
-   GEMINI AI BOT FETCH & VALIDATION LOGIC
-   ========================================== */
+ 
+// ── 7. GEMINI AI CHAT MODULE ──────────────────────────────────
 document.addEventListener("DOMContentLoaded", () => {
-    const sendBtn = document.getElementById("sendBtn");
-    const userInput = document.getElementById("userInput");
-    const chatBox = document.getElementById("chatBox");
-    const openChatBtn = document.getElementById("openChatBtn");
-    const aiWindow = document.getElementById("aiWindow");
+    const sendBtn      = document.getElementById("sendBtn");
+    const userInput    = document.getElementById("userInput");
+    const chatBox      = document.getElementById("chatBox");
+    const openChatBtn  = document.getElementById("openChatBtn");
+    const aiWindow     = document.getElementById("aiWindow");
     const closeChatBtn = document.getElementById("closeChatBtn");
-
+ 
     const API_KEY = "AIzaSyBCOGvtuTuQkJPHVjiABvjJT7mWeUexk4E";
-
+ 
+    // Toggle Chat Window
     if (openChatBtn && aiWindow) {
-        openChatBtn.addEventListener("click", () => {
-            aiWindow.style.display = "flex";
-        });
+        openChatBtn.addEventListener("click", () => aiWindow.classList.add("open"));
     }
-
     if (closeChatBtn && aiWindow) {
-        closeChatBtn.addEventListener("click", () => {
-            aiWindow.style.display = "none";
-        });
+        closeChatBtn.addEventListener("click", () => aiWindow.classList.remove("open"));
     }
-
+ 
+    function appendMessage(text, type) {
+        const div     = document.createElement("div");
+        div.className = type === "user" ? "user-message" : "ai-message";
+        div.textContent = text;
+        chatBox.appendChild(div);
+        chatBox.scrollTop = chatBox.scrollHeight;
+    }
+ 
     if (sendBtn && userInput && chatBox) {
         sendBtn.addEventListener("click", async () => {
             const userMessage = userInput.value.trim();
-
-            // Input Validation - stops processing empty values
-            if (userMessage === "") {
-                return;
-            }
-
-            chatBox.innerHTML += `
-                <div class="user-message">
-                    ${userMessage}
-                </div>
-            `;
-
+            if (userMessage === "") return;
+ 
+            appendMessage(userMessage, "user");
             userInput.value = "";
-            chatBox.scrollTop = chatBox.scrollHeight;
-
+ 
             try {
                 const response = await fetch(
-                    `https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent`,
+                    "https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent",
                     {
                         method: "POST",
                         headers: {
@@ -176,41 +146,25 @@ document.addEventListener("DOMContentLoaded", () => {
                             "x-goog-api-key": API_KEY
                         },
                         body: JSON.stringify({
-                            contents: [
-                                {
-                                    parts: [
-                                        {
-                                            text: `You are a helpful study assistant for university students. Keep answers short and helpful. User: ${userMessage}`
-                                        }
-                                    ]
-                                }
-                            ]
+                            contents: [{
+                                parts: [{
+                                    text: `You are a helpful study assistant for university students. Keep answers short and helpful. User: ${userMessage}`
+                                }]
+                            }]
                         })
                     }
                 );
-
-                const data = await response.json();
-                
-                if (data && data.candidates && data.candidates[0].content.parts[0].text) {
-                    const aiReply = data.candidates[0].content.parts[0].text;
-                    chatBox.innerHTML += `
-                        <div class="ai-message">
-                            ${aiReply}
-                        </div>
-                    `;
+ 
+                const data    = await response.json();
+                const aiReply = data?.candidates?.[0]?.content?.parts?.[0]?.text;
+ 
+                if (aiReply) {
+                    appendMessage(aiReply, "ai");
                 } else {
-                    throw new Error("Invalid response schema layout");
+                    throw new Error("Invalid response schema");
                 }
-
-                chatBox.scrollTop = chatBox.scrollHeight;
-
             } catch (error) {
-                chatBox.innerHTML += `
-                    <div class="ai-message">
-                        ⚠️ Error connecting to Gemini AI.
-                    </div>
-                `;
-                chatBox.scrollTop = chatBox.scrollHeight;
+                appendMessage("⚠️ Error connecting to Gemini AI.", "ai");
             }
         });
     }

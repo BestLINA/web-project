@@ -4,14 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>AWJ - Weekly Study Plan</title>
     <link rel="stylesheet" href="../css/style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 
 <body class="study-plan-view">
 
-    <!-- Header -->
     <div class="header">
         <div class="logo-area">
             <img src="../imgs/AWJ_logo.png" alt="AWJ logo" width="100" id="siteLogo">
@@ -27,7 +26,6 @@
         </div>
     </div>
 
-    <!-- Sidebar -->
     <div class="sidebar">
         <div class="menu">
             <a href="dashboard.html">Dashboard</a>
@@ -40,29 +38,26 @@
         <a href="login.html" class="logout-link">Logout</a>
     </div>
 
-    <!-- Main Content -->
     <div class="content">
 
-        <!-- Hero Banner -->
         <div class="welcome-hero">
             <h1>Your Weekly Study Plan</h1>
             <p>Welcome to your personalized schedule. Your sessions are organized based on your availability
                to ensure peak productivity and consistent progress.</p>
             <div class="hero-meta">
                 <span class="week-tag">
-                    📆 Current Week: <strong id="currentWeekRange">Loading...</strong>
+                    <img src="../imgs/clock.png" class="section-icon" alt=""> Current Week: <strong id="currentWeekRange">Loading...</strong>
                 </span>
             </div>
         </div>
 
-        <!-- Study Table Card -->
         <div class="grid-card plan-container">
             <div class="card-header">
-                <div class="card-icon">📊</div>
+                <div class="card-icon"><img src="../imgs/graph.png" class="section-icon" alt=""></div>
                 <h2>Weekly Schedule</h2>
                 <p class="subtitle">
-                    Select a course, then mark sessions as <strong>Done</strong> ✅ or
-                    <strong>Missed</strong> ⚠️. Missed sessions are rescheduled automatically.
+                    Select a course, then mark sessions as <strong>Done</strong> <img src="../imgs/checkMark.png" class="mini-icon" alt=""> or
+                    <strong>Missed</strong> <img src="../imgs/warningRed.png" class="mini-icon" alt="">. Missed sessions are rescheduled automatically.
                 </p>
             </div>
 
@@ -70,14 +65,13 @@
                 <table class="study-table" id="dynamicStudyTable">
                     <thead>
                         <tr id="tableHeaderRow">
-                            <th>⏰ Time Slot</th>
+                            <th><img src="../imgs/clock.png" class="mini-icon" alt=""> Time Slot</th>
                         </tr>
                     </thead>
                     <tbody id="tableBody"></tbody>
                 </table>
             </div>
 
-            <!-- Empty state: shown when no availability is set -->
             <div id="tableEmptyState" style="display:none; text-align:center; padding:40px;">
                 <p style="color:#a4508b; font-weight:500;">
                     No study hours selected yet.
@@ -86,39 +80,35 @@
             </div>
         </div>
 
-        <!-- Bottom Cards Row -->
         <div class="study-grid">
 
-            <!-- Weekly Summary Card -->
             <div class="grid-card summary-card">
                 <div class="card-header">
-                    <div class="card-icon">🌟</div>
+                    <div class="card-icon"><img src="../imgs/success.png" class="section-icon" alt=""></div>
                     <h2>Weekly Summary</h2>
                 </div>
                 <div id="dynamicSummaryContent" class="summary-content-list"></div>
             </div>
 
-            <!-- Stay Motivated Card -->
             <div class="grid-card motivation-card">
                 <div class="card-header">
-                    <div class="card-icon">💡</div>
+                    <div class="card-icon"><img src="../imgs/purpleLightbulb.png" class="section-icon" alt=""></div>
                     <h2>Stay Motivated</h2>
                 </div>
                 <ul class="motivation-list">
-                    <li>📌 Consistency beats intensity — show up every day.</li>
-                    <li>🎯 Break big tasks into small sessions.</li>
-                    <li>🌙 Rest is part of the plan — don't skip recovery.</li>
-                    <li>🏆 Every completed session is a win worth celebrating.</li>
+                    <li><img src="../imgs/pin.png" class="mini-icon" alt=""> Consistency beats intensity — show up every day.</li>
+                    <li><img src="../imgs/success.png" class="mini-icon" alt=""> Break big tasks into small sessions.</li>
+                    <li><img src="../imgs/Moon.png" class="mini-icon" alt=""> Rest is part of the plan — don't skip recovery.</li>
+                    <li><img src="../imgs/success.png" class="mini-icon" alt=""> Every completed session is a win worth celebrating.</li>
                 </ul>
                 <div class="motivation-footer">
-                    <p>Keep going — you're building habits that last! 💪</p>
+                    <p>Keep going — you're building habits that last! <img src="../imgs/success.png" class="mini-icon" alt=""></p>
                 </div>
             </div>
 
         </div>
     </div>
 
-    <!-- Toast Notification -->
     <div id="toastNotification" class="toast"></div>
 
     <script src="../js/theme.js"></script>

@@ -90,12 +90,12 @@ document.addEventListener("DOMContentLoaded", () => {
         const c = completedPct;
         const m = c + missedPct;
         pieChartEl.style.background = `
-            conic-gradient(
-                #22c55e 0% ${c}%,
-                #ef4444 ${c}% ${m}%,
-                #3b82f6 ${m}% 100%
-            )
-        `;
+    conic-gradient(
+        #7FBF9A 0% ${c}%,
+        #D9788F ${c}% ${m}%,
+        #8A6FC7  ${m}% 100%
+    )
+    `;
     }
  
     // ── 8. LEGEND ─────────────────────────────────────────────
@@ -216,9 +216,9 @@ document.addEventListener("DOMContentLoaded", () => {
                     }).join('')}
                 </div>
                 <div class="chart-legend">
-                    <span><span class="legend-dot" style="background:#22c55e"></span> Done</span>
-                    <span><span class="legend-dot" style="background:#ef4444"></span> Missed</span>
-                    <span><span class="legend-dot" style="background:#3b82f6"></span> Pending</span>
+                    <span><span class="legend-dot" style="background:#7FBF9A"></span> Done</span>
+                    <span><span class="legend-dot" style="background:#D9788F"></span> Missed</span>
+                    <span><span class="legend-dot" style="background:#8A6FC7"></span> Pending</span>
                 </div>
             `;
         }

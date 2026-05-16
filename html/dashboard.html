@@ -1,115 +1,117 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard</title>
-  <link rel="stylesheet" href="../css/style.css">
-</head>
-
-<body>
-  
-  <header class="header">
-    <div class="logo-area">
-      <img src="../imgs/AWJ_logo.png" alt="AWJ logo" width="100" id="siteLogo">
-    </div>
-
-    <div class="header-right">
-      <a href="Reminders.html" id="notifLink" class="notif-wrapper">
-        <img src="../imgs/Notification.png" class="notif-icon" alt="notifications">
-        <span class="notif-dot" id="notifDot"></span>
-      </a>
-
-      <button id="themeToggle" class="dark-mode-btn">
-        <img id="themeIcon" src="../imgs/Moon.png" alt="theme icon">
-      </button>
-    </div>
-  </header>
-
-  <aside class="sidebar">
-    <nav class="menu">
-      <a href="dashboard.html">Dashboard</a>
-      <a href="courses.html">Courses</a>
-      <a href="deadlines.html">Deadlines</a>
-      <a href="availability.html">Availability</a>
-      <a href="studyplan.html">Study Plan</a>
-      <a href="progress.html">Progress</a>
-    </nav>
-    <a href="login.html" class="logout-link">Logout</a>
-  </aside>
-
-  <main class="content">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <section class="welcome-section">
-      <h1 id="welcomeText" class="welcome-title"></h1>
-      <p class="welcome-subtitle">Stay focused and achieve your goals</p>
-    </section>
+    <title>AWJ - Dashboard</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
 
-    <section class="stats-grid">
-      <div class="card stat-card">
-        <h3 class="card-title">Total Study Hours</h3>
-        <p class="big-number" id="hoursNumber">0</p>
-      </div>
-
-      <div class="card stat-card">
-        <h3 class="card-title">Completed Sessions</h3>
-        <p class="big-number" id="sessionsNumber">0</p>
-      </div>
-
-      <div class="card stat-card">
-        <h3 class="card-title">Focus Rate</h3>
-        <p class="big-number" id="focusNumber">0%</p>
-      </div>
-
-      <div class="card stat-card">
-        <h3 class="card-title">Productivity</h3>
-        <p class="big-number" id="productivityNumber">0%</p>
-      </div>
-    </section>
-
-    <section class="dashboard-grid">
-      <div class="card progress-card">
-        <h2 class="section-title">Weekly Progress</h2>
-        <div class="progress-circle" id="dashboardProgressCircle">
-          <div class="progress-inner">
-            <span id="progressText" class="progress-text">0%</span>
-          </div>
+    <header class="header">
+        <div class="logo-area">
+            <img src="../imgs/AWJ_logo.png" alt="AWJ logo" width="100" id="siteLogo">
         </div>
-      </div>
 
-      <div class="card hours-card">
-        <h2 class="section-title">Weekly Study Hours</h2>
-        <div id="studyStats" class="study-stats"></div>
-      </div>
-    </section>
+        <div class="header-right">
+            <a href="Reminders.html" id="notifLink" class="notif-wrapper">
+                <img src="../imgs/Notification.png" class="notif-icon" alt="notifications">
+                <span class="notif-dot" id="notifDot"></span>
+            </a>
 
-    <button id="openChatBtn" class="floating-ai-btn">
-      <img src="../imgs/AIChatbotPink.png" alt="AI Chatbot">
-    </button>
-
-    <div id="aiWindow" class="ai-window">
-      <div class="ai-header">
-        <div>
-          <h3>AWJ AI Assistant</h3>
-          <p>Online</p>
+            <button id="themeToggle" class="dark-mode-btn">
+                <img id="themeIcon" src="../imgs/Moon.png" alt="theme icon">
+            </button>
         </div>
-        <span id="closeChatBtn">✕</span>
-      </div>
+    </header>
 
-      <div id="chatBox" class="chat-box">
-        <div class="ai-message">Hi 👋 How can I help you study today?</div>
-      </div>
+    <aside class="sidebar">
+        <nav class="menu">
+            <a href="dashboard.html" class="active">Dashboard</a>
+            <a href="courses.html">Courses</a>
+            <a href="deadlines.html">Deadlines</a>
+            <a href="availability.html">Availability</a>
+            <a href="studyplan.html">Study Plan</a>
+            <a href="progress.html">Progress</a>
+        </nav>
+        <a href="login.html" class="logout-link">Logout</a>
+    </aside>
 
-      <div class="chat-input-area">
-        <input type="text" id="userInput" placeholder="Ask anything...">
-        <button id="sendBtn">➤</button>
-      </div>
-    </div>
-  </main>
+    <main class="content">
 
-  <script src="../js/theme.js"></script>
-  <script src="../js/dashboard.js"></script>
+        <section class="welcome-section">
+            <h1 id="welcomeText" class="welcome-title"></h1>
+            <p class="welcome-subtitle">Stay focused and achieve your goals</p>
+        </section>
+
+        <section class="stats-grid">
+            <div class="card stat-card">
+                <h3 class="card-title">Total Study Hours</h3>
+                <p class="big-number" id="hoursNumber">0</p>
+            </div>
+            <div class="card stat-card">
+                <h3 class="card-title">Completed Sessions</h3>
+                <p class="big-number" id="sessionsNumber">0</p>
+            </div>
+            <div class="card stat-card">
+                <h3 class="card-title">Focus Rate</h3>
+                <p class="big-number" id="focusNumber">0%</p>
+            </div>
+            <div class="card stat-card">
+                <h3 class="card-title">Productivity</h3>
+                <p class="big-number" id="productivityNumber">0%</p>
+            </div>
+        </section>
+
+        <section class="dashboard-grid">
+            <div class="card progress-card">
+                <h2 class="section-title">
+                    <img src="../imgs/graph.png" class="section-icon" alt=""> Weekly Progress
+                </h2>
+                <div class="progress-circle" id="dashboardProgressCircle">
+                    <div class="progress-inner">
+                        <span id="progressText" class="progress-text">0%</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card hours-card">
+                <h2 class="section-title">
+                    <img src="../imgs/clock.png" class="section-icon" alt=""> Weekly Study Hours
+                </h2>
+                <div id="studyStats" class="study-stats"></div>
+            </div>
+        </section>
+
+        <button id="openChatBtn" class="floating-ai-btn">
+            <img src="../imgs/AIChatbotPink.png" alt="AI Chatbot">
+        </button>
+
+        <div id="aiWindow" class="ai-window">
+            <div class="ai-header">
+                <div>
+                    <h3>AWJ AI Assistant</h3>
+                    <p>Online</p>
+                </div>
+                <span id="closeChatBtn">✕</span>
+            </div>
+
+            <div id="chatBox" class="chat-box">
+                <div class="ai-message">
+                    Hi 👋 How can I help you study today?
+                </div>
+            </div>
+
+            <div class="chat-input-area">
+                <input type="text" id="userInput" placeholder="Ask anything...">
+                <button id="sendBtn">➤</button>
+            </div>
+        </div>
+    </main>
+
+    <script src="../js/theme.js"></script>
+    <script src="../js/dashboard.js"></script>
 </body>
-
 </html>

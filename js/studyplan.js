@@ -1,4 +1,3 @@
-
 document.addEventListener('DOMContentLoaded', () => {
  
     // ── 1. SESSION CHECK ──────────────────────────────────────
@@ -15,22 +14,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const summaryContainer = document.getElementById('dynamicSummaryContent');
  
     // ── 3. LOAD RAW DATA ──────────────────────────────────────
- 
-
     const rawAvailability = JSON.parse(
         localStorage.getItem(`availability_${currentUser.id}`)
     ) || [];
- 
 
     const userDeadlines = JSON.parse(
         localStorage.getItem(`deadlines_${currentUser.id}`)
     ) || [];
- 
    
     const userCourses = JSON.parse(
         localStorage.getItem(`courses_${currentUser.id}`)
     ) || [];
- 
    
     let studyProgress = JSON.parse(
         localStorage.getItem(`progress_${currentUser.id}`)
@@ -39,7 +33,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!studyProgress.missedSessions) studyProgress.missedSessions = [];
  
     // ── 4. CONVERT AVAILABILITY FORMAT ────────────────────────
-    
     function buildAvailabilityMap(raw) {
         const map = {};
         raw.forEach(entry => {
@@ -60,10 +53,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const userAvailability = buildAvailabilityMap(rawAvailability);
  
     // ── 5. DEADLINE PRIORITY (FR3.3) ──────────────────────────
-    /**
-     * Returns the course name with the nearest upcoming deadline.
-     * Used to pre-select the course dropdown in each cell.
-     */
     function getHighestPriorityCourse() {
         const today    = new Date();
         const upcoming = userDeadlines
@@ -91,7 +80,7 @@ document.addEventListener('DOMContentLoaded', () => {
     ];
  
     function renderStudyPlan() {
-        tableHeaderRow.innerHTML = '<th>⏰ Time Slot</th>';
+        tableHeaderRow.innerHTML = '<th><img src="../imgs/clock.png" class="mini-icon" alt=""> Time Slot</th>';
         tableBody.innerHTML      = '';
  
         const activeDays = daysOfWeek.filter(
@@ -135,7 +124,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     const isDone    = studyProgress.completedSessions.includes(sessionId);
                     const isMissed  = studyProgress.missedSessions.includes(sessionId);
  
-                    // Course options — pre-select highest priority deadline course (FR3.3)
                     const courseOptions = userCourses.map(c => {
                         const sel = (!isDone && !isMissed && priorityCourse === c.name)
                             ? 'selected' : '';
@@ -146,7 +134,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (isDone)   cellClass += ' session-done';
                     if (isMissed) cellClass += ' session-missed';
  
-                    // FR6.1: both Done checkbox and Missed button
                     td.innerHTML = `
                         <div class="${cellClass}" id="cell-${sessionId}">
                             <select class="course-selector" data-session="${sessionId}">
@@ -165,11 +152,11 @@ document.addEventListener('DOMContentLoaded', () => {
                                 <button class="miss-btn ${isMissed ? 'active-miss' : ''}"
                                         data-session="${sessionId}"
                                         ${isDone || isMissed ? 'disabled' : ''}>
-                                    ${isMissed ? '⚠️ Missed' : 'Mark Missed'}
+                                    ${isMissed ? '<img src="../imgs/warningRed.png" class="mini-icon" alt=""> Missed' : 'Mark Missed'}
                                 </button>
                             </div>
                             ${isMissed
-                                ? '<p class="reschedule-note">🔄 Rescheduled to next slot</p>'
+                                ? '<p class="reschedule-note"><img src="../imgs/clock.png" class="mini-icon" alt=""> Rescheduled to next slot</p>'
                                 : ''}
                         </div>
                     `;
@@ -203,7 +190,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (!cell.querySelector('.reschedule-note')) {
                         const note       = document.createElement('p');
                         note.className   = 'reschedule-note';
-                        note.textContent = '📌 Moved here (rescheduled)';
+                        note.innerHTML = '<img src="../imgs/pin.png" class="mini-icon" alt=""> Moved here (rescheduled)';
                         cell.appendChild(note);
                     }
                     break;
@@ -243,21 +230,21 @@ document.addEventListener('DOMContentLoaded', () => {
             if (cb) cb.disabled = true;
             const btn = cell.querySelector('.miss-btn');
             if (btn) {
-                btn.textContent = '⚠️ Missed';
+                btn.innerHTML = '<img src="../imgs/warningRed.png" class="mini-icon" alt=""> Missed';
                 btn.classList.add('active-miss');
                 btn.disabled = true;
             }
             if (!cell.querySelector('.reschedule-note')) {
                 const note       = document.createElement('p');
                 note.className   = 'reschedule-note';
-                note.textContent = '🔄 Rescheduled to next slot';
+                note.innerHTML = '<img src="../imgs/clock.png" class="mini-icon" alt=""> Rescheduled to next slot';
                 cell.appendChild(note);
             }
         }
  
         rescheduleSession(sessionId);
         updateSummary();
-        showToast("Session marked as missed. Plan adjusted. 📋");
+        showToast("Session marked as missed. Plan adjusted.");
     }
  
     function saveProgress() {
@@ -281,19 +268,19 @@ document.addEventListener('DOMContentLoaded', () => {
                 <span>Total Sessions:</span><strong>${total}</strong>
             </div>
             <div class="summary-item">
-                <span>✅ Completed:</span>
-                <strong style="color:#22c55e">${done}</strong>
+                <span><img src="../imgs/checkMark.png" class="mini-icon" alt=""> Completed:</span>
+               <strong style="color:#7FBF9A">${done}</strong>
             </div>
             <div class="summary-item">
-                <span>⏳ Pending:</span>
-                <strong style="color:#3b82f6">${pending}</strong>
+                <span><img src="../imgs/hourglass.png" class="mini-icon" alt=""> Pending:</span>
+                <strong style="color:#8EA2FF">${pending}</strong>
             </div>
             <div class="summary-item">
-                <span>⚠️ Missed:</span>
-                <strong style="color:#ef4444">${missed}</strong>
+                <span><img src="../imgs/warningRed.png" class="mini-icon" alt=""> Missed:</span>
+                <strong style="color:#D9788F">${missed}</strong>
             </div>
             <div class="summary-item">
-                <span>📈 Weekly Goal:</span>
+                <span><img src="../imgs/graph.png" class="mini-icon" alt=""> Weekly Goal:</span>
                 <strong>${percent}% achieved</strong>
             </div>
         `;
@@ -343,60 +330,62 @@ document.addEventListener('DOMContentLoaded', () => {
  
         const tipSets = [
             {
-                tips: ["📌 Consistency beats intensity — show up every day.",
-                       "🎯 Break big topics into 25-minute focused sessions.",
-                       "🌙 Rest is productive — sleep consolidates memory.",
-                       "🏆 Every session completed is a deposit in your future."],
-                footer: "Week focus: Build the habit. 💪"
+                tips: ["<img src='../imgs/pin.png' class='mini-icon' alt=''> Consistency beats intensity — show up every day.",
+                       "<img src='../imgs/success.png' class='mini-icon' alt=''> Break big topics into 25-minute focused sessions.",
+                       "<img src='../imgs/Moon.png' class='mini-icon' alt=''> Rest is productive — sleep consolidates memory.",
+                       "<img src='../imgs/success.png' class='mini-icon' alt=''> Every session completed is a deposit in your future."],
+                footer: "Week focus: Build the habit."
             },
             {
-                tips: ["🔥 Momentum is building — don't stop now.",
-                       "📝 Review notes within 24 hours to boost retention by 60%.",
-                       "🎵 Try instrumental music to stay in flow state longer.",
-                       "⏱ Pomodoro: 25 min study, 5 min break — try it!"],
-                footer: "Week focus: Strengthen your routine. 🚀"
+                tips: ["<img src='../imgs/purpleLightbulb.png' class='mini-icon' alt=''> Momentum is building — don't stop now.",
+                       "<img src='../imgs/books.png' class='mini-icon' alt=''> Review notes within 24 hours to boost retention by 60%.",
+                       "<img src='../imgs/blueBook.png' class='mini-icon' alt=''> Try instrumental music to stay in flow state longer.",
+                       "<img src='../imgs/clock.png' class='mini-icon' alt=''> Pomodoro: 25 min study, 5 min break — try it!"],
+                footer: "Week focus: Strengthen your routine."
             },
             {
-                tips: ["🧠 Teach what you learn — explaining cements understanding.",
-                       "📅 Check your deadlines — don't wait for the last day.",
-                       "💧 Stay hydrated — your brain is 75% water.",
-                       "✍️ Handwriting notes helps memory more than typing."],
-                footer: "Week focus: Deepen your understanding. 🧩"
+                tips: ["<img src='../imgs/purpleLightbulb.png' class='mini-icon' alt=''> Teach what you learn — explaining cements understanding.",
+                       "<img src='../imgs/clock.png' class='mini-icon' alt=''> Check your deadlines — don't wait for the last day.",
+                       "<img src='../imgs/blueBook.png' class='mini-icon' alt=''> Stay hydrated — your brain is 75% water.",
+                       "<img src='../imgs/pinkBook.png' class='mini-icon' alt=''> Handwriting notes helps memory more than typing."],
+                footer: "Week focus: Deepen your understanding."
             },
             {
-                tips: ["🌟 That's a habit forming — keep it.",
-                       "🔄 Spaced repetition: revisit last week's material today.",
-                       "🧘 5-minute mindfulness before studying boosts focus.",
-                       "📊 Check your Progress page — celebrate small wins!"],
-                footer: "Week focus: Review and reinforce. 🎯"
+                tips: ["<img src='../imgs/success.png' class='mini-icon' alt=''> That's a habit forming — keep it.",
+                       "<img src='../imgs/clock.png' class='mini-icon' alt=''> Spaced repetition: revisit last week's material today.",
+                       "<img src='../imgs/Moon.png' class='mini-icon' alt=''> 5-minute mindfulness before studying boosts focus.",
+                       "<img src='../imgs/graph.png' class='mini-icon' alt=''> Check your Progress page — celebrate small wins!"],
+                footer: "Week focus: Review and reinforce."
             },
             {
-                tips: ["⚡ Push through the mid-semester slump — it's temporary.",
-                       "🤝 Study with a partner once this week for accountability.",
-                       "📖 Summarise each lecture in 5 bullet points max.",
-                       "🏃 Short walks between sessions refresh your focus."],
-                footer: "Week focus: Stay sharp. 💫"
+                tips: ["<img src='../imgs/purpleLightbulb.png' class='mini-icon' alt=''> Push through the mid-semester slump — it's temporary.",
+                       "<img src='../imgs/wavingHand.png' class='mini-icon' alt=''> Study with a partner once this week for accountability.",
+                       "<img src='../imgs/books.png' class='mini-icon' alt=''> Summarise each lecture in 5 bullet points max.",
+                       "<img src='../imgs/clock.png' class='mini-icon' alt=''> Short walks between sessions refresh your focus."],
+                footer: "Week focus: Stay sharp."
             },
             {
-                tips: ["🎯 Set one clear goal for this week and track it daily.",
-                       "💡 Confused? Find 3 different explanations of the topic.",
-                       "🌅 Morning study sessions improve memory retention.",
-                       "📌 Update your study plan if things feel off-track."],
-                footer: "Week focus: Recalibrate and push forward. ⚙️"
+                tips: ["<img src='../imgs/success.png' class='mini-icon' alt=''> Set one clear goal for this week and track it daily.",
+                       "<img src='../imgs/purpleLightbulb.png' class='mini-icon' alt=''> Confused? Find 3 different explanations of the topic.",
+                       "<img src='../imgs/Sun.png' class='mini-icon' alt=''> Morning study sessions improve memory retention.",
+                       "<img src='../imgs/pin.png' class='mini-icon' alt=''> Update your study plan if things feel off-track."],
+                footer: "Week focus: Recalibrate and push forward."
             },
             {
-                tips: ["🏁 The finish line is closer than you think.",
-                       "📝 Prioritise: high-stakes topics first.",
-                       "😴 8 hours of sleep the night before an exam matters most.",
-                       "🎉 Reward yourself after completing a tough session."],
-                footer: "Week focus: Final stretch — give it everything. 🌠"
+                tips: ["<img src='../imgs/success.png' class='mini-icon' alt=''> The finish line is closer than you think.",
+                       "<img src='../imgs/books.png' class='mini-icon' alt=''> Prioritise: high-stakes topics first.",
+                       "<img src='../imgs/Moon.png' class='mini-icon' alt=''> 8 hours of sleep the night before an exam matters most.",
+                       "<img src='../imgs/success.png' class='mini-icon' alt=''> Reward yourself after completing a tough session."],
+                footer: "Week focus: Final stretch — give it everything."
             }
         ];
  
         const idx     = (getWeekNumber(new Date()) - 1) % tipSets.length;
         const current = tipSets[idx];
         list.innerHTML  = current.tips.map(t => `<li>${t}</li>`).join('');
-        if (footer) footer.textContent = current.footer;
+        if (footer) {
+            footer.innerHTML = `<p>${current.footer} <img src="../imgs/success.png" class="mini-icon" alt=""></p>`;
+        }
     }
  
     // ── 14. INITIAL EXECUTION ─────────────────────────────────
