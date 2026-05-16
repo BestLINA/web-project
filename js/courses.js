@@ -3,59 +3,59 @@
 ========================= */
 
 document.addEventListener("DOMContentLoaded", () => {
-    /* CHECK LOGIN */
+  /* CHECK LOGIN */
 
-    const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
 
-    if (!currentUser) {
-        window.location.href = "../html/login.html";
+  if (!currentUser) {
+    window.location.href = "../html/login.html";
+  }
+
+  /* STORAGE KEY */
+
+  const storageKey = "courses_" + currentUser.id;
+  /* ELEMENTS */
+
+  const courseCode = document.getElementById("courseCode");
+
+  const courseName = document.getElementById("courseName");
+
+  const courseColor = document.getElementById("courseColor");
+
+  const addCourseBtn = document.getElementById("addCourseBtn");
+
+  const coursesContainer = document.getElementById("coursesContainer");
+
+  const totalCourses = document.getElementById("totalCourses");
+
+  const activeCourse = document.getElementById("activeCourse");
+
+  const emptyState = document.getElementById("emptyState");
+
+  const searchInput = document.getElementById("searchInput");
+
+  /* LOAD COURSES */
+
+  let courses = JSON.parse(localStorage.getItem(storageKey)) || [];
+  /* RENDER COURSES */
+
+  function renderCourses(filteredCourses = courses) {
+    coursesContainer.innerHTML = "";
+
+    if (filteredCourses.length === 0) {
+      emptyState.style.display = "block";
+    } else {
+      emptyState.style.display = "none";
     }
 
-    /* STORAGE KEY */
+    filteredCourses.forEach((course, index) => {
+      const courseCard = document.createElement("div");
 
-    const storageKey = "courses_" + currentUser.id;
-    /* ELEMENTS */
+      courseCard.classList.add("card", "course-card");
 
-    const courseCode = document.getElementById("courseCode");
+      courseCard.style.borderLeft = `8px solid ${course.color}`;
 
-    const courseName = document.getElementById("courseName");
-
-    const courseColor = document.getElementById("courseColor");
-
-    const addCourseBtn = document.getElementById("addCourseBtn");
-
-    const coursesContainer = document.getElementById("coursesContainer");
-
-    const totalCourses = document.getElementById("totalCourses");
-
-    const activeCourse = document.getElementById("activeCourse");
-
-    const emptyState = document.getElementById("emptyState");
-
-    const searchInput = document.getElementById("searchInput");
-
-    /* LOAD COURSES */
-
-    let courses = JSON.parse(localStorage.getItem(storageKey)) || [];
-    /* RENDER COURSES */
-
-    function renderCourses(filteredCourses = courses) {
-        coursesContainer.innerHTML = "";
-
-        if (filteredCourses.length === 0) {
-            emptyState.style.display = "block";
-        } else {
-            emptyState.style.display = "none";
-        }
-
-        filteredCourses.forEach((course, index) => {
-            const courseCard = document.createElement("div");
-
-            courseCard.classList.add("card", "course-card");
-
-            courseCard.style.borderLeft = `8px solid ${course.color}`;
-
-            courseCard.innerHTML = `
+      courseCard.innerHTML = `
 
                 <div class="course-top">
 
@@ -71,12 +71,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
                     </div>
 
-                    <span
-                        class="course-badge"
-                        style="
-                        background:${course.color}"
-                    >
-                    </span>
+                    
 
                 </div>
 
@@ -122,201 +117,201 @@ document.addEventListener("DOMContentLoaded", () => {
 
             `;
 
-            coursesContainer.appendChild(courseCard);
-        });
-
-        updateStatistics();
-
-        addDeleteEvents();
-
-        addUpdateEvents();
-    }
-
-    /* ADD COURSE */
-
-    addCourseBtn.addEventListener("click", () => {
-        const code = courseCode.value.trim();
-
-        const name = courseName.value.trim();
-
-        /* EMPTY FIELDS */
-
-        if (code === "" || name === "") {
-            showToast(" Please fill all fields.", "error");
-
-            return;
-        }
-
-        /* DUPLICATE COURSE CODE */
-
-        const duplicateCourse = courses.find(
-            (course) => course.code.toLowerCase() === code.toLowerCase(),
-        );
-
-        if (duplicateCourse) {
-            showToast(" Course code already exists.", "error");
-
-            return;
-        }
-
-        /* CREATE COURSE */
-
-        const newCourse = {
-            code: code,
-
-            name: name,
-
-            color: courseColor.value,
-
-            progress: Math.floor(Math.random() * 100),
-        };
-
-        courses.push(newCourse);
-
-        saveCourses();
-
-        renderCourses();
-
-        /* CLEAR INPUTS */
-
-        courseCode.value = "";
-
-        courseName.value = "";
-
-        /* SUCCESS MESSAGE */
-
-        showToast(" Course added successfully!", "success");
+      coursesContainer.appendChild(courseCard);
     });
 
-    /* SAVE */
+    updateStatistics();
 
-    function saveCourses() {
-        localStorage.setItem(
-            storageKey,
+    addDeleteEvents();
 
-            JSON.stringify(courses),
-        );
+    addUpdateEvents();
+  }
+
+  /* ADD COURSE */
+
+  addCourseBtn.addEventListener("click", () => {
+    const code = courseCode.value.trim();
+
+    const name = courseName.value.trim();
+
+    /* EMPTY FIELDS */
+
+    if (code === "" || name === "") {
+      showToast(" Please fill all fields.", "error");
+
+      return;
     }
 
-    /* DELETE */
+    /* DUPLICATE COURSE CODE */
 
-    function addDeleteEvents() {
-        const deleteButtons = document.querySelectorAll(".delete-btn");
+    const duplicateCourse = courses.find(
+      (course) => course.code.toLowerCase() === code.toLowerCase(),
+    );
 
-        deleteButtons.forEach((btn) => {
-            btn.addEventListener("click", () => {
-                const index = btn.dataset.index;
+    if (duplicateCourse) {
+      showToast(" Course code already exists.", "error");
 
-                const card = btn.closest(".course-card");
-
-                card.style.opacity = "0";
-
-                card.style.transform = "translateX(40px)";
-
-                setTimeout(() => {
-                    courses.splice(index, 1);
-
-                    saveCourses();
-
-                    renderCourses();
-                }, 300);
-            });
-        });
+      return;
     }
 
-    /* UPDATE */
+    /* CREATE COURSE */
 
-    const editModal = document.getElementById("editModal");
+    const newCourse = {
+      code: code,
 
-    const editCourseName = document.getElementById("editCourseName");
+      name: name,
 
-    const editCourseCode = document.getElementById("editCourseCode");
+      color: courseColor.value,
 
-    const saveEditBtn = document.getElementById("saveEditBtn");
+      progress: Math.floor(Math.random() * 100),
+    };
 
-    const closeModal = document.getElementById("closeModal");
+    courses.push(newCourse);
 
-    let currentEditIndex = null;
-
-    function addUpdateEvents() {
-        const updateButtons = document.querySelectorAll(".update-btn");
-
-        updateButtons.forEach((btn) => {
-            btn.addEventListener("click", () => {
-                currentEditIndex = btn.dataset.index;
-
-                editCourseName.value = courses[currentEditIndex].name;
-
-                editCourseCode.value = courses[currentEditIndex].code;
-
-                editModal.style.display = "flex";
-            });
-        });
-    }
-
-    /* SAVE EDIT */
-
-    saveEditBtn.addEventListener("click", () => {
-        if (
-            editCourseName.value.trim() === "" ||
-            editCourseCode.value.trim() === ""
-        ) {
-            return;
-        }
-
-        courses[currentEditIndex].name = editCourseName.value;
-
-        courses[currentEditIndex].code = editCourseCode.value;
-
-        saveCourses();
-
-        renderCourses();
-
-        editModal.style.display = "none";
-    });
-
-    /* CLOSE MODAL */
-
-    closeModal.addEventListener("click", () => {
-        editModal.style.display = "none";
-    });
-
-    /* CLOSE WHEN CLICK OUTSIDE */
-
-    window.addEventListener("click", (e) => {
-        if (e.target === editModal) {
-            editModal.style.display = "none";
-        }
-    });
-    /* SEARCH */
-
-    searchInput.addEventListener("input", () => {
-        const searchValue = searchInput.value.toLowerCase();
-
-        const filteredCourses = courses.filter(
-            (course) =>
-                course.code.toLowerCase().includes(searchValue) ||
-                course.name.toLowerCase().includes(searchValue),
-        );
-
-        renderCourses(filteredCourses);
-    });
-
-    /* STATISTICS */
-
-    function updateStatistics() {
-        totalCourses.innerText = courses.length;
-
-        if (courses.length > 0) {
-            activeCourse.innerText = courses[0].code;
-        } else {
-            activeCourse.innerText = "-";
-        }
-    }
-
-    /* INITIAL RENDER */
+    saveCourses();
 
     renderCourses();
+
+    /* CLEAR INPUTS */
+
+    courseCode.value = "";
+
+    courseName.value = "";
+
+    /* SUCCESS MESSAGE */
+
+    showToast(" Course added successfully!", "success");
+  });
+
+  /* SAVE */
+
+  function saveCourses() {
+    localStorage.setItem(
+      storageKey,
+
+      JSON.stringify(courses),
+    );
+  }
+
+  /* DELETE */
+
+  function addDeleteEvents() {
+    const deleteButtons = document.querySelectorAll(".delete-btn");
+
+    deleteButtons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const index = btn.dataset.index;
+
+        const card = btn.closest(".course-card");
+
+        card.style.opacity = "0";
+
+        card.style.transform = "translateX(40px)";
+
+        setTimeout(() => {
+          courses.splice(index, 1);
+
+          saveCourses();
+
+          renderCourses();
+        }, 300);
+      });
+    });
+  }
+
+  /* UPDATE */
+
+  const editModal = document.getElementById("editModal");
+
+  const editCourseName = document.getElementById("editCourseName");
+
+  const editCourseCode = document.getElementById("editCourseCode");
+
+  const saveEditBtn = document.getElementById("saveEditBtn");
+
+  const closeModal = document.getElementById("closeModal");
+
+  let currentEditIndex = null;
+
+  function addUpdateEvents() {
+    const updateButtons = document.querySelectorAll(".update-btn");
+
+    updateButtons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        currentEditIndex = btn.dataset.index;
+
+        editCourseName.value = courses[currentEditIndex].name;
+
+        editCourseCode.value = courses[currentEditIndex].code;
+
+        editModal.style.display = "flex";
+      });
+    });
+  }
+
+  /* SAVE EDIT */
+
+  saveEditBtn.addEventListener("click", () => {
+    if (
+      editCourseName.value.trim() === "" ||
+      editCourseCode.value.trim() === ""
+    ) {
+      return;
+    }
+
+    courses[currentEditIndex].name = editCourseName.value;
+
+    courses[currentEditIndex].code = editCourseCode.value;
+
+    saveCourses();
+
+    renderCourses();
+
+    editModal.style.display = "none";
+  });
+
+  /* CLOSE MODAL */
+
+  closeModal.addEventListener("click", () => {
+    editModal.style.display = "none";
+  });
+
+  /* CLOSE WHEN CLICK OUTSIDE */
+
+  window.addEventListener("click", (e) => {
+    if (e.target === editModal) {
+      editModal.style.display = "none";
+    }
+  });
+  /* SEARCH */
+
+  searchInput.addEventListener("input", () => {
+    const searchValue = searchInput.value.toLowerCase();
+
+    const filteredCourses = courses.filter(
+      (course) =>
+        course.code.toLowerCase().includes(searchValue) ||
+        course.name.toLowerCase().includes(searchValue),
+    );
+
+    renderCourses(filteredCourses);
+  });
+
+  /* STATISTICS */
+
+  function updateStatistics() {
+    totalCourses.innerText = courses.length;
+
+    if (courses.length > 0) {
+      activeCourse.innerText = courses[0].code;
+    } else {
+      activeCourse.innerText = "-";
+    }
+  }
+
+  /* INITIAL RENDER */
+
+  renderCourses();
 });
 
 /* =========================
@@ -324,30 +319,31 @@ document.addEventListener("DOMContentLoaded", () => {
 ========================= */
 
 function showToast(text, type) {
-    let toast = document.getElementById("toast");
+  let toast = document.getElementById("toast");
 
-    /* CREATE TOAST IF NOT FOUND */
+  /* CREATE TOAST IF NOT FOUND */
 
-    if (!toast) {
-        toast = document.createElement("div");
+  if (!toast) {
+    toast = document.createElement("div");
 
-        toast.id = "toast";
+    toast.id = "toast";
 
-        document.body.appendChild(toast);
-    }
+    document.body.appendChild(toast);
+  }
 
-    const icon = type === "success" ? "../imgs/success.png" : "../imgs/warningRed.png";
-    toast.innerHTML = `<img src="${icon}" class="toast-icon" alt=""> ${text}`;
+  const icon =
+    type === "success" ? "../imgs/success.png" : "../imgs/warningRed.png";
+  toast.innerHTML = `<img src="${icon}" class="toast-icon" alt=""> ${text}`;
 
-    toast.className = "";
+  toast.className = "";
 
-    toast.classList.add("toast");
+  toast.classList.add("toast");
 
-    toast.classList.add(type === "success" ? "toast-success" : "toast-error");
+  toast.classList.add(type === "success" ? "toast-success" : "toast-error");
 
-    toast.classList.add("toast-visible");
+  toast.classList.add("toast-visible");
 
-    setTimeout(() => {
-        toast.classList.remove("toast-visible");
-    }, 3000);
+  setTimeout(() => {
+    toast.classList.remove("toast-visible");
+  }, 3000);
 }

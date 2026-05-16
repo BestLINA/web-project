@@ -2390,3 +2390,9 @@ body.dark ::-webkit-scrollbar-thumb {
     grid-template-columns: 1fr;
   }
 }
+
+.course-card::before,
+.course-card::after {
+  display: none !important;
+}
+
