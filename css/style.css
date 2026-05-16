@@ -847,8 +847,13 @@ body.dark .deadline-info {
   align-items: flex-start;
 }
 
-.left  { width: 38%; }
-.right { width: 58%; }
+.left {
+  width: 38%;
+}
+
+.right {
+  width: 58%;
+}
 
 /* ── Donut chart (replaced old pie-chart) ─── */
 .pie-chart {
@@ -857,11 +862,9 @@ body.dark .deadline-info {
   height: 13em;
   margin: 1.5em auto;
   border-radius: 50%;
-  background: conic-gradient(
-    #9b7edc 0% 40%,
-    #f7c8d0 40% 75%,
-    #472163 75% 100%
-  );
+  background: conic-gradient(#9b7edc 0% 40%,
+      #f7c8d0 40% 75%,
+      #472163 75% 100%);
   box-shadow: 0 4px 20px rgba(92, 45, 122, 0.18);
   display: flex;
   align-items: center;
@@ -874,11 +877,9 @@ body.dark .deadline-info {
 }
 
 body.dark .pie-chart {
-  background: conic-gradient(
-    #ffb3c7 0% 40%,
-    #c9a0d8 40% 75%,
-    #6b5090 75% 100%
-  );
+  background: conic-gradient(#ffb3c7 0% 40%,
+      #c9a0d8 40% 75%,
+      #6b5090 75% 100%);
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
 }
 
@@ -958,9 +959,17 @@ body.dark .chart-info-row .legend-pct {
   flex-shrink: 0;
 }
 
-.box.green  { background: #4a9e7a; }
-.box.blue   { background: #9b7edc; }
-.box.yellow { background: #d48aaa; }
+.box.green {
+  background: #4a9e7a;
+}
+
+.box.blue {
+  background: #9b7edc;
+}
+
+.box.yellow {
+  background: #d48aaa;
+}
 
 /* ── Summary card ─────────────────────────── */
 .summary-box {
@@ -2096,6 +2105,7 @@ body.dark ::-webkit-scrollbar-thumb:hover {
     transform: scale(0.8);
     opacity: 0;
   }
+
   to {
     transform: scale(1);
     opacity: 1;
@@ -2224,59 +2234,141 @@ body.dark #editCourseName {
   width: 60px;
   height: 60px;
   vertical-align: middle;
-}/*nwe*/
+}
+
+/*nwe*/
 /* ================= ICONS ================= */
 
 /* icons inside titles */
 .title-icon {
-    width: 28px;
-    height: 28px;
-    vertical-align: middle;
-    margin-right: 8px;
+  width: 28px;
+  height: 28px;
+  vertical-align: middle;
+  margin-right: 8px;
 }
 
 .section-icon {
-    width: 22px;
-    height: 22px;
-    vertical-align: middle;
-    margin-right: 6px;
+  width: 22px;
+  height: 22px;
+  vertical-align: middle;
+  margin-right: 6px;
 }
 
 /* small icons */
 .mini-icon {
-     width: 18px;
-    height: 18px;
-    vertical-align: middle;
-    margin-right: 5px;
+  width: 18px;
+  height: 18px;
+  vertical-align: middle;
+  margin-right: 5px;
 }
 
 /* button icons */
 .btn-icon {
-    width: 15px;
-    height: 15px;
-    vertical-align: middle;
-    margin-right: 5px;
+  width: 15px;
+  height: 15px;
+  vertical-align: middle;
+  margin-right: 5px;
 }
 
 /* empty state image */
 .empty-icon {
-    width: 55px;
-    margin-bottom: 10px;
-    opacity: 0.9;
+  width: 55px;
+  margin-bottom: 10px;
+  opacity: 0.9;
 }
 
 /* better alignment */
 .deadline-info small,
 .days-left {
-    display: flex;
-    align-items: center;
-    gap: 5px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
 }
 
 /* button alignment */
 .btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+
+/* ── REMINDERS PAGE ──────────────────────── */
+.reminders-date {
+  font-size: 1em;
+  color: var(--text-muted);
+  margin-bottom: 4px;
+}
+
+.reminder-section {
+  margin-top: 1.5em;
+}
+
+.reminder-section-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1em;
+  font-weight: 600;
+  color: #472163;
+  margin-bottom: 0.8em;
+}
+
+body.dark .reminder-section-title {
+  color: #ffb3c7;
+}
+
+.section-icon {
+  width: 20px;
+  height: 20px;
+}
+
+.reminder-count {
+  background: #b84a6a;
+  color: white;
+  border-radius: 20px;
+  padding: 2px 10px;
+  font-size: 0.8em;
+}
+
+.reminder-read {
+  opacity: 0.5;
+}
+
+.reminders-empty-sub {
+  color: var(--text-muted);
+  font-size: 0.95em;
+  padding: 10px 0;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 40px 0;
+}
+
+.empty-icon {
+  width: 60px;
+  margin-bottom: 10px;
+}
+
+/* ── BELL RED DOT ────────────────────────── */
+.notif-wrapper {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.notif-dot {
+  width: 10px;
+  height: 10px;
+  background: #b84a6a;
+  border-radius: 50%;
+  display: none;
+  position: absolute;
+  top: 8px;
+  right: 8px;
+}
+
+.notif-dot-visible {
+  display: block;
 }

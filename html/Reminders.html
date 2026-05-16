@@ -6,21 +6,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reminders</title>
     <link rel="stylesheet" href="../css/style.css">
-
 </head>
 
 <body>
+
+    <!-- Toast notification -->
+    <div id="toast" class="toast"></div>
+
     <!-- Header -->
     <div class="header">
         <div class="logo-area">
             <img src="../imgs/AWJ_logo.png" alt="AWJ logo" width="100" id="siteLogo">
-
         </div>
         <div class="header-right">
 
-            <!-- Notification (clickable) -->
-            <a href="Reminders.html" id="notifLink">
+            <!-- Notification bell with red dot -->
+            <a href="Reminders.html" id="notifLink" class="notif-wrapper">
                 <img src="../imgs/Notification.png" class="notif-icon" alt="notifications">
+                <span class="notif-dot" id="notifDot"></span>
             </a>
 
             <!-- Theme toggle -->
@@ -43,90 +46,44 @@
         </div>
         <a href="login.html" class="logout-link"> Logout</a>
     </div>
-    <div class=" content reminders-container">
 
+    <!-- Content -->
+    <div class="content reminders-container">
+
+        <!-- Top section -->
         <div class="reminders-top">
             <h1>Reminder Notifications</h1>
-            <p class="subtitle">
-                Stay on top of assignments, deadlines, and study sessions.
-            </p>
+            <p id="todayDate" class="reminders-date"></p>
+            <p class="subtitle">Stay on top of assignments, deadlines, and study sessions.</p>
         </div>
 
-        <!-- REMINDERS -->
-        <div class="reminder-box">
+        <!-- Empty state — shown when no reminders at all -->
+        <div id="emptyState" class="empty-state">
+            <img src="../imgs/purpleLightbulb.png" class="empty-icon" alt="no reminders">
+            <p>No upcoming reminders. Keep up the good work!</p>
+        </div>
 
-            <!-- ITEM 1 -->
-            <div class="reminder-item">
-                <div class="reminder-left">
-                    <img src="../imgs/purpleLightbulb.png" class="reminder-icon" alt="purple light bulb icon">
+        <!-- Unread section -->
+        <div id="unreadSection" class="reminder-section">
+            <h2 class="reminder-section-title">
+                <img src="../imgs/warningRed.png" class="section-icon" alt="">
+                Unread
+                <span class="reminder-count" id="unreadCount">0</span>
+            </h2>
+            <div class="reminder-box" id="unreadContainer"></div>
+        </div>
 
-                    <div class="reminder-text">
-                        <div class="reminder-title">Homework #3 due tomorrow</div>
-                        <div class="reminder-course">MATH 202: Calculus II</div>
-                    </div>
-                </div>
-
-                <div class="reminder-right">
-                    <div class="reminder-badge reminder-upcoming">Upcoming</div>
-                    <span class="reminder-dot"></span>
-                </div>
-            </div>
-
-            <!-- ITEM 2 -->
-            <div class="reminder-item">
-                <div class="reminder-left">
-                    <img src="../imgs/clock.png" class="reminder-icon" alt="clock icon">
-
-                    <div class="reminder-text">
-                        <div class="reminder-title">Study session scheduled today</div>
-                        <div class="reminder-course">CSC 201: Data Structures</div>
-                    </div>
-                </div>
-
-                <div class="reminder-right">
-
-                    <div class="reminder-badge reminder-today">Today, 7:00 PM</div>
-                    <span class="reminder-dot"></span>
-                </div>
-            </div>
-
-            <!-- ITEM 3 -->
-            <div class="reminder-item">
-                <div class="reminder-left">
-                    <img src="../imgs/warning.png" class="reminder-icon" alt="warning icon">
-
-                    <div class="reminder-text">
-                        <div class="reminder-title">Midterm Exam is overdue</div>
-                        <div class="reminder-course">SWE 101: Programming</div>
-                    </div>
-                </div>
-
-                <div class="reminder-right">
-                    <div class="reminder-badge reminder-overdue">Overdue</div>
-                </div>
-            </div>
-
-            <!-- ITEM 4 -->
-            <div class="reminder-item">
-                <div class="reminder-left">
-                    <img src="../imgs/purpleLightbulb.png" class="reminder-icon" alt="purple light bulb icon">
-
-                    <div class="reminder-text">
-                        <div class="reminder-title">Plan next assignment</div>
-                        <div class="reminder-course">Due next Wednesday</div>
-                    </div>
-                </div>
-
-                <div class="reminder-right">
-
-                    <div class="reminder-badge reminder-upcoming">2 Days Remaining</div>
-                    <span class="reminder-dot"></span>
-                </div>
-            </div>
-
+        <!-- Already read section -->
+        <div id="readSection" class="reminder-section">
+            <h2 class="reminder-section-title">
+                <img src="../imgs/checkMark.png" class="section-icon" alt="">
+                Already Read
+            </h2>
+            <div class="reminder-box" id="readContainer"></div>
         </div>
 
     </div>
+
     <script src="../js/theme.js"></script>
     <script src="../js/Reminders.js"></script>
 </body>

@@ -16,8 +16,9 @@
             <img src="../imgs/AWJ_logo.png" alt="AWJ logo" width="100" id="siteLogo">
         </div>
         <div class="header-right">
-            <a href="Reminders.html" id="notifLink" class="header-action-btn">
+            <a href="Reminders.html" id="notifLink" class="notif-wrapper">
                 <img src="../imgs/Notification.png" class="notif-icon" alt="notifications">
+                <span class="notif-dot" id="notifDot"></span>
             </a>
 
             <button id="themeToggle" class="dark-mode-btn header-action-btn">
@@ -39,12 +40,14 @@
     </div>
 
     <div class="content">
-        
+
         <div class="welcome-hero">
             <h1>Your Weekly Study Plan</h1>
-            <p>Welcome to your personalized schedule. Your sessions are organized based on your availability to ensure peak productivity and consistent progress.</p>
+            <p>Welcome to your personalized schedule. Your sessions are organized based on your availability to ensure
+                peak productivity and consistent progress.</p>
             <div class="hero-meta">
-                <span class="week-tag">📆 Current Week: <strong id="currentWeekRange">11/05/2026 - 17/05/2026</strong></span>
+                <span class="week-tag">📆 Current Week: <strong id="currentWeekRange">11/05/2026 -
+                        17/05/2026</strong></span>
             </div>
         </div>
 
@@ -60,27 +63,28 @@
                     <thead>
                         <tr id="tableHeaderRow">
                             <th>⏰ Time Slot</th>
-                            </tr>
+                        </tr>
                     </thead>
                     <tbody id="tableBody">
-                        </tbody>
+                    </tbody>
                 </table>
             </div>
 
             <div id="tableEmptyState" style="display:none; text-align:center; padding:40px;">
-                <p style="color: #a4508b; font-weight: 500;">No study hours selected yet. Please visit the "Availability" page to set your schedule.</p>
+                <p style="color: #a4508b; font-weight: 500;">No study hours selected yet. Please visit the
+                    "Availability" page to set your schedule.</p>
             </div>
         </div>
 
         <div class="study-grid">
-            
+
             <div class="grid-card summary-card">
                 <div class="card-header">
                     <div class="card-icon">🌟</div>
                     <h2>Weekly Summary</h2>
                 </div>
                 <div id="dynamicSummaryContent" class="summary-content-list">
-                    </div>
+                </div>
             </div>
 
             <div class="grid-card motivation-card">
@@ -89,9 +93,9 @@
                     <h2>Stay Motivated</h2>
                 </div>
                 <ul class="motivation-list">
-                    </ul>
+                </ul>
                 <div class="motivation-footer">
-                    </div>
+                </div>
             </div>
 
         </div>

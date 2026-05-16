@@ -49,3 +49,45 @@ if (notifLink) {
         }
     });
 }
+// ===== RED DOT ON BELL =====
+function updateNotifDot() {
+    const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+    if (!currentUser) return;
+
+    const readKey = "readReminders_" + currentUser.id;
+    const deadlinesKey = "deadlines_" + currentUser.id;
+    const availKey = "availability_" + currentUser.id;
+
+    const deadlines = JSON.parse(localStorage.getItem(deadlinesKey)) || [];
+    const availability = JSON.parse(localStorage.getItem(availKey)) || [];
+    const readIds = JSON.parse(localStorage.getItem(readKey)) || [];
+
+    const dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+    const todayName = dayNames[new Date().getDay()];
+    const tomorrowName = dayNames[(new Date().getDay() + 1) % 7];
+
+    let hasUnread = false;
+
+    deadlines.forEach(item => {
+        if (item.completed) return;
+        const diff = new Date(item.date) - new Date();
+        const days = Math.ceil(diff / (1000 * 60 * 60 * 24));
+        if (days > 3) return;
+        const id = "deadline-" + item.course + "-" + item.title + "-" + item.date;
+        if (!readIds.includes(id)) hasUnread = true;
+    });
+
+    availability.forEach(entry => {
+        if (entry.day !== todayName && entry.day !== tomorrowName) return;
+        const id = "session-" + entry.day.toLowerCase() + "-" + new Date().toISOString().split("T")[0];
+        if (!readIds.includes(id)) hasUnread = true;
+    });
+
+    const dot = document.getElementById("notifDot");
+    if (dot) {
+        if (hasUnread) dot.classList.add("notif-dot-visible");
+        else dot.classList.remove("notif-dot-visible");
+    }
+}
+
+updateNotifDot();

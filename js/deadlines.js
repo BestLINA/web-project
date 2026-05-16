@@ -217,11 +217,10 @@ function render() {
                 <small>
 
                     <img
-                        src="${
-                            item.type === "Exam"
-                                ? "../imgs/warning.png"
-                                : "../imgs/pinkBook.png"
-                        }"
+                        src="${item.type === "Exam"
+                ? "../imgs/warning.png"
+                : "../imgs/pinkBook.png"
+            }"
                         class="mini-icon"
                     >
 
@@ -237,10 +236,9 @@ function render() {
                         class="mini-icon"
                     >
 
-                    ${
-                        item.completed
+                    ${item.completed
 
-                        ? `
+                ? `
 
                         <img
                             src="../imgs/success.png"
@@ -250,8 +248,8 @@ function render() {
                         Completed
                         `
 
-                        : daysLeft + " days left"
-                    }
+                : daysLeft + " days left"
+            }
 
                 </span>
 
@@ -295,35 +293,35 @@ function render() {
         div.querySelector(".delete-btn")
             .addEventListener("click", () => {
 
-            deadlines.splice(index, 1);
+                deadlines.splice(index, 1);
 
-            saveData();
+                saveData();
 
-            render();
+                render();
 
-            showToast(
-                "🗑️ Deadline deleted successfully",
-                "success"
-            );
-        });
+                showToast(
+                    "🗑️ Deadline deleted successfully",
+                    "success"
+                );
+            });
 
         // ================= OPEN EDIT MODAL =================
         div.querySelector(".update-btn")
             .addEventListener("click", () => {
 
-            currentEditIndex = index;
+                currentEditIndex = index;
 
-            editTitle.value =
-                item.title;
+                editTitle.value =
+                    item.title;
 
-            editType.value =
-                item.type;
+                editType.value =
+                    item.type;
 
-            editDate.value =
-                item.date;
+                editDate.value =
+                    item.date;
 
-            modal.style.display = "flex";
-        });
+                modal.style.display = "flex";
+            });
 
         // append card
         container.appendChild(div);
@@ -407,6 +405,7 @@ addBtn.addEventListener("click", () => {
         "✅ Deadline added successfully!",
         "success"
     );
+    if (typeof updateNotifDot === "function") updateNotifDot();
 });
 
 // ================= SAVE EDIT =================
@@ -452,6 +451,7 @@ saveEditBtn.addEventListener("click", () => {
         "✅ Deadline updated successfully!",
         "success"
     );
+    if (typeof updateNotifDot === "function") updateNotifDot();
 });
 
 // ================= CLOSE MODAL =================
