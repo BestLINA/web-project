@@ -460,13 +460,13 @@ body.dark input[type="checkbox"] {
   border-radius: 1em;
   padding: 1.2em;
   margin-top: 1.2em;
-  transition:
-    border-color 0.2s,
-    background 0.25s;
+  transition: border-color 0.2s, background 0.25s, transform 0.3s;
+
 }
 
 .activity:hover {
   border-color: #d4a8c8;
+  transform: translateY(-4px);
 }
 
 .activity p {
@@ -985,11 +985,16 @@ body.dark .chart-info-row .legend-pct {
   border-radius: 1em;
   padding: 1.3em 1.5em;
   margin-top: 1.4em;
+  transition: background 0.25s, border-color 0.2s, transform 0.3s;
 }
 
-body.dark .summary-box {
-  background: #2a1e3f;
-  border-color: #5d4a85;
+.summary-box:hover {
+  border-color: #d4a8c8;
+  transform: translateY(-4px);
+}
+
+body.dark .summary-box:hover {
+  border-color: #ffb3c7;
 }
 
 .summary-box h2 {
@@ -1024,8 +1029,8 @@ body.dark .summary-box h2::before {
   color: #6c3594;
   margin-bottom: 0.5em;
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  gap: 6px;
   padding: 0.35em 0;
   border-bottom: 1px dashed #eacce0;
 }
@@ -2285,8 +2290,8 @@ body.dark #editCourseName {
 }
 
 .section-icon {
-  width: 32px;
-  height: 32px;
+  width: 40px;
+  height: 40px;
   vertical-align: middle;
   margin-right: 6px;
 }

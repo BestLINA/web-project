@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
     ========================= */
 
     const currentUser =
-    JSON.parse(localStorage.getItem("currentUser"));
+        JSON.parse(localStorage.getItem("currentUser"));
 
     if (!currentUser) {
         window.location.href = "../html/login.html";
@@ -20,60 +20,60 @@ document.addEventListener("DOMContentLoaded", () => {
     ========================= */
 
     const coursesKey =
-    "courses_" + currentUser.id;
+        "courses_" + currentUser.id;
 
     const deadlinesKey =
-    "deadlines_" + currentUser.id;
+        "deadlines_" + currentUser.id;
 
     const availabilityKey =
-    "availability_" + currentUser.id;
+        "availability_" + currentUser.id;
 
     /* =========================
        LOAD DATA
     ========================= */
 
     const courses =
-    JSON.parse(localStorage.getItem(coursesKey)) || [];
+        JSON.parse(localStorage.getItem(coursesKey)) || [];
 
     const deadlines =
-    JSON.parse(localStorage.getItem(deadlinesKey)) || [];
+        JSON.parse(localStorage.getItem(deadlinesKey)) || [];
 
     const availability =
-    JSON.parse(localStorage.getItem(availabilityKey)) || [];
+        JSON.parse(localStorage.getItem(availabilityKey)) || [];
 
     /* =========================
        ELEMENTS
     ========================= */
 
     const progressPercent =
-    document.getElementById("progressPercent");
+        document.getElementById("progressPercent");
 
     const completedInfo =
-    document.getElementById("completedInfo");
+        document.getElementById("completedInfo");
 
     const pendingInfo =
-    document.getElementById("pendingInfo");
+        document.getElementById("pendingInfo");
 
     const missedInfo =
-    document.getElementById("missedInfo");
+        document.getElementById("missedInfo");
 
     const recentActivity =
-    document.getElementById("recentActivity");
+        document.getElementById("recentActivity");
 
     const completedTasks =
-    document.getElementById("completedTasks");
+        document.getElementById("completedTasks");
 
     const pendingTasks =
-    document.getElementById("pendingTasks");
+        document.getElementById("pendingTasks");
 
     const missedTasks =
-    document.getElementById("missedTasks");
+        document.getElementById("missedTasks");
 
     const studyHours =
-    document.getElementById("studyHours");
+        document.getElementById("studyHours");
 
     const pieChart =
-    document.getElementById("pieChart");
+        document.getElementById("pieChart");
 
     /* =========================
        COUNTERS
@@ -98,7 +98,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const target = new Date(date);
 
         const diff =
-        target - today;
+            target - today;
 
         return Math.ceil(
             diff / (1000 * 60 * 60 * 24)
@@ -112,7 +112,7 @@ document.addEventListener("DOMContentLoaded", () => {
     deadlines.forEach(item => {
 
         const daysLeft =
-        getDaysLeft(item.date);
+            getDaysLeft(item.date);
 
         if (item.completed) {
 
@@ -140,13 +140,13 @@ document.addEventListener("DOMContentLoaded", () => {
     availability.forEach(day => {
 
         const start =
-        parseInt(day.start);
+            parseInt(day.start);
 
         const end =
-        parseInt(day.end);
+            parseInt(day.end);
 
         totalStudyHours +=
-        end - start;
+            end - start;
     });
 
     /* =========================
@@ -154,16 +154,16 @@ document.addEventListener("DOMContentLoaded", () => {
     ========================= */
 
     const totalTasks =
-    completed + pending + missed;
+        completed + pending + missed;
 
     let completedPercent = 0;
 
     if (totalTasks > 0) {
 
         completedPercent =
-        Math.floor(
-            (completed / totalTasks) * 100
-        );
+            Math.floor(
+                (completed / totalTasks) * 100
+            );
     }
 
     /* =========================
@@ -171,7 +171,7 @@ document.addEventListener("DOMContentLoaded", () => {
     ========================= */
 
     progressPercent.innerText =
-    `${completedPercent}%`;
+        `${completedPercent}%`;
 
     pieChart.style.background = `
 
@@ -196,19 +196,19 @@ document.addEventListener("DOMContentLoaded", () => {
     ========================= */
 
     completedInfo.innerHTML = `
-        <span class="box green"></span>
-        ✔ Completed (${completed})
-    `;
+    <span class="box green"></span>
+    <img src="../imgs/success.png" class="mini-icon" alt=""> Completed (${completed})
+`;
 
     pendingInfo.innerHTML = `
-        <span class="box blue"></span>
-        ⏳ Pending (${pending})
-    `;
+    <span class="box blue"></span>
+    <img src="../imgs/hourglass.png" class="mini-icon" alt=""> Pending (${pending})
+`;
 
     missedInfo.innerHTML = `
-        <span class="box yellow"></span>
-        ❌ Missed (${missed})
-    `;
+    <span class="box yellow"></span>
+    <img src="../imgs/warningRed.png" class="mini-icon" alt=""> Missed (${missed})
+`;
 
     /* =========================
        RECENT ACTIVITY
@@ -223,62 +223,56 @@ document.addEventListener("DOMContentLoaded", () => {
         let icon = "";
 
         const daysLeft =
-        getDaysLeft(item.date);
+            getDaysLeft(item.date);
 
         if (item.completed) {
-
             status = "Completed";
-
-            icon = "✔";
+            icon = `<img src="../imgs/checkMark.png" class="mini-icon" alt="">`;
         }
 
         else if (daysLeft < 0) {
-
             status = "Missed";
-
-            icon = "❌";
+            icon = `<img src="../imgs/warningRed.png" class="mini-icon" alt="">`;
         }
 
         else {
-
             status = "Pending";
-
-            icon = "⏳";
+            icon = `<img src="../imgs/hourglass.png" class="mini-icon" alt="">`;
         }
 
         recentActivity.innerHTML += `
 
-            <div class="activity">
+    <div class="activity">
 
-                <p>
-                    <strong>
-                        📘 ${item.title}
-                    </strong>
-                </p>
+        <p>
+            <strong>
+                <img src="../imgs/books.png" class="mini-icon" alt=""> ${item.title}
+            </strong>
+        </p>
 
-                <p>
-                    ${icon} ${status}
-                </p>
+        <p>
+            ${icon} ${status}
+        </p>
 
-            </div>
+    </div>
 
-        `;
+`;
     });
 
     /* =========================
        SUMMARY
     ========================= */
 
-    completedTasks.innerText =
-    `✔ Completed Tasks: ${completed}`;
+    completedTasks.innerHTML =
+        `<img src="../imgs/checkMark.png" class="mini-icon" alt=""> Completed Tasks: ${completed}`;
 
-    pendingTasks.innerText =
-    `⏳ Pending Tasks: ${pending}`;
+    pendingTasks.innerHTML =
+        `<img src="../imgs/hourglass.png" class="mini-icon" alt=""> Pending Tasks: ${pending}`;
 
-    missedTasks.innerText =
-    `❌ Missed Tasks: ${missed}`;
+    missedTasks.innerHTML =
+        `<img src="../imgs/warningRed.png" class="mini-icon" alt=""> Missed Tasks: ${missed}`;
 
-    studyHours.innerText =
-    `⏱ Study Hours: ${totalStudyHours}`;
+    studyHours.innerHTML =
+        `<img src="../imgs/clock.png" class="mini-icon" alt=""> Study Hours: ${totalStudyHours}`;
 
 });
