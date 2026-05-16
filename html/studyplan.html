@@ -11,6 +11,7 @@
 
 <body class="study-plan-view">
 
+    <!-- Header -->
     <div class="header">
         <div class="logo-area">
             <img src="../imgs/AWJ_logo.png" alt="AWJ logo" width="100" id="siteLogo">
@@ -20,42 +21,49 @@
                 <img src="../imgs/Notification.png" class="notif-icon" alt="notifications">
                 <span class="notif-dot" id="notifDot"></span>
             </a>
-
             <button id="themeToggle" class="dark-mode-btn header-action-btn">
                 <img id="themeIcon" src="../imgs/Moon.png" alt="theme icon">
             </button>
         </div>
     </div>
 
+    <!-- Sidebar -->
     <div class="sidebar">
         <div class="menu">
-            <a href="dashboard.html"> Dashboard</a>
-            <a href="courses.html"> Courses</a>
-            <a href="deadlines.html"> Deadlines</a>
-            <a href="availability.html"> Availability</a>
-            <a href="studyplan.html"> Study Plan</a>
-            <a href="progress.html"> Progress</a>
+            <a href="dashboard.html">Dashboard</a>
+            <a href="courses.html">Courses</a>
+            <a href="deadlines.html">Deadlines</a>
+            <a href="availability.html">Availability</a>
+            <a href="studyplan.html">Study Plan</a>
+            <a href="progress.html">Progress</a>
         </div>
-        <a href="login.html" class="logout-link"> Logout</a>
+        <a href="login.html" class="logout-link">Logout</a>
     </div>
 
+    <!-- Main Content -->
     <div class="content">
 
+        <!-- Hero Banner -->
         <div class="welcome-hero">
             <h1>Your Weekly Study Plan</h1>
-            <p>Welcome to your personalized schedule. Your sessions are organized based on your availability to ensure
-                peak productivity and consistent progress.</p>
+            <p>Welcome to your personalized schedule. Your sessions are organized based on your availability
+               to ensure peak productivity and consistent progress.</p>
             <div class="hero-meta">
-                <span class="week-tag">📆 Current Week: <strong id="currentWeekRange">11/05/2026 -
-                        17/05/2026</strong></span>
+                <span class="week-tag">
+                    📆 Current Week: <strong id="currentWeekRange">Loading...</strong>
+                </span>
             </div>
         </div>
 
+        <!-- Study Table Card -->
         <div class="grid-card plan-container">
             <div class="card-header">
                 <div class="card-icon">📊</div>
                 <h2>Weekly Schedule</h2>
-                <p class="subtitle">Check off completed sessions to update your progress automatically.</p>
+                <p class="subtitle">
+                    Select a course, then mark sessions as <strong>Done</strong> ✅ or
+                    <strong>Missed</strong> ⚠️. Missed sessions are rescheduled automatically.
+                </p>
             </div>
 
             <div class="table-responsive">
@@ -65,42 +73,52 @@
                             <th>⏰ Time Slot</th>
                         </tr>
                     </thead>
-                    <tbody id="tableBody">
-                    </tbody>
+                    <tbody id="tableBody"></tbody>
                 </table>
             </div>
 
+            <!-- Empty state: shown when no availability is set -->
             <div id="tableEmptyState" style="display:none; text-align:center; padding:40px;">
-                <p style="color: #a4508b; font-weight: 500;">No study hours selected yet. Please visit the
-                    "Availability" page to set your schedule.</p>
+                <p style="color:#a4508b; font-weight:500;">
+                    No study hours selected yet.
+                    Please visit the <a href="availability.html">Availability</a> page to set your schedule.
+                </p>
             </div>
         </div>
 
+        <!-- Bottom Cards Row -->
         <div class="study-grid">
 
+            <!-- Weekly Summary Card -->
             <div class="grid-card summary-card">
                 <div class="card-header">
                     <div class="card-icon">🌟</div>
                     <h2>Weekly Summary</h2>
                 </div>
-                <div id="dynamicSummaryContent" class="summary-content-list">
-                </div>
+                <div id="dynamicSummaryContent" class="summary-content-list"></div>
             </div>
 
+            <!-- Stay Motivated Card -->
             <div class="grid-card motivation-card">
                 <div class="card-header">
                     <div class="card-icon">💡</div>
                     <h2>Stay Motivated</h2>
                 </div>
                 <ul class="motivation-list">
+                    <li>📌 Consistency beats intensity — show up every day.</li>
+                    <li>🎯 Break big tasks into small sessions.</li>
+                    <li>🌙 Rest is part of the plan — don't skip recovery.</li>
+                    <li>🏆 Every completed session is a win worth celebrating.</li>
                 </ul>
                 <div class="motivation-footer">
+                    <p>Keep going — you're building habits that last! 💪</p>
                 </div>
             </div>
 
         </div>
     </div>
 
+    <!-- Toast Notification -->
     <div id="toastNotification" class="toast"></div>
 
     <script src="../js/theme.js"></script>
