@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dashboard</title>
 
     <link rel="stylesheet" href="../css/style.css" />
@@ -128,6 +128,40 @@
 
         <button id="tipBtn" class="tip-btn">Generate Tip</button>
       </section>
+
+      <!-- FLOATING AI BUTTON -->
+
+      <button id="openChatBtn" class="floating-ai-btn">✨ AI</button>
+
+      <!-- AI CHAT WINDOW -->
+
+      <div id="aiWindow" class="ai-window">
+        <!-- HEADER -->
+
+        <div class="ai-header">
+          <div>
+            <h3>AWJ AI Assistant</h3>
+
+            <p>Online</p>
+          </div>
+
+          <span id="closeChatBtn"> ✕ </span>
+        </div>
+
+        <!-- CHAT -->
+
+        <div id="chatBox" class="chat-box">
+          <div class="ai-message">Hi 👋 How can I help you study today?</div>
+        </div>
+
+        <!-- INPUT -->
+
+        <div class="chat-input-area">
+          <input type="text" id="userInput" placeholder="Ask anything..." />
+
+          <button id="sendBtn">➤</button>
+        </div>
+      </div>
     </main>
     <script src="../js/theme.js"></script>
     <script src="../js/dashboard.js"></script>

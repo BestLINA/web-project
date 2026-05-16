@@ -21,11 +21,9 @@ document.addEventListener("DOMContentLoaded", () => {
     greeting = "Good Evening";
   }
 
-  const currentUser =
-  JSON.parse(localStorage.getItem("currentUser"));
+  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
 
-  welcomeText.innerHTML =
-  `${greeting}, ${currentUser.fullName} <img src="../imgs/wavingHand.png" alt="waving hand" class="wave-icon">`;
+  welcomeText.innerHTML = `${greeting}, ${currentUser.fullName} <img src="../imgs/wavingHand.png" alt="waving hand" class="wave-icon">`;
   /* =========================
        STATISTICS
     ========================= */
@@ -146,5 +144,108 @@ document.addEventListener("DOMContentLoaded", () => {
     card.addEventListener("mouseleave", () => {
       card.style.transform = "translateY(0px)";
     });
+  });
+});
+
+/* =========================
+   GEMINI AI CHATBOT
+========================= */
+
+document.addEventListener("DOMContentLoaded", () => {
+  const sendBtn = document.getElementById("sendBtn");
+
+  const userInput = document.getElementById("userInput");
+
+  const chatBox = document.getElementById("chatBox");
+
+  const openChatBtn = document.getElementById("openChatBtn");
+
+  const aiWindow = document.getElementById("aiWindow");
+
+  const closeChatBtn = document.getElementById("closeChatBtn");
+
+  const API_KEY = "AIzaSyDWeCLXT3r5T-v0wuqrqp9OyQQaRGBHnzs";
+
+  /* OPEN CHAT */
+
+  openChatBtn.addEventListener("click", () => {
+    aiWindow.style.display = "flex";
+  });
+
+  /* CLOSE CHAT */
+
+  closeChatBtn.addEventListener("click", () => {
+    aiWindow.style.display = "none";
+  });
+
+  /* SEND MESSAGE */
+
+  sendBtn.addEventListener("click", async () => {
+    const userMessage = userInput.value.trim();
+
+    if (userMessage === "") return;
+
+    /* USER MESSAGE */
+
+    chatBox.innerHTML += `
+      <div class="user-message">
+        ${userMessage}
+      </div>
+    `;
+
+    userInput.value = "";
+
+    chatBox.scrollTop = chatBox.scrollHeight;
+
+    try {
+      const response = await fetch(
+        `https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent:generateContent?key=${API_KEY}`,
+        {
+          method: "POST",
+
+          headers: {
+            "Content-Type": "application/json",
+          },
+
+          body: JSON.stringify({
+            contents: [
+              {
+                parts: [
+                  {
+                    text: `
+                    You are a smart study assistant.
+                    Keep answers short, clean, and helpful.
+
+                    User:
+                    ${userMessage}
+                    `,
+                  },
+                ],
+              },
+            ],
+          }),
+        },
+      );
+
+      const data = await response.json();
+      console.log(data);
+      const aiReply = data.candidates[0].content.parts[0].text;
+
+      /* AI MESSAGE */
+
+      chatBox.innerHTML += `
+        <div class="ai-message">
+          ${aiReply}
+        </div>
+      `;
+
+      chatBox.scrollTop = chatBox.scrollHeight;
+    } catch (error) {
+      chatBox.innerHTML += `
+        <div class="ai-message">
+          ⚠️ Error connecting to Gemini AI.
+        </div>
+      `;
+    }
   });
 });
