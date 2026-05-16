@@ -118,7 +118,8 @@ function showToast(text, type) {
     const toast =
         document.getElementById("toast");
 
-    toast.textContent = text;
+    const icon = type === "success" ? "../imgs/success.png" : "../imgs/warningRed.png";
+    toast.innerHTML = `<img src="${icon}" class="toast-icon" alt=""> ${text}`;
 
     toast.className =
         "toast toast-visible";
@@ -282,8 +283,8 @@ function render() {
             showToast(
 
                 item.completed
-                    ? "✅ Marked as completed"
-                    : "↩️ Marked as incomplete",
+                    ? " Marked as completed"
+                    : " Marked as incomplete",
 
                 "success"
             );
@@ -300,7 +301,7 @@ function render() {
                 render();
 
                 showToast(
-                    "🗑️ Deadline deleted successfully",
+                    " Deadline deleted successfully",
                     "success"
                 );
             });
@@ -356,7 +357,7 @@ addBtn.addEventListener("click", () => {
     if (!course || !title || !type || !date) {
 
         showToast(
-            "⚠️ Please complete all fields.",
+            " Please complete all fields.",
             "error"
         );
 
@@ -367,7 +368,7 @@ addBtn.addEventListener("click", () => {
     if (date < today) {
 
         showToast(
-            "⚠️ Please choose a future date.",
+            " Please choose a future date.",
             "error"
         );
 
@@ -402,7 +403,7 @@ addBtn.addEventListener("click", () => {
 
     // success toast
     showToast(
-        "✅ Deadline added successfully!",
+        " Deadline added successfully!",
         "success"
     );
     if (typeof updateNotifDot === "function") updateNotifDot();
@@ -420,7 +421,7 @@ saveEditBtn.addEventListener("click", () => {
     if (editDate.value < today) {
 
         showToast(
-            "⚠️ Please choose a future date.",
+            " Please choose a future date.",
             "error"
         );
 
@@ -448,7 +449,7 @@ saveEditBtn.addEventListener("click", () => {
 
     // success toast
     showToast(
-        "✅ Deadline updated successfully!",
+        " Deadline updated successfully!",
         "success"
     );
     if (typeof updateNotifDot === "function") updateNotifDot();
