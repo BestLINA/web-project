@@ -171,3 +171,69 @@ function showToast(text, type) {
         toast.classList.remove("toast-visible");
     }, 3000);
 }
+// =========================================
+//   GEMINI — load AI study tips
+// =========================================
+
+async function loadAITips() {
+    const API_KEY = "AIzaSyBCOGvtuTuQkJPHVjiABvjJT7mWeUexk4E";
+    const container = document.getElementById("tipsContainer");
+
+    try {
+        const response = await fetch(
+             `https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent`,
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "x-goog-api-key": API_KEY
+                },
+                body: JSON.stringify({
+                    contents: [
+                        {
+                            parts: [
+                                {
+                                    text: "Give me exactly 3 short study tips for university students. Each tip should be one sentence. Return them as a numbered list like: 1. tip 2. tip 3. tip"
+                                }
+                            ]
+                        }
+                    ]
+                })
+            }
+        );
+
+        const data = await response.json();
+        const text = data.candidates[0].content.parts[0].text;
+
+        // split by numbered list
+        const tips = text.split(/\d+\./).filter(t => t.trim() !== "");
+
+        container.innerHTML = "";
+
+        tips.forEach(tip => {
+            container.innerHTML += `
+                <div class="availability-tip">
+                    <img src="../imgs/pin.png" class="availability-pin" alt="">
+                    ${tip.trim()}
+                </div>
+            `;
+        });
+
+    } catch (error) {
+        // fallback to static tips if API fails
+        container.innerHTML = `
+            <div class="availability-tip">
+                <img src="../imgs/pin.png" class="availability-pin" alt=""> Be consistent with your study hours
+            </div>
+            <div class="availability-tip">
+                <img src="../imgs/pin.png" class="availability-pin" alt=""> Take 10–15 min breaks every 1–2 hours
+            </div>
+            <div class="availability-tip">
+                <img src="../imgs/pin.png" class="availability-pin" alt=""> Avoid over-scheduling
+            </div>
+        `;
+    }
+}
+
+// call it when page loads
+loadAITips();

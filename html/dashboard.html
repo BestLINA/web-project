@@ -1,125 +1,117 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dashboard</title>
 
-    <link rel="stylesheet" href="../css/style.css" />
-  </head>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard</title>
 
-  <body>
-    <!-- HEADER -->
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
 
-    <header class="header">
-      <div class="logo-area">
-        <img
-          src="../imgs/AWJ_logo.png"
-          alt="AWJ logo"
-          width="100"
-          id="siteLogo"
-        />
+<body>
+  <!-- HEADER -->
+
+  <header class="header">
+    <div class="logo-area">
+      <img src="../imgs/AWJ_logo.png" alt="AWJ logo" width="100" id="siteLogo" />
+    </div>
+
+    <div class="header-right">
+      <!-- Notification (clickable) -->
+      <a href="Reminders.html" id="notifLink" class="notif-wrapper">
+        <img src="../imgs/Notification.png" class="notif-icon" alt="notifications" />
+        <span class="notif-dot" id="notifDot"></span>
+      </a>
+
+      <!-- Theme toggle -->
+      <button id="themeToggle" class="dark-mode-btn">
+        <img id="themeIcon" src="../imgs/Moon.png" alt="theme icon" />
+      </button>
+    </div>
+  </header>
+
+  <!-- SIDEBAR -->
+
+  <aside class="sidebar">
+    <div class="menu">
+      <a href="dashboard.html"> Dashboard</a>
+      <a href="courses.html"> Courses</a>
+      <a href="deadlines.html"> Deadlines</a>
+      <a href="availability.html"> Availability</a>
+      <a href="studyplan.html"> Study Plan</a>
+      <a href="progress.html"> Progress</a>
+    </div>
+
+    <a href="login.html" class="logout-link"> Logout </a>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+
+  <main class="content">
+    <!-- WELCOME -->
+
+    <section class="welcome-section">
+      <h1 id="welcomeText" class="welcome-title"></h1>
+
+      <p class="welcome-subtitle">Stay focused and achieve your goals</p>
+    </section>
+
+    <!-- STATISTICS -->
+
+    <section class="stats-grid">
+      <div class="card stat-card">
+        <h3 class="card-title">Total Study Hours</h3>
+
+        <p class="big-number" id="hoursNumber">0</p>
       </div>
 
-      <div class="header-right">
-        <!-- Notification (clickable) -->
-        <a href="Reminders.html" id="notifLink" class="notif-wrapper">
-          <img
-            src="../imgs/Notification.png"
-            class="notif-icon"
-            alt="notifications"
-          />
-          <span class="notif-dot" id="notifDot"></span>
-        </a>
+      <div class="card stat-card">
+        <h3 class="card-title">Completed Sessions</h3>
 
-        <!-- Theme toggle -->
-        <button id="themeToggle" class="dark-mode-btn">
-          <img id="themeIcon" src="../imgs/Moon.png" alt="theme icon" />
-        </button>
-      </div>
-    </header>
-
-    <!-- SIDEBAR -->
-
-    <aside class="sidebar">
-      <div class="menu">
-        <a href="dashboard.html"> Dashboard</a>
-        <a href="courses.html"> Courses</a>
-        <a href="deadlines.html"> Deadlines</a>
-        <a href="availability.html"> Availability</a>
-        <a href="studyplan.html"> Study Plan</a>
-        <a href="progress.html"> Progress</a>
+        <p class="big-number" id="sessionsNumber">0</p>
       </div>
 
-      <a href="login.html" class="logout-link"> Logout </a>
-    </aside>
+      <div class="card stat-card">
+        <h3 class="card-title">Focus Rate</h3>
 
-    <!-- MAIN CONTENT -->
+        <p class="big-number" id="focusNumber">0%</p>
+      </div>
 
-    <main class="content">
-      <!-- WELCOME -->
+      <div class="card stat-card">
+        <h3 class="card-title">Productivity</h3>
 
-      <section class="welcome-section">
-        <h1 id="welcomeText" class="welcome-title"></h1>
+        <p class="big-number" id="productivityNumber">0%</p>
+      </div>
+    </section>
 
-        <p class="welcome-subtitle">Stay focused and achieve your goals</p>
-      </section>
+    <!-- DASHBOARD GRID -->
 
-      <!-- STATISTICS -->
+    <section class="dashboard-grid">
+      <!-- PROGRESS -->
 
-      <section class="stats-grid">
-        <div class="card stat-card">
-          <h3 class="card-title">Total Study Hours</h3>
+      <div class="card progress-card">
+        <h2 class="section-title">Weekly Progress</h2>
 
-          <p class="big-number" id="hoursNumber">0</p>
-        </div>
-
-        <div class="card stat-card">
-          <h3 class="card-title">Completed Sessions</h3>
-
-          <p class="big-number" id="sessionsNumber">0</p>
-        </div>
-
-        <div class="card stat-card">
-          <h3 class="card-title">Focus Rate</h3>
-
-          <p class="big-number" id="focusNumber">0%</p>
-        </div>
-
-        <div class="card stat-card">
-          <h3 class="card-title">Productivity</h3>
-
-          <p class="big-number" id="productivityNumber">0%</p>
-        </div>
-      </section>
-
-      <!-- DASHBOARD GRID -->
-
-      <section class="dashboard-grid">
-        <!-- PROGRESS -->
-
-        <div class="card progress-card">
-          <h2 class="section-title">Weekly Progress</h2>
-
-          <div class="progress-circle">
-            <div class="progress-inner">
-              <span id="progressText" class="progress-text"> 0% </span>
-            </div>
+        <div class="progress-circle">
+          <div class="progress-inner">
+            <span id="progressText" class="progress-text"> 0% </span>
           </div>
         </div>
+      </div>
 
-        <!-- STUDY HOURS -->
+      <!-- STUDY HOURS -->
 
-        <div class="card hours-card">
-          <h2 class="section-title">Weekly Study Hours</h2>
+      <div class="card hours-card">
+        <h2 class="section-title">Weekly Study Hours</h2>
 
-          <div id="studyStats" class="study-stats"></div>
-        </div>
-      </section>
+        <div id="studyStats" class="study-stats"></div>
+      </div>
+    </section>
 
-      <!-- AI TIPS -->
+    <!-- AI TIPS -->
 
-      <section class="card ai-card">
+    <!-- <section class="card ai-card">
         <h2 class="section-title">AI Study Tips</h2>
 
         <p id="tipText" class="tip-text">
@@ -127,43 +119,46 @@
         </p>
 
         <button id="tipBtn" class="tip-btn">Generate Tip</button>
-      </section>
+      </section> -->
 
-      <!-- FLOATING AI BUTTON -->
+    <!-- FLOATING AI BUTTON -->
 
-      <button id="openChatBtn" class="floating-ai-btn">✨ AI</button>
+    <button id="openChatBtn" class="floating-ai-btn">
+      <img src="../imgs/AIChatbotPink.png" alt="AI Chatbot">
+    </button>
 
-      <!-- AI CHAT WINDOW -->
+    <!-- AI CHAT WINDOW -->
 
-      <div id="aiWindow" class="ai-window">
-        <!-- HEADER -->
+    <div id="aiWindow" class="ai-window">
+      <!-- HEADER -->
 
-        <div class="ai-header">
-          <div>
-            <h3>AWJ AI Assistant</h3>
+      <div class="ai-header">
+        <div>
+          <h3>AWJ AI Assistant</h3>
 
-            <p>Online</p>
-          </div>
-
-          <span id="closeChatBtn"> ✕ </span>
+          <p>Online</p>
         </div>
 
-        <!-- CHAT -->
-
-        <div id="chatBox" class="chat-box">
-          <div class="ai-message">Hi 👋 How can I help you study today?</div>
-        </div>
-
-        <!-- INPUT -->
-
-        <div class="chat-input-area">
-          <input type="text" id="userInput" placeholder="Ask anything..." />
-
-          <button id="sendBtn">➤</button>
-        </div>
+        <span id="closeChatBtn"> ✕ </span>
       </div>
-    </main>
-    <script src="../js/theme.js"></script>
-    <script src="../js/dashboard.js"></script>
-  </body>
+
+      <!-- CHAT -->
+
+      <div id="chatBox" class="chat-box">
+        <div class="ai-message">Hi 👋 How can I help you study today?</div>
+      </div>
+
+      <!-- INPUT -->
+
+      <div class="chat-input-area">
+        <input type="text" id="userInput" placeholder="Ask anything..." />
+
+        <button id="sendBtn">➤</button>
+      </div>
+    </div>
+  </main>
+  <script src="../js/theme.js"></script>
+  <script src="../js/dashboard.js"></script>
+</body>
+
 </html>

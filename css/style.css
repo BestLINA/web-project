@@ -765,7 +765,7 @@ body.dark .progress-text {
   margin: 0;
 }
 
-.ai-card {
+/* .ai-card {
   border-left: 4px solid #5c2d7a;
 }
 
@@ -804,7 +804,7 @@ body.dark .tip-btn {
 
 body.dark .tip-btn:hover {
   background: #ffd0dc;
-}
+} */
 
 /* ─────────────────────────────────────────────
    DEADLINES
@@ -1890,6 +1890,7 @@ body.dark ::-webkit-scrollbar-thumb:hover {
    RESPONSIVE
    ───────────────────────────────────────────── */
 @media (max-width: 900px) {
+
   .stats-grid,
   .dashboard-grid {
     grid-template-columns: 1fr;
@@ -2456,29 +2457,17 @@ body.dark .reminder-section-title {
 
 .ai-window {
   position: fixed;
-
   bottom: 120px;
   right: 30px;
-
   width: 380px;
   height: 600px;
-
-  background: rgba(255, 255, 255, 0.75);
-
-  backdrop-filter: blur(18px);
-
-  border: 1px solid rgba(255, 255, 255, 0.3);
-
+  background: white;
+  border: 1px solid #eacce0;
   border-radius: 28px;
-
   overflow: hidden;
-
   display: none;
-
   flex-direction: column;
-
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.12);
-
   z-index: 1000;
 }
 
@@ -2558,15 +2547,11 @@ body.dark .reminder-section-title {
 
 .chat-input-area input {
   flex: 1;
-
-  border: none;
-
+  border: 1px solid #eacce0;
   border-radius: 16px;
-
   padding: 14px;
-
   background: #f7f3ff;
-
+  color: #472163;
   outline: none;
 }
 
@@ -2596,4 +2581,48 @@ body.dark .reminder-section-title {
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+/* ── AI CHATBOT DARK MODE ─────────────────── */
+body.dark .ai-window {
+  background: #1e1428;
+  border-color: #5d4a85;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+}
+
+body.dark .ai-header {
+  background: linear-gradient(135deg, #3d1f5a, #6b2d4a);
+}
+
+body.dark .ai-message {
+  background: #2a1e3f;
+  color: #ffb3c7;
+}
+
+body.dark .user-message {
+  background: #5c2d7a;
+  color: white;
+}
+
+body.dark .chat-input-area input {
+  background: #241840;
+  color: #ffb3c7;
+  border: 1px solid #5d4a85;
+}
+
+body.dark .chat-input-area input::placeholder {
+  color: #9b7edc;
+}
+
+body.dark .chat-input-area button {
+  background: linear-gradient(135deg, #5c2d7a, #8b2d5a);
+}
+
+body.dark .floating-ai-btn {
+  background: linear-gradient(135deg, #5c2d7a, #8b2d5a);
+}
+.floating-ai-btn img {
+  width: 70px;
+  height: 70px;
+  object-fit: contain;
 }
