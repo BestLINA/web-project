@@ -136,16 +136,16 @@ saveBtn.addEventListener("click", () => {
 
     // show error if any checked day has missing or invalid times
     if (hasError) {
-        showToast("⚠️ Please select valid start and end times for all checked days.", "error");
+        showToast(" Please select valid start and end times for all checked days.", "error");
 
         // at least one day must be selected
     } else if (availability.length === 0) {
-        showToast("⚠️ Please check at least one day.", "error");
+        showToast(" Please check at least one day.", "error");
 
     } else {
         // save to localStorage under this user's unique key
         localStorage.setItem(storageKey, JSON.stringify(availability));
-        showToast("✅ Availability saved successfully!", "success");
+        showToast(" Availability saved successfully!", "success");
     }
 });
 
@@ -157,7 +157,8 @@ saveBtn.addEventListener("click", () => {
 function showToast(text, type) {
     const toast = document.getElementById("toast");
 
-    toast.textContent = text;
+    const icon = type === "success" ? "../imgs/success.png" : "../imgs/warningRed.png";
+    toast.innerHTML = `<img src="${icon}" class="toast-icon" alt=""> ${text}`;
 
     // remove old classes and apply the right color
     toast.className = "";
