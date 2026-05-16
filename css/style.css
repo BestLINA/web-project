@@ -259,6 +259,11 @@ body.dark .logout-link:hover {
 .content p {
   font-size: 1em;
   margin: 0.5em 0;
+  color: #a07ab0;
+}
+
+body.dark .content p {
+  color: #d8b8e8;
 }
 
 body.dark .content h1 {
@@ -2032,13 +2037,25 @@ body.dark ::-webkit-scrollbar-thumb:hover {
 
 #addCourseBtn,
 #saveEditBtn {
-  background: linear-gradient(135deg, #9b7edc, #ff8fab);
+  background: #5c2d7a;
   color: white;
+  transition: background 0.2s;
 }
 
 #addCourseBtn:hover,
 #saveEditBtn:hover {
-  transform: scale(1.03);
+  background: #e98dda;
+}
+
+body.dark #addCourseBtn,
+body.dark #saveEditBtn {
+  background: #ffb3c7;
+  color: #3a2c5a;
+}
+
+body.dark #addCourseBtn:hover,
+body.dark #saveEditBtn:hover {
+  background: #ffd0dc;
 }
 
 /* FORM */
@@ -2247,8 +2264,8 @@ body.dark #editCourseName {
 }
 
 .section-icon {
-  width: 22px;
-  height: 22px;
+  width: 32px;
+  height: 32px;
   vertical-align: middle;
   margin-right: 6px;
 }
@@ -2317,10 +2334,6 @@ body.dark .reminder-section-title {
   color: #ffb3c7;
 }
 
-.section-icon {
-  width: 20px;
-  height: 20px;
-}
 
 .reminder-count {
   background: #b84a6a;
