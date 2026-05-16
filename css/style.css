@@ -1500,7 +1500,7 @@ body.dark .availability-header h1 {
   padding: 20px 24px;
   width: 55%;
   box-shadow: 0 2px 8px rgba(120, 57, 132, 0.07);
-  transition: background 0.25s;
+  transition: background 0.25s, transform 0.3s, border-color 0.2s;
 }
 
 body.dark .availability-schedule {
@@ -1580,7 +1580,7 @@ body.dark .availability-day-left label {
   padding: 20px 24px;
   width: 40%;
   box-shadow: 0 2px 8px rgba(120, 57, 132, 0.07);
-  transition: background 0.25s;
+  transition: background 0.25s, transform 0.3s, border-color 0.2s;
 }
 
 body.dark .availability-tips {
@@ -1671,6 +1671,18 @@ body.dark .availability-save-btn {
 
 body.dark .availability-save-btn:hover {
   background: #ffd0dc;
+}
+
+.availability-schedule:hover,
+.availability-tips:hover {
+  transform: translateY(-4px);
+  border-color: #d4a8c8;
+}
+
+body.dark .availability-schedule:hover,
+body.dark .availability-tips:hover {
+  transform: translateY(-4px);
+  border-color: #ffb3c7;
 }
 
 /* ─────────────────────────────────────────────
