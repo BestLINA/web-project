@@ -223,8 +223,8 @@ a:hover {
 .sidebar .menu-link:hover,
 .sidebar a.active,
 .sidebar .menu-link.active {
-  background: var(--surface-alt);
-  color: var(--primary);
+background: #e9d5f5;
+color: #5c2d7a; 
   text-decoration: none;
 }
 
