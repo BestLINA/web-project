@@ -15,6 +15,7 @@ const deadlines = JSON.parse(localStorage.getItem(deadlinesKey)) || [];
 const availability = JSON.parse(localStorage.getItem(availabilityKey)) || [];
 let readIds = JSON.parse(localStorage.getItem(readKey)) || [];
 
+
 // =========================================
 //   STEP 1 — print today's date at top
 // =========================================
@@ -239,5 +240,9 @@ function updateBellDot(unreadCount) {
 // =========================================
 //   INITIAL RUN
 // =========================================
+// remove old ids that no longer have an active reminder
+const validIds = generateReminders().map(r => r.id);
+readIds = readIds.filter(id => validIds.includes(id));
+localStorage.setItem(readKey, JSON.stringify(readIds));
 
 render();
