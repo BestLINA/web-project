@@ -133,7 +133,7 @@ document.addEventListener("DOMContentLoaded", () => {
         .map(
           (item) => `
                     <p style="margin-bottom: 8px; display: flex; align-items: center; gap: 8px;">
-                        <img src="../imgs/books.png" class="mini-icon" alt="" style="width:16px; height:16px;">
+                        <img src="../imgs/books.png" class="mini-icon" alt="books" style="width:16px; height:16px;">
                         <strong>${item.day}</strong> : ${item.hours} hours
                     </p>
                 `,
