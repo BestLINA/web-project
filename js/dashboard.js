@@ -140,7 +140,13 @@ document.addEventListener("DOMContentLoaded", () => {
   function appendMessage(text, type) {
     const div = document.createElement("div");
     div.className = type === "user" ? "user-message" : "ai-message";
-    div.textContent = text;
+    const formattedText = text
+
+      .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
+
+      .replace(/\n/g, "<br>");
+
+    div.innerHTML = formattedText;
     chatBox.appendChild(div);
     chatBox.scrollTop = chatBox.scrollHeight;
   }
@@ -205,17 +211,3 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 });
-
-function appendMessage(text, type) {
-  const div = document.createElement("div");
-
-  div.className = type === "user" ? "user-message" : "ai-message";
-
-  const formattedText = text.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>");
-
-  div.innerHTML = formattedText;
-
-  chatBox.appendChild(div);
-
-  chatBox.scrollTop = chatBox.scrollHeight;
-}
