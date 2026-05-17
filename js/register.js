@@ -9,13 +9,13 @@ signupBtn.addEventListener("click", function () {
 
     // check empty fields
     if (!fullName || !email || !password || !confirmPassword) {
-        showToast("⚠️ Please fill in all fields.", "error");
+        showToast(" Please fill in all fields.", "error");
         return;
     }
 
     // password match validation
     if (password !== confirmPassword) {
-        showToast("⚠️ Passwords do not match.", "error");
+        showToast(" Passwords do not match.", "error");
         return;
     }
 
@@ -32,7 +32,7 @@ signupBtn.addEventListener("click", function () {
     const emailExists = users.some(user => user.email === email);
 
     if (emailExists) {
-        showToast("⚠️ Email already exists.", "error");
+        showToast(" Email already exists.", "error");
         return;
     }
 
@@ -41,7 +41,7 @@ signupBtn.addEventListener("click", function () {
     localStorage.setItem("users", JSON.stringify(users));
     localStorage.setItem("currentUser", JSON.stringify(user));
 
-    showToast("✅ Account created successfully!", "success");
+    showToast(" Account created successfully!", "success");
 
     // small delay so user sees the toast
     setTimeout(() => {
@@ -58,7 +58,8 @@ signupBtn.addEventListener("click", function () {
 function showToast(text, type) {
     const toast = document.getElementById("toast");
 
-    toast.textContent = text;
+    const icon = type === "success" ? "../imgs/success.png" : "../imgs/warningRed.png";
+    toast.innerHTML = `<img src="${icon}" class="toast-icon" alt=""> ${text}`;
 
     // remove old classes and apply the right color
     toast.className = "";

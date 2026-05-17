@@ -1,4 +1,3 @@
-
 // check if user is logged in
 const currentUser = JSON.parse(localStorage.getItem("currentUser"));
 if (!currentUser) {
@@ -15,7 +14,6 @@ const deadlines = JSON.parse(localStorage.getItem(deadlinesKey)) || [];
 const availability = JSON.parse(localStorage.getItem(availabilityKey)) || [];
 let readIds = JSON.parse(localStorage.getItem(readKey)) || [];
 
-
 // =========================================
 //   STEP 1 — print today's date at top
 // =========================================
@@ -29,7 +27,6 @@ const dateOptions = {
     year: "numeric"
 };
 
-// format: "Saturday, 16 May 2026"
 todayDateEl.textContent = new Date().toLocaleDateString("en-GB", dateOptions);
 
 // =========================================
@@ -38,10 +35,8 @@ todayDateEl.textContent = new Date().toLocaleDateString("en-GB", dateOptions);
 // =========================================
 
 const dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-
 const todayIndex = new Date().getDay();
 const tomorrowIndex = (todayIndex + 1) % 7;
-
 const todayName = dayNames[todayIndex];
 const tomorrowName = dayNames[tomorrowIndex];
 
@@ -53,13 +48,12 @@ function getDaysLeft(date) {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
     const target = new Date(date);
-    const diff = target - today;
-    return Math.ceil(diff / (1000 * 60 * 60 * 24));
+    return Math.ceil((target - today) / (1000 * 60 * 60 * 24));
 }
 
 // =========================================
-//   STEP 4 — generate reminders array
-//            from deadlines and availability
+//   STEP 4 — generate ALL reminders
+//            no readIds filtering here
 // =========================================
 
 function generateReminders() {
@@ -76,12 +70,11 @@ function generateReminders() {
         // skip if more than 3 days away
         if (daysLeft > 3) return;
 
+        const id = "deadline-" + item.course + "-" + item.title + "-" + item.date;
+
         let img = "";
         let text = "";
         let sub = "Due on " + item.date;
-
-        // build unique id for this reminder
-        const id = "deadline-" + item.course + "-" + item.title + "-" + item.date;
 
         if (daysLeft < 0) {
             img = "../imgs/warningRed.png";
@@ -98,7 +91,8 @@ function generateReminders() {
             text = item.course + " — " + item.title + " due in " + daysLeft + " days";
         }
 
-        reminders.push({ id, img, text, sub });
+        // mark overdue so render() can filter them out when read
+        reminders.push({ id, img, text, sub, isOverdue: daysLeft < 0 });
     });
 
     // --- availability / study session reminders ---
@@ -106,11 +100,9 @@ function generateReminders() {
 
         const day = entry.day;
 
-        // only show today and tomorrow sessions
         if (day !== todayName && day !== tomorrowName) return;
 
         const isToday = day === todayName;
-
         const id = "session-" + day.toLowerCase() + "-" + new Date().toISOString().split("T")[0];
         const img = isToday ? "../imgs/clock.png" : "../imgs/pin.png";
         const text = isToday
@@ -118,7 +110,7 @@ function generateReminders() {
             : "You have a study session tomorrow";
         const sub = day + " · " + entry.start + " – " + entry.end;
 
-        reminders.push({ id, img, text, sub });
+        reminders.push({ id, img, text, sub, isOverdue: false });
     });
 
     return reminders;
@@ -130,11 +122,20 @@ function generateReminders() {
 
 function render() {
 
-    const reminders = generateReminders();
+    // get all reminders — no filtering inside generateReminders
+    let allReminders = generateReminders();
+
+    // remove overdue reminders the user already read — they are in the past
+    allReminders = allReminders.filter(r => !(r.isOverdue && readIds.includes(r.id)));
+
+    // now clean up stale read ids based on what is still active
+    const validIds = allReminders.map(r => r.id);
+    readIds = readIds.filter(id => validIds.includes(id));
+    localStorage.setItem(readKey, JSON.stringify(readIds));
 
     // separate unread and read
-    const unread = reminders.filter(r => !readIds.includes(r.id));
-    const read = reminders.filter(r => readIds.includes(r.id));
+    const unread = allReminders.filter(r => !readIds.includes(r.id));
+    const read = allReminders.filter(r => readIds.includes(r.id));
 
     // get containers
     const unreadContainer = document.getElementById("unreadContainer");
@@ -144,12 +145,11 @@ function render() {
     const readSection = document.getElementById("readSection");
     const unreadCount = document.getElementById("unreadCount");
 
-    // clear old content
     unreadContainer.innerHTML = "";
     readContainer.innerHTML = "";
 
     // no reminders at all
-    if (reminders.length === 0) {
+    if (allReminders.length === 0) {
         emptyState.style.display = "block";
         unreadSection.style.display = "none";
         readSection.style.display = "none";
@@ -168,8 +168,7 @@ function render() {
         `;
     } else {
         unread.forEach(reminder => {
-            const card = createCard(reminder, false);
-            unreadContainer.appendChild(card);
+            unreadContainer.appendChild(createCard(reminder, false));
         });
     }
 
@@ -179,12 +178,10 @@ function render() {
     } else {
         readSection.style.display = "block";
         read.forEach(reminder => {
-            const card = createCard(reminder, true);
-            readContainer.appendChild(card);
+            readContainer.appendChild(createCard(reminder, true));
         });
     }
 
-    // update bell dot
     updateBellDot(unread.length);
 }
 
@@ -240,9 +237,5 @@ function updateBellDot(unreadCount) {
 // =========================================
 //   INITIAL RUN
 // =========================================
-// remove old ids that no longer have an active reminder
-const validIds = generateReminders().map(r => r.id);
-readIds = readIds.filter(id => validIds.includes(id));
-localStorage.setItem(readKey, JSON.stringify(readIds));
 
 render();

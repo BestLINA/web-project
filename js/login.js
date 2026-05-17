@@ -7,7 +7,7 @@ loginBtn.addEventListener("click", function () {
 
     // validate empty fields
     if (!email || !password) {
-        showToast("⚠️ Please enter email and password.", "error");
+        showToast(" Please enter email and password.", "error");
         return;
     }
 
@@ -21,7 +21,7 @@ loginBtn.addEventListener("click", function () {
 
         localStorage.setItem("currentUser", JSON.stringify(foundUser));
 
-        showToast("✅ Login successful!", "success");
+        showToast(" Login successful!", "success");
 
         setTimeout(() => {
             window.location.href = "dashboard.html";
@@ -29,7 +29,7 @@ loginBtn.addEventListener("click", function () {
 
     } else {
 
-        showToast("⚠️ Incorrect email or password.", "error");
+        showToast(" Incorrect email or password.", "error");
 
     }
 
@@ -43,7 +43,8 @@ loginBtn.addEventListener("click", function () {
 function showToast(text, type) {
     const toast = document.getElementById("toast");
 
-    toast.textContent = text;
+    const icon = type === "success" ? "../imgs/success.png" : "../imgs/warningRed.png";
+    toast.innerHTML = `<img src="${icon}" class="toast-icon" alt=""> ${text}`;
 
     // remove old classes and apply the right color
     toast.className = "";
