@@ -677,6 +677,11 @@ body.dark .progress-inner {
   margin: 0;
 }
 
+.loading-text {
+  color: #aaa;
+  text-align: center;
+}
+
 /* ── DEADLINES ─────────────────────────────── */
 .deadline-row {
   display: flex;
