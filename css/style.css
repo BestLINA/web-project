@@ -1273,6 +1273,13 @@ body.dark .motivation-box {
   color: var(--text);
 }
 
+.toast-icon-lg {
+  width: 40px;
+  height: 40px;
+  vertical-align: middle;
+  margin-right: 8px;
+}
+
 /* ── AVAILABILITY ──────────────────────────── */
 .availability-top {
   margin-bottom: 1.5em;
