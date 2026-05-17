@@ -1580,40 +1580,6 @@ body.dark .reminder-course {
   flex-shrink: 0;
 }
 
-.reminder-badge {
-  padding: 4px 10px;
-  border-radius: 10px;
-  font-size: 12px;
-  font-weight: 600;
-}
-
-.reminder-upcoming {
-  background: #f3e0f7;
-  color: var(--primary);
-}
-
-.reminder-today {
-  background: var(--success-bg);
-  color: var(--success);
-}
-
-.reminder-overdue {
-  background: var(--danger-bg);
-  color: var(--danger);
-}
-
-body.dark .reminder-upcoming {
-  background: #5a3870;
-}
-
-body.dark .reminder-today {
-  color: #8dcdb0;
-}
-
-body.dark .reminder-overdue {
-  color: var(--accent);
-}
-
 .reminder-section {
   margin-top: 1.5em;
 }
