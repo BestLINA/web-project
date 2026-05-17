@@ -272,15 +272,15 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>
             <div class="summary-item">
                 <span><img src="../imgs/checkMark.png" class="mini-icon" alt=""> Completed:</span>
-               <strong style="color:#7FBF9A">${done}</strong>
+               <strong class="count-done">${done}</strong>
             </div>
             <div class="summary-item">
                 <span><img src="../imgs/hourglass.png" class="mini-icon" alt=""> Pending:</span>
-                <strong style="color:#8EA2FF">${pending}</strong>
+                <strong class="count-pending">${pending}</strong>
             </div>
             <div class="summary-item">
                 <span><img src="../imgs/warningRed.png" class="mini-icon" alt=""> Missed:</span>
-                <strong style="color:#D9788F">${missed}</strong>
+                <strong class="count-missed">${missed}</strong>
             </div>
             <div class="summary-item">
                 <span><img src="../imgs/graph.png" class="mini-icon" alt=""> Weekly Goal:</span>
@@ -309,13 +309,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // ── 12. TOAST ─────────────────────────────────────────────
-    // function showToast(message) {
-    //     const toast = document.getElementById('toastNotification');
-    //     if (!toast) return;
-    //     toast.textContent = message;
-    //     toast.classList.add('show');
-    //     setTimeout(() => toast.classList.remove('show'), 3000);
-    // }
+
     function showToast(text, type) {
         const toast = document.getElementById('toastNotification');
         if (!toast) return;

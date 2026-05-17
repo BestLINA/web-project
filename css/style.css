@@ -1280,6 +1280,29 @@ body.dark .motivation-box {
   margin-right: 8px;
 }
 
+.count-done {
+  color: #7FBF9A;
+}
+
+.count-pending {
+  color: #8EA2FF;
+}
+
+.count-missed {
+  color: #D9788F;
+}
+
+.table-empty-state {
+  display: none;
+  text-align: center;
+  padding: 40px;
+}
+
+.empty-hint {
+  color: #a4508b;
+  font-weight: 500;
+}
+
 /* ── AVAILABILITY ──────────────────────────── */
 .availability-top {
   margin-bottom: 1.5em;
