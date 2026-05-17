@@ -275,6 +275,12 @@ document.addEventListener("DOMContentLoaded", () => {
         renderCourses(filteredCourses);
     });
 
+    /* STATISTICS */
+
+    function updateStatistics() {
+        totalCourses.innerText = courses.length;
+    }
+
     /* INITIAL RENDER */
 
     renderCourses();
