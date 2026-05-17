@@ -28,8 +28,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const totalCourses = document.getElementById("totalCourses");
 
-    const activeCourse = document.getElementById("activeCourse");
-
     const emptyState = document.getElementById("emptyState");
 
     const searchInput = document.getElementById("searchInput");
@@ -276,18 +274,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
         renderCourses(filteredCourses);
     });
-
-    /* STATISTICS */
-
-    function updateStatistics() {
-        totalCourses.innerText = courses.length;
-
-        if (courses.length > 0) {
-            activeCourse.innerText = courses[0].code;
-        } else {
-            activeCourse.innerText = "-";
-        }
-    }
 
     /* INITIAL RENDER */
 
