@@ -1935,8 +1935,9 @@ body.dark .ai-header {
 }
 
 .ai-header p {
-  opacity: 0.8;
+  opacity: 1;
   font-size: 0.9em;
+  color: rgba(255, 255, 255, 0.65);
 }
 
 #closeChatBtn {
