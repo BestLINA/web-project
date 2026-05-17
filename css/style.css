@@ -1580,14 +1580,6 @@ body.dark .reminder-course {
   flex-shrink: 0;
 }
 
-.reminder-dot {
-  display: inline-block;
-  width: 8px;
-  height: 8px;
-  background: var(--accent);
-  border-radius: 50%;
-}
-
 .reminder-badge {
   padding: 4px 10px;
   border-radius: 10px;
