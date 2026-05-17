@@ -593,7 +593,7 @@ input[type="checkbox"] {
 .stats-grid,
 .dashboard-grid {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: repeat(2, 1fr);
   gap: 1.5em;
   margin-top: 1.5em;
 }
