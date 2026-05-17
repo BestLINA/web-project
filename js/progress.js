@@ -124,7 +124,7 @@ document.addEventListener("DOMContentLoaded", () => {
             if (sId) {
                 recentActivityEl.innerHTML += `
                     <div class="activity">
-                        <p><strong>📚 ${sId.replace('-', ' — ')}${sCourse}</strong></p>
+                        <p><strong> ${sId.replace('-', ' — ')}${sCourse}</strong></p>
                         <p><img src="../imgs/checkMark.png" class="mini-icon" alt="Checked checkmark icon"> Completed</p>
                     </div>
                 `;
@@ -138,7 +138,7 @@ document.addEventListener("DOMContentLoaded", () => {
             if (sId) {
                 recentActivityEl.innerHTML += `
                     <div class="activity">
-                        <p><strong>📚 ${sId.replace('-', ' — ')}${sCourse}</strong></p>
+                        <p><strong> ${sId.replace('-', ' — ')}${sCourse}</strong></p>
                         <p><img src="../imgs/warningRed.png" class="mini-icon" alt="Red warning icon"> Missed</p>
                     </div>
                 `;

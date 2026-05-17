@@ -119,7 +119,7 @@ function showToast(text, type) {
         document.getElementById("toast");
 
     const icon = type === "success" ? "../imgs/success.png" : "../imgs/warningRed.png";
-    toast.innerHTML = `<img src="${icon}" class="toast-icon" alt=""> ${text}`;
+    toast.innerHTML = `<img src="${icon}" class="toast-icon"  alt="success icon or warning icon"> ${text}`;
 
     toast.className =
         "toast toast-visible";
@@ -201,6 +201,7 @@ function render() {
                     <img
                         src="../imgs/purpleBook.png"
                         class="mini-icon"
+                        alt="success icon or warning icon"
                     >
 
                     ${item.course}
@@ -223,6 +224,7 @@ function render() {
                 : "../imgs/pinkBook.png"
             }"
                         class="mini-icon"
+                        alt="warning icon or pink book icon"
                     >
 
                     ${item.type} | ${item.date}
@@ -235,6 +237,7 @@ function render() {
                     <img
                         src="../imgs/hourglass.png"
                         class="mini-icon"
+                        alt="hourglass"
                     >
 
                     ${item.completed
@@ -244,6 +247,7 @@ function render() {
                         <img
                             src="../imgs/success.png"
                             class="mini-icon"
+                            alt="success"
                         >
 
                         Completed

@@ -44,7 +44,7 @@ function showToast(text, type) {
     const toast = document.getElementById("toast");
 
     const icon = type === "success" ? "../imgs/success.png" : "../imgs/warningRed.png";
-    toast.innerHTML = `<img src="${icon}" class="toast-icon" alt=""> ${text}`;
+    toast.innerHTML = `<img src="${icon}" class="toast-icon"  alt="success icon or warning icon"> ${text}`;
 
     // remove old classes and apply the right color
     toast.className = "";
