@@ -45,13 +45,20 @@ document.addEventListener("DOMContentLoaded", () => {
         } else {
             emptyState.style.display = "none";
         }
-
+        const bookImages = {
+            "#9b7edc": "../imgs/purpleBook.png",
+            "#ff8fab": "../imgs/pinkBook.png",
+            "#7ec8e3": "../imgs/blueBook.png",
+            "#8bd3c7": "../imgs/mintBook.png"
+        };
         filteredCourses.forEach((course, index) => {
             const courseCard = document.createElement("div");
 
             courseCard.classList.add("card", "course-card");
 
             courseCard.style.borderLeft = `8px solid ${course.color}`;
+
+            const bookImg = bookImages[course.color] || "../imgs/purpleBook.png";
 
             courseCard.innerHTML = `
 
@@ -69,11 +76,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
                     </div>
 
-                    
-
                 </div>
 
-            
+                <img src="${bookImg}" class="course-book-img" alt="book">
 
                 <div class="course-actions">
 
@@ -141,7 +146,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             color: courseColor.value,
 
-           
+
         };
 
         courses.push(newCourse);

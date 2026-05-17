@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
+
 
   <title>Deadlines</title>
 
@@ -128,13 +128,15 @@
         </select>
 
         <!-- DATE -->
-        <input type="date" id="taskDate" />
+        <div class="deadline-date-col">
+          <label class="deadline-date-label">Date</label>
+          <input type="date" id="taskDate" />
+        </div>
 
-        <!-- ADD BUTTON -->
-        <button id="addDeadlineBtn" class="btn">
-          Add
-        </button>
-
+      </div>
+      <!-- ADD BUTTON -->
+      <div class="deadline-add-row">
+        <button id="addDeadlineBtn" class="btn">Add Deadline</button>
       </div>
 
     </div>
