@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="UTF-8" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,142 +9,137 @@
     <title>Courses</title>
 
     <link rel="stylesheet" href="../css/style.css" />
-  </head>
+</head>
 
-  <body>
+<body>
     <div id="toast"></div>
     <!-- HEADER -->
 
     <header class="header">
-      <div class="logo-area">
-        <img
-          src="../imgs/AWJ_logo.png"
-          alt="AWJ logo"
-          width="100"
-          id="siteLogo"
-        />
-      </div>
+        <div class="logo-area">
+            <img src="../imgs/AWJ_logo.png" alt="AWJ logo" width="100" id="siteLogo" />
+        </div>
 
-      <div class="header-right">
-        <!-- Notification -->
+        <div class="header-right">
+            <!-- Notification -->
 
-        <a href="Reminders.html" id="notifLink" class="notif-wrapper">
-          <img
-            src="../imgs/Notification.png"
-            class="notif-icon"
-            alt="notifications"
-          />
-          <span class="notif-dot" id="notifDot"></span>
-        </a>
+            <a href="Reminders.html" id="notifLink" class="notif-wrapper">
+                <img src="../imgs/Notification.png" class="notif-icon" alt="notifications" />
+                <span class="notif-dot" id="notifDot"></span>
+            </a>
 
-        <!-- Theme Toggle -->
+            <!-- Theme Toggle -->
 
-        <button id="themeToggle" class="dark-mode-btn">
-          <img id="themeIcon" src="../imgs/Moon.png" alt="theme icon" />
-        </button>
-      </div>
+            <button id="themeToggle" class="dark-mode-btn">
+                <img id="themeIcon" src="../imgs/Moon.png" alt="theme icon" />
+            </button>
+        </div>
     </header>
 
     <!-- SIDEBAR -->
 
     <aside class="sidebar">
-      <div class="menu">
-        <a href="dashboard.html"> Dashboard </a>
+        <div class="menu">
+            <a href="dashboard.html"> Dashboard </a>
 
-        <a href="courses.html"> Courses </a>
+            <a href="courses.html"> Courses </a>
 
-        <a href="deadlines.html"> Deadlines </a>
+            <a href="deadlines.html"> Deadlines </a>
 
-        <a href="availability.html"> Availability </a>
+            <a href="availability.html"> Availability </a>
 
-        <a href="studyplan.html"> Study Plan </a>
+            <a href="studyplan.html"> Study Plan </a>
 
-        <a href="progress.html"> Progress </a>
-      </div>
+            <a href="progress.html"> Progress </a>
+        </div>
 
-      <a href="login.html" class="logout-link"> Logout </a>
+        <a href="login.html" class="logout-link"> Logout </a>
     </aside>
 
     <!-- CONTENT -->
 
     <main class="content">
-      <!-- PAGE TITLE -->
+        <!-- PAGE TITLE -->
 
-      <div class="page-header">
-        <h1>Course Management</h1>
+        <div class="page-header">
+            <h1>Course Management</h1>
 
-        <p>Organize and manage your courses easily</p>
-      </div>
-
-      <!-- STATISTICS -->
-
-      <section class="stats-grid">
-        <div class="card stat-card">
-          <h3>Total Courses</h3>
-
-          <p class="big-number" id="totalCourses">0</p>
+            <p>Organize and manage your courses easily</p>
         </div>
 
-  
-      </section>
+        <!-- STATISTICS -->
 
-      <!-- ADD COURSE -->
+        <section class="stats-grid">
+            <div class="card stat-card">
+                <h3>Total Courses</h3>
 
-      <section class="card">
-        <h2><img src="../imgs/Add.png" class="section-icon" alt="add icon"> Add New Course</h2>
+                <p class="big-number" id="totalCourses">0</p>
+            </div>
 
-        <div class="course-form">
-          <input type="text" id="courseCode" placeholder="Course Code" />
 
-          <input type="text" id="courseName" placeholder="Course Name" />
+        </section>
 
-          <select id="courseColor">
-            <option value="#9b7edc">Purple</option>
+        <!-- ADD COURSE -->
 
-            <option value="#ff8fab">Pink</option>
+        <section class="card">
+            <h2><img src="../imgs/Add.png" class="section-icon" alt="add icon"> Add New Course</h2>
 
-            <option value="#7ec8e3">Blue</option>
+            <div class="course-form">
+                <input type="text" id="courseCode" placeholder="Course Code" />
 
-            <option value="#8bd3c7">Mint</option>
-          </select>
+                <input type="text" id="courseName" placeholder="Course Name" />
 
-          <button id="addCourseBtn">Add Course</button>
+                <select id="courseColor">
+                    <option value="#9b7edc">Purple</option>
+
+                    <option value="#ff8fab">Pink</option>
+
+                    <option value="#7ec8e3">Blue</option>
+
+                    <option value="#8bd3c7">Mint</option>
+                </select>
+
+                <button id="addCourseBtn">Add Course</button>
+            </div>
+        </section>
+
+        <!-- SEARCH -->
+
+        <section class="card">
+            <input type="text" id="searchInput" placeholder=" Search courses..." />
+        </section>
+
+        <!-- EMPTY STATE -->
+
+        <div id="emptyState" class="empty-state">
+            <img src="../imgs/books.png" class="empty-icon" alt="books">
+            <p>No courses added yet.</p>
         </div>
-      </section>
 
-      <!-- SEARCH -->
+        <!-- COURSES CONTAINER -->
 
-      <section class="card">
-        <input type="text" id="searchInput" placeholder=" Search courses..." />
-      </section>
+        <section id="coursesContainer" class="courses-grid"></section>
 
-      <!-- EMPTY STATE -->
+        <!-- EDIT MODAL -->
 
-      <div id="emptyState" class="empty-state">No courses added yet 📚</div>
+        <div id="editModal" class="modal">
+            <div class="modal-content">
+                <span id="closeModal" class="close-modal"> ✕ </span>
 
-      <!-- COURSES CONTAINER -->
+                <h2>Edit Course</h2>
 
-      <section id="coursesContainer" class="courses-grid"></section>
+                <input type="text" id="editCourseCode" placeholder="Course Code" />
 
-      <!-- EDIT MODAL -->
+                <input type="text" id="editCourseName" placeholder="Course Name" />
 
-      <div id="editModal" class="modal">
-        <div class="modal-content">
-          <span id="closeModal" class="close-modal"> ✕ </span>
-
-          <h2>Edit Course</h2>
-
-          <input type="text" id="editCourseCode" placeholder="Course Code" />
-
-          <input type="text" id="editCourseName" placeholder="Course Name" />
-
-          <button id="saveEditBtn">Save Changes</button>
+                <button id="saveEditBtn">Save Changes</button>
+            </div>
         </div>
-      </div>
     </main>
 
     <script src="../js/theme.js"></script>
 
     <script src="../js/courses.js"></script>
-  </body>
+</body>
+
 </html>
