@@ -70,7 +70,9 @@ function updateNotifDot() {
 
     deadlines.forEach(item => {
         if (item.completed) return;
-        const diff = new Date(item.date) - new Date();
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        const diff = new Date(item.date) - today;
         const days = Math.ceil(diff / (1000 * 60 * 60 * 24));
         if (days > 3) return;
         const id = "deadline-" + item.course + "-" + item.title + "-" + item.date;
