@@ -423,39 +423,37 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function renderWeeklyMotivation() {
-        const motivationContainer = document.getElementById("motivationText");
-        const footer = document.querySelector('.motivation-footer');
-        if (!motivationContainer) return;
+    const motivationContainer = document.getElementById("motivationText");
+    const footerEl = document.querySelector('.motivation-footer');
+    if (!motivationContainer) return;
 
-        const quotes = [
-            "Success is the sum of small efforts, repeated day in and day out.",
-            "The best way to predict the future is to invent it. Keep coding!",
-            "Focus on progress, not perfection. You've got this!",
-            "Big journeys begin with small, consistent steps. Stay on track!",
-            "Before software can be reusable it first has to be usable. Step by step!",
-            "Mistakes are proof that you are trying and learning. Keep it up!",
-            "Do something today that your future self will thank you for."
-        ];
+    const quotes = [
+        "Success is the sum of small efforts, repeated day in and day out.",
+        "The best way to predict the future is to invent it. Keep coding!",
+        "Focus on progress, not perfection. You've got this!",
+        "Big journeys begin with small, consistent steps. Stay on track!",
+        "Before software can be reusable it first has to be usable. Step by step!",
+        "Mistakes are proof that you are trying and learning. Keep it up!",
+        "Do something today that your future self will thank you for."
+    ];
 
-        const idx = getWeekNumber(new Date()) % quotes.length;
-        const currentQuote = quotes[idx];
+    const focuses = [
+        "Build the habit", "Strengthen your routine", "Deepen understanding",
+        "Review and reinforce", "Stay sharp", "Recalibrate", "Final stretch"
+    ];
 
-        motivationContainer.innerHTML = `
-            <div class="availability-tip">
-                <img src="../imgs/purpleLightbulb.png" class="mini-icon" alt="Purple lightbulb idea icon"> 
-                <strong>This Week's Motivation:</strong> ${currentQuote}
-            </div>
+    const idx = getWeekNumber(new Date()) % quotes.length;
+
+    motivationContainer.innerHTML = `
+        <li><img src="../imgs/pin.png" class="mini-icon" alt="lightbulb"> ${quotes[idx]}</li>
+    `;
+
+    if (footerEl) {
+        footerEl.innerHTML = `
+            <p>Week focus: ${focuses[idx]} <img src="../imgs/success.png" class="mini-icon" alt="success"></p>
         `;
-
-        if (footer) {
-            const focuses = [
-                "Build the habit", "Strengthen your routine", "Deepen understanding", 
-                "Review and reinforce", "Stay sharp", "Recalibrate", "Final stretch"
-            ];
-            const focusIdx = getWeekNumber(new Date()) % focuses.length;
-            footer.innerHTML = `<p>Week focus: ${focuses[focusIdx]} <img src="../imgs/success.png" class="mini-icon" alt="Green celebration check icon"></p>`;
-        }
     }
+}
 
     // ── 14. INITIAL EXECUTION ─────────────────────────────────
     setCurrentWeekRange();

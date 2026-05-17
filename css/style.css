@@ -1654,7 +1654,7 @@ body.dark .reminder-course {
 }
 
 .course-card {
-position: relative;
+  position: relative;
   overflow: hidden;
   transition: transform 0.3s;
 
@@ -1669,18 +1669,20 @@ position: relative;
 }
 
 .course-top {
-   margin-bottom: 0.3em;
+  margin-bottom: 0.3em;
 }
 
 .course-info {
-   display: flex;
+  display: flex;
   align-items: center;
   gap: 0.7em;
 }
+
 .course-text {
   display: flex;
   flex-direction: column;
 }
+
 .course-info h2 {
   margin: 0;
 }
@@ -1688,11 +1690,13 @@ position: relative;
 .course-info p {
   margin: 0.15em 0 0 0;
 }
+
 .course-book-img {
   width: 38px;
   height: 38px;
   object-fit: contain;
 }
+
 .course-badge {
   width: 18px;
   height: 18px;
@@ -2330,6 +2334,34 @@ body.dark .week-tag {
   border-bottom: 1px dashed var(--border);
   font-size: 0.9em;
   color: var(--text-soft);
+  text-align: center;
+}
+
+.motivation-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 1em;
+  min-height: 200px;
+}
+
+.motivation-card .motivation-list {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: 100%;
+}
+
+.motivation-card .motivation-footer {
+  text-align: center;
+  width: 100%;
+}
+
+.motivation-card .card-header {
+  align-self: flex-start;
+  margin-bottom: 0;
 }
 
 .motivation-list li:last-child {
@@ -2602,7 +2634,8 @@ body.dark ::-webkit-scrollbar-thumb {
 .course-card::after {
   display: none !important;
 }
-#passwordHint{
-color:#a07ab0; 
-font-size:12px;
+
+#passwordHint {
+  color: #a07ab0;
+  font-size: 12px;
 }
