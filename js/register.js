@@ -1,5 +1,15 @@
 const signupBtn = document.getElementById("signupBtn");
 
+function validatePassword(password) {
+    // 8 characters or more
+    if (password.length < 8) return false;
+    // At least 1 capital letter
+    if (!/[A-Z]/.test(password)) return false;
+    // At least 1 number
+    if (!/[0-9]/.test(password)) return false;
+    return true;
+}
+
 signupBtn.addEventListener("click", function () {
 
     const fullName = document.getElementById("fullName").value;
@@ -10,6 +20,11 @@ signupBtn.addEventListener("click", function () {
     // check empty fields
     if (!fullName || !email || !password || !confirmPassword) {
         showToast(" Please fill in all fields.", "error");
+        return;
+    }
+
+    if (!validatePassword(password)) {
+        showToast("Password must be 8+ characters, include 1 capital letter and 1 number.", "error");
         return;
     }
 
