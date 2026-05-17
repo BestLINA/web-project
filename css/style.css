@@ -714,9 +714,13 @@ body.dark .progress-inner {
   color: var(--text);
 }
 
-.deadline-warning {
-  color: var(--warning);
-  font-weight: 500;
+.deadline-item.deadline-warning {
+  border-left: 4px solid #d48aaa;
+  background: #fdf0f8;
+}
+
+body.dark .deadline-item.deadline-warning {
+  background: #2a1a2e;
 }
 
 .deadline-item {
