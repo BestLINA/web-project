@@ -54,14 +54,22 @@ document.addEventListener("DOMContentLoaded", () => {
 
             // UPDATED: Dynamic alternative text for better accessibility (e.g., "CSC 227 course book")
             courseCard.innerHTML = `
-                <div class="course-top">
-                    <div>
-                        <h2>${course.code}</h2>
-                        <p>${course.name}</p>
-                    </div>
-                </div>
+               <div class="course-top">
 
-                <img src="${bookImg}" class="course-book-img" alt="${course.code} course book">
+   <div class="course-info">
+
+    <img src="${bookImg}" class="course-book-img" alt="book">
+
+    <div class="course-text">
+
+        <h2>${course.code}</h2>
+
+        <p>${course.name}</p>
+        </div>
+
+    </div>
+
+</div>
 
                 <div class="course-actions">
                     <button class="update-btn" data-index="${index}">Update</button>
@@ -228,10 +236,10 @@ function showToast(text, type) {
     }
 
     const icon = type === "success" ? "../imgs/success.png" : "../imgs/warningRed.png";
-    
+
     // UPDATED: Added semantic alt description instead of an empty string
     const altText = type === "success" ? "Success icon" : "Error icon";
-    
+
     toast.innerHTML = `<img src="${icon}" class="toast-icon" alt="${altText}"> ${text}`;
 
     /* CSS CLASS RESET AND TOGGLE animation STATE */

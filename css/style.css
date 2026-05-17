@@ -471,7 +471,7 @@ input[type="checkbox"] {
   justify-content: flex-end;
   align-items: center;
   gap: 1em;
-  margin-top: 1.5em;
+  margin-top: 0.5em;
   margin-bottom: 0.7em;
 }
 
@@ -1650,10 +1650,14 @@ body.dark .reminder-course {
 }
 
 .course-card {
-  position: relative;
+position: relative;
   overflow: hidden;
   transition: transform 0.3s;
-  padding-bottom: 0.1em;
+
+  padding: 0.9em 1.3em;
+  min-height: unset;
+  height: auto;
+
 }
 
 .course-card:hover {
@@ -1661,11 +1665,30 @@ body.dark .reminder-course {
 }
 
 .course-top {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+   margin-bottom: 0.3em;
 }
 
+.course-info {
+   display: flex;
+  align-items: center;
+  gap: 0.7em;
+}
+.course-text {
+  display: flex;
+  flex-direction: column;
+}
+.course-info h2 {
+  margin: 0;
+}
+
+.course-info p {
+  margin: 0.15em 0 0 0;
+}
+.course-book-img {
+  width: 38px;
+  height: 38px;
+  object-fit: contain;
+}
 .course-badge {
   width: 18px;
   height: 18px;
