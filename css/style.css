@@ -1573,13 +1573,6 @@ body.dark .reminder-course {
   color: var(--text-muted);
 }
 
-.reminder-right {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  flex-shrink: 0;
-}
-
 .reminder-section {
   margin-top: 1.5em;
 }
@@ -2142,25 +2135,6 @@ body.dark .off-slot {
 }
 
 /* ── STUDY PLAN HERO ───────────────────────── */
-.welcome-hero {
-  margin-bottom: 1.5em;
-  padding: 1.8em 2em;
-  background: linear-gradient(135deg,
-      var(--surface-soft) 0%,
-      var(--surface-row) 100%);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-xl);
-}
-
-body.dark .welcome-hero {
-  background: linear-gradient(135deg, #2a1e3f 0%, #1e1238 100%);
-}
-
-.welcome-hero h1 {
-  margin-bottom: 0.3em;
-  font-size: 1.8em;
-  color: var(--text);
-}
 
 .hero-meta {
   margin-top: 0.8em;
