@@ -71,6 +71,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const completed = studyProgress.completedSessions.length;
   const missed = studyProgress.missedSessions.length;
+  const pending = Math.max(0, totalSessions - completed - missed);
 
   const progressPercent =
     totalSessions > 0 ? Math.floor((completed / totalSessions) * 100) : 0;
@@ -83,20 +84,45 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("hoursNumber").innerText = totalSessions;
   document.getElementById("sessionsNumber").innerText = completed;
   document.getElementById("focusNumber").innerText = `${focusRate}%`;
-  document.getElementById("productivityNumber").innerText =
-    `${productivityScore}%`;
+  document.getElementById("productivityNumber").innerText = `${productivityScore}%`;
 
   // ── 5. PROGRESS CIRCLE ────────────────────────────────────
   const progressTextEl = document.getElementById("progressText");
-  if (progressTextEl) {
-    progressTextEl.innerText = `${progressPercent}%`;
-  }
-
   const progressCircle = document.getElementById("dashboardProgressCircle");
-  if (progressCircle) {
-    progressCircle.style.setProperty("--progress", `${progressPercent}%`);
+  const dashboardLegendEl = document.getElementById("dashboardLegend");
+
+  const completedPct = totalSessions > 0 ? Math.round((completed / totalSessions) * 100) : 0;
+  const missedPct = totalSessions > 0 ? Math.round((missed / totalSessions) * 100) : 0;
+  const pendingPct = totalSessions > 0 ? Math.max(0, 100 - completedPct - missedPct) : 0;
+
+  if (progressTextEl) {
+    progressTextEl.innerText = `${completedPct}%`; 
   }
 
+  if (progressCircle) {
+    if (totalSessions === 0) {
+      progressCircle.style.background = "#eadcf2";
+    } else {
+      const c = completedPct;
+      const m = c + missedPct;
+      
+      progressCircle.style.background = `conic-gradient(
+        #7FBF9A 0% ${c}%,
+        #D9788F ${c}% ${m}%,
+        #8A6FC7 ${m}% 100%
+      )`;
+    }
+  }
+
+  // Render unified color key key/legend under the circle
+  if (dashboardLegendEl) {
+    dashboardLegendEl.innerHTML = `
+      <span style="display:inline-flex; align-items:center; gap:6px;"><span class="legend-dot" style="background:#7FBF9A; width:10px; height:10px; display:inline-block; border-radius:50%;"></span> Done (${completedPct}%)</span>
+      <span style="display:inline-flex; align-items:center; gap:6px;"><span class="legend-dot" style="background:#D9788F; width:10px; height:10px; display:inline-block; border-radius:50%;"></span> Missed (${missedPct}%)</span>
+      <span style="display:inline-flex; align-items:center; gap:6px;"><span class="legend-dot" style="background:#8A6FC7; width:10px; height:10px; display:inline-block; border-radius:50%;"></span> Pending (${pendingPct}%)</span>
+    `;
+  }
+    
   // ── 6. WEEKLY STUDY HOURS LIST ────────────────────────────
   const studyStats = document.getElementById("studyStats");
   if (studyStats) {
@@ -106,9 +132,9 @@ document.addEventListener("DOMContentLoaded", () => {
       studyStats.innerHTML = weeklyHoursArray
         .map(
           (item) => `
-                    <p>
-                        <img src="../imgs/books.png" class="mini-icon" alt="">
-                        ${item.day} : ${item.hours} hours
+                    <p style="margin-bottom: 8px; display: flex; align-items: center; gap: 8px;">
+                        <img src="../imgs/books.png" class="mini-icon" alt="" style="width:16px; height:16px;">
+                        <strong>${item.day}</strong> : ${item.hours} hours
                     </p>
                 `,
         )
@@ -141,9 +167,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const div = document.createElement("div");
     div.className = type === "user" ? "user-message" : "ai-message";
     const formattedText = text
-
       .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
-
       .replace(/\n/g, "<br>");
 
     div.innerHTML = formattedText;

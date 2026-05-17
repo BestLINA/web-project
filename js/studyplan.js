@@ -26,6 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.getItem(`courses_${currentUser.id}`)
     ) || [];
 
+    // Upgraded data structure to support keeping track of both status and selected course
     let studyProgress = JSON.parse(
         localStorage.getItem(`progress_${currentUser.id}`)
     ) || { completedSessions: [], missedSessions: [] };
@@ -80,7 +81,7 @@ document.addEventListener('DOMContentLoaded', () => {
     ];
 
     function renderStudyPlan() {
-        tableHeaderRow.innerHTML = '<th><img src="../imgs/clock.png" class="mini-icon" alt=""> Time Slot</th>';
+        tableHeaderRow.innerHTML = '<th><img src="../imgs/clock.png" class="mini-icon" alt="Clock icon"> Time Slot</th>';
         tableBody.innerHTML = '';
 
         const activeDays = daysOfWeek.filter(
@@ -121,12 +122,26 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 if (isAvailable) {
                     const sessionId = `${day}-${slot}`;
-                    const isDone = studyProgress.completedSessions.includes(sessionId);
-                    const isMissed = studyProgress.missedSessions.includes(sessionId);
+                    
+                    // Search if session is saved as an object or flat string for backwards compatibility
+                    const savedDone = studyProgress.completedSessions.find(s => s === sessionId || s.id === sessionId);
+                    const savedMissed = studyProgress.missedSessions.find(s => s === sessionId || s.id === sessionId);
+                    
+                    const isDone = !!savedDone;
+                    const isMissed = !!savedMissed;
+
+                    // Extract the saved course name if available
+                    const savedCourseName = (savedDone && savedDone.course) || (savedMissed && savedMissed.course) || "";
 
                     const courseOptions = userCourses.map(c => {
-                        const sel = (!isDone && !isMissed && priorityCourse === c.name)
-                            ? 'selected' : '';
+                        let sel = '';
+                        if (savedCourseName) {
+                            // If a course was explicitly saved by the user, preserve it
+                            sel = (savedCourseName === c.name) ? 'selected' : '';
+                        } else {
+                            // Default priority fallback for non-interacted slots
+                            sel = (!isDone && !isMissed && priorityCourse === c.name) ? 'selected' : '';
+                        }
                         return `<option value="${c.name}" ${sel}>${c.name}</option>`;
                     }).join('');
 
@@ -136,7 +151,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     td.innerHTML = `
                         <div class="${cellClass}" id="cell-${sessionId}">
-                            <select class="course-selector" data-session="${sessionId}">
+                            <select class="course-selector" data-session="${sessionId}" ${isDone || isMissed ? 'disabled' : ''}>
                                 <option value="">Select Course</option>
                                 ${courseOptions}
                             </select>
@@ -152,11 +167,11 @@ document.addEventListener('DOMContentLoaded', () => {
                                 <button class="miss-btn ${isMissed ? 'active-miss' : ''}"
                                         data-session="${sessionId}"
                                         ${isDone || isMissed ? 'disabled' : ''}>
-                                    ${isMissed ? '<img src="../imgs/warningRed.png" class="mini-icon" alt=""> Missed' : 'Mark Missed'}
+                                    ${isMissed ? '<img src="../imgs/warningRed.png" class="mini-icon" alt="Red warning status icon"> Missed' : 'Mark Missed'}
                                 </button>
                             </div>
                             ${isMissed
-                            ? '<p class="reschedule-note"><img src="../imgs/clock.png" class="mini-icon" alt=""> Rescheduled to next slot</p>'
+                            ? '<p class="reschedule-note"><img src="../imgs/clock.png" class="mini-icon" alt="Clock re-schedule icon"> Rescheduled to next slot</p>'
                             : ''}
                         </div>
                     `;
@@ -183,14 +198,14 @@ document.addEventListener('DOMContentLoaded', () => {
             if (sId === missedId) { foundMissed = true; continue; }
 
             if (foundMissed) {
-                const done = studyProgress.completedSessions.includes(sId);
-                const missed = studyProgress.missedSessions.includes(sId);
+                const done = studyProgress.completedSessions.some(s => s === sId || s.id === sId);
+                const missed = studyProgress.missedSessions.some(s => s === sId || s.id === sId);
                 if (!done && !missed) {
                     cell.classList.add('session-rescheduled');
                     if (!cell.querySelector('.reschedule-note')) {
                         const note = document.createElement('p');
                         note.className = 'reschedule-note';
-                        note.innerHTML = '<img src="../imgs/pin.png" class="mini-icon" alt=""> Moved here (rescheduled)';
+                        note.innerHTML = '<img src="../imgs/pin.png" class="mini-icon" alt="Pin marker icon"> Moved here (rescheduled)';
                         cell.appendChild(note);
                     }
                     break;
@@ -199,17 +214,24 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // ── 9. PROGRESS UPDATES ───────────────────────────────────
+    // ── 9. PROGRESS UPDATES WITH COURSE RETENTION ─────────────
     function updateProgress(sessionId, isChecked) {
+        // Find the adjacent select element to read the currently selected course name
+        const selectEl = document.querySelector(`select[data-session="${sessionId}"]`);
+        const currentCourse = selectEl ? selectEl.value : "";
+
+        // Clean out any existing entries for this session ID
+        studyProgress.completedSessions = studyProgress.completedSessions.filter(s => s !== sessionId && s.id !== sessionId);
+        studyProgress.missedSessions = studyProgress.missedSessions.filter(s => s !== sessionId && s.id !== sessionId);
+
         if (isChecked) {
-            if (!studyProgress.completedSessions.includes(sessionId))
-                studyProgress.completedSessions.push(sessionId);
-            studyProgress.missedSessions =
-                studyProgress.missedSessions.filter(id => id !== sessionId);
+            // Push structured object containing both session details and the assigned course name
+            studyProgress.completedSessions.push({ id: sessionId, course: currentCourse });
+            if (selectEl) selectEl.disabled = true; // Lock the select input once done
         } else {
-            studyProgress.completedSessions =
-                studyProgress.completedSessions.filter(id => id !== sessionId);
+            if (selectEl) selectEl.disabled = false; // Re-enable if unmarked
         }
+        
         saveProgress();
         updateSummary();
         showToast(
@@ -219,10 +241,15 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function markMissed(sessionId) {
-        studyProgress.completedSessions =
-            studyProgress.completedSessions.filter(id => id !== sessionId);
-        if (!studyProgress.missedSessions.includes(sessionId))
-            studyProgress.missedSessions.push(sessionId);
+        // Find the adjacent select element to read the currently selected course name
+        const selectEl = document.querySelector(`select[data-session="${sessionId}"]`);
+        const currentCourse = selectEl ? selectEl.value : "";
+
+        studyProgress.completedSessions = studyProgress.completedSessions.filter(s => s !== sessionId && s.id !== sessionId);
+        studyProgress.missedSessions = studyProgress.missedSessions.filter(s => s !== sessionId && s.id !== sessionId);
+        
+        // Save as structured object to preserve course selection
+        studyProgress.missedSessions.push({ id: sessionId, course: currentCourse });
         saveProgress();
 
         const cell = document.getElementById(`cell-${sessionId}`);
@@ -231,16 +258,17 @@ document.addEventListener('DOMContentLoaded', () => {
             cell.classList.add('session-missed');
             const cb = cell.querySelector('.task-checkbox');
             if (cb) cb.disabled = true;
+            if (selectEl) selectEl.disabled = true; // Lock the select input once missed
             const btn = cell.querySelector('.miss-btn');
             if (btn) {
-                btn.innerHTML = '<img src="../imgs/warningRed.png" class="mini-icon" alt=""> Missed';
+                btn.innerHTML = '<img src="../imgs/warningRed.png" class="mini-icon" alt="Red warning status icon"> Missed';
                 btn.classList.add('active-miss');
                 btn.disabled = true;
             }
             if (!cell.querySelector('.reschedule-note')) {
                 const note = document.createElement('p');
                 note.className = 'reschedule-note';
-                note.innerHTML = '<img src="../imgs/clock.png" class="mini-icon" alt=""> Rescheduled to next slot';
+                note.innerHTML = '<img src="../imgs/clock.png" class="mini-icon" alt="Clock re-schedule icon"> Rescheduled to next slot';
                 cell.appendChild(note);
             }
         }
@@ -271,19 +299,19 @@ document.addEventListener('DOMContentLoaded', () => {
                 <span>Total Sessions:</span><strong>${total}</strong>
             </div>
             <div class="summary-item">
-                <span><img src="../imgs/checkMark.png" class="mini-icon" alt=""> Completed:</span>
+                <span><img src="../imgs/checkMark.png" class="mini-icon" alt="Green checkmark icon"> Completed:</span>
                <strong class="count-done">${done}</strong>
             </div>
             <div class="summary-item">
-                <span><img src="../imgs/hourglass.png" class="mini-icon" alt=""> Pending:</span>
+                <span><img src="../imgs/hourglass.png" class="mini-icon" alt="Hourglass status icon"> Pending:</span>
                 <strong class="count-pending">${pending}</strong>
             </div>
             <div class="summary-item">
-                <span><img src="../imgs/warningRed.png" class="mini-icon" alt=""> Missed:</span>
+                <span><img src="../imgs/warningRed.png" class="mini-icon" alt="Red warning metric icon"> Missed:</span>
                 <strong class="count-missed">${missed}</strong>
             </div>
             <div class="summary-item">
-                <span><img src="../imgs/graph.png" class="mini-icon" alt=""> Weekly Goal:</span>
+                <span><img src="../imgs/graph.png" class="mini-icon" alt="Progress graph icon"> Weekly Goal:</span>
                 <strong>${percent}% achieved</strong>
             </div>
         `;
@@ -308,21 +336,34 @@ document.addEventListener('DOMContentLoaded', () => {
             markMissed(e.target.getAttribute('data-session'));
     });
 
-    // ── 12. TOAST ─────────────────────────────────────────────
+    // Listen to continuous manual change of courses on uncompleted slots to allow saving immediately
+    tableBody.addEventListener('change', e => {
+        if (!e.target.classList.contains('course-selector')) return;
+        const sessionId = e.target.getAttribute('data-session');
+        
+        // If it's a regular pending session, we can save its active selection dynamically if needed
+        // but locking it on 'Done'/'Missed' is handled cleanly inside updateProgress/markMissed.
+    });
 
+    // ── 12. TOAST ─────────────────────────────────────────────
     function showToast(text, type) {
         const toast = document.getElementById('toastNotification');
         if (!toast) return;
 
         let iconClass = "toast-icon";
         let icon = "../imgs/checkMark.png";
+        let altText = "Success checkmark alert icon";
         if (type === "celebrate") {
             icon = "../imgs/celebrate.png";
             iconClass = "toast-icon-lg";
+            altText = "Celebration party popper alert icon";
         }
-        if (type === "error") icon = "../imgs/warningRed.png";
+        if (type === "error") {
+            icon = "../imgs/warningRed.png";
+            altText = "Red warning notification icon";
+        }
 
-        toast.innerHTML = `<img src="${icon}" class="${iconClass}" alt=""> ${text}`;
+        toast.innerHTML = `<img src="${icon}" class="${iconClass}" alt="${altText}"> ${text}`;
         toast.classList.add('show');
         setTimeout(() => toast.classList.remove('show'), 3000);
     }
@@ -337,67 +378,41 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function renderWeeklyMotivation() {
-        const list = document.querySelector('.motivation-list');
+        const motivationContainer = document.getElementById("motivationText");
         const footer = document.querySelector('.motivation-footer');
-        if (!list) return;
+        if (!motivationContainer) return;
 
-        const tipSets = [
-            {
-                tips: ["<img src='../imgs/pin.png' class='mini-icon' alt=''> Consistency beats intensity — show up every day.",
-                    "<img src='../imgs/success.png' class='mini-icon' alt=''> Break big topics into 25-minute focused sessions.",
-                    "<img src='../imgs/Moon.png' class='mini-icon' alt=''> Rest is productive — sleep consolidates memory.",
-                    "<img src='../imgs/success.png' class='mini-icon' alt=''> Every session completed is a deposit in your future."],
-                footer: "Week focus: Build the habit."
-            },
-            {
-                tips: ["<img src='../imgs/purpleLightbulb.png' class='mini-icon' alt=''> Momentum is building — don't stop now.",
-                    "<img src='../imgs/books.png' class='mini-icon' alt=''> Review notes within 24 hours to boost retention by 60%.",
-                    "<img src='../imgs/blueBook.png' class='mini-icon' alt=''> Try instrumental music to stay in flow state longer.",
-                    "<img src='../imgs/clock.png' class='mini-icon' alt=''> Pomodoro: 25 min study, 5 min break — try it!"],
-                footer: "Week focus: Strengthen your routine."
-            },
-            {
-                tips: ["<img src='../imgs/purpleLightbulb.png' class='mini-icon' alt=''> Teach what you learn — explaining cements understanding.",
-                    "<img src='../imgs/clock.png' class='mini-icon' alt=''> Check your deadlines — don't wait for the last day.",
-                    "<img src='../imgs/blueBook.png' class='mini-icon' alt=''> Stay hydrated — your brain is 75% water.",
-                    "<img src='../imgs/pinkBook.png' class='mini-icon' alt=''> Handwriting notes helps memory more than typing."],
-                footer: "Week focus: Deepen your understanding."
-            },
-            {
-                tips: ["<img src='../imgs/success.png' class='mini-icon' alt=''> That's a habit forming — keep it.",
-                    "<img src='../imgs/clock.png' class='mini-icon' alt=''> Spaced repetition: revisit last week's material today.",
-                    "<img src='../imgs/Moon.png' class='mini-icon' alt=''> 5-minute mindfulness before studying boosts focus.",
-                    "<img src='../imgs/graph.png' class='mini-icon' alt=''> Check your Progress page — celebrate small wins!"],
-                footer: "Week focus: Review and reinforce."
-            },
-            {
-                tips: ["<img src='../imgs/purpleLightbulb.png' class='mini-icon' alt=''> Push through the mid-semester slump — it's temporary.",
-                    "<img src='../imgs/wavingHand.png' class='mini-icon' alt=''> Study with a partner once this week for accountability.",
-                    "<img src='../imgs/books.png' class='mini-icon' alt=''> Summarise each lecture in 5 bullet points max.",
-                    "<img src='../imgs/clock.png' class='mini-icon' alt=''> Short walks between sessions refresh your focus."],
-                footer: "Week focus: Stay sharp."
-            },
-            {
-                tips: ["<img src='../imgs/success.png' class='mini-icon' alt=''> Set one clear goal for this week and track it daily.",
-                    "<img src='../imgs/purpleLightbulb.png' class='mini-icon' alt=''> Confused? Find 3 different explanations of the topic.",
-                    "<img src='../imgs/Sun.png' class='mini-icon' alt=''> Morning study sessions improve memory retention.",
-                    "<img src='../imgs/pin.png' class='mini-icon' alt=''> Update your study plan if things feel off-track."],
-                footer: "Week focus: Recalibrate and push forward."
-            },
-            {
-                tips: ["<img src='../imgs/success.png' class='mini-icon' alt=''> The finish line is closer than you think.",
-                    "<img src='../imgs/books.png' class='mini-icon' alt=''> Prioritise: high-stakes topics first.",
-                    "<img src='../imgs/Moon.png' class='mini-icon' alt=''> 8 hours of sleep the night before an exam matters most.",
-                    "<img src='../imgs/success.png' class='mini-icon' alt=''> Reward yourself after completing a tough session."],
-                footer: "Week focus: Final stretch — give it everything."
-            }
+        // A clean, powerful collection of tech & university focused motivation quotes
+        const quotes = [
+            "Success is the sum of small efforts, repeated day in and day out.",
+            "The best way to predict the future is to invent it. Keep coding!",
+            "Focus on progress, not perfection. You've got this!",
+            "Big journeys begin with small, consistent steps. Stay on track!",
+            "Before software can be reusable it first has to be usable. Step by step!",
+            "Mistakes are proof that you are trying and learning. Keep it up!",
+            "Do something today that your future self will thank you for."
         ];
 
-        const idx = (getWeekNumber(new Date()) - 1) % tipSets.length;
-        const current = tipSets[idx];
-        list.innerHTML = current.tips.map(t => `<li>${t}</li>`).join('');
+        // Safely pick a quote based on the current week number of the year
+        const idx = getWeekNumber(new Date()) % quotes.length;
+        const currentQuote = quotes[idx];
+
+        // Render the weekly quote dynamically into your HTML
+        motivationContainer.innerHTML = `
+            <div class="availability-tip">
+                <img src="../imgs/purpleLightbulb.png" class="mini-icon" alt="Purple lightbulb idea icon"> 
+                <strong>This Week's Motivation:</strong> ${currentQuote}
+            </div>
+        `;
+
+        // Optional: dynamically update your focus footer if it exists
         if (footer) {
-            footer.innerHTML = `<p>${current.footer} <img src="../imgs/success.png" class="mini-icon" alt=""></p>`;
+            const focuses = [
+                "Build the habit", "Strengthen your routine", "Deepen understanding", 
+                "Review and reinforce", "Stay sharp", "Recalibrate", "Final stretch"
+            ];
+            const focusIdx = getWeekNumber(new Date()) % focuses.length;
+            footer.innerHTML = `<p>Week focus: ${focuses[focusIdx]} <img src="../imgs/success.png" class="mini-icon" alt="Green celebration check icon"></p>`;
         }
     }
 

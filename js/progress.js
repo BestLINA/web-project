@@ -7,9 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
     }
 
-    // ── 2. LOAD DATA ──────────────────────────────────────────
-
-    // availability.js saves: [{day:"Monday", start:"08:00", end:"11:00"}, ...]
+    // ── 2. LOAD DATA FROM STORAGE ─────────────────────────────
     const rawAvailability = JSON.parse(
         localStorage.getItem(`availability_${currentUser.id}`)
     ) || [];
@@ -20,12 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (!studyProgress.missedSessions) studyProgress.missedSessions = [];
 
-    const deadlines = JSON.parse(
-        localStorage.getItem(`deadlines_${currentUser.id}`)
-    ) || [];
-
-    // ── 3. CONVERT AVAILABILITY → SLOT MAP ───────────────────
-
+    // ── 3. CONVERT AVAILABILITY TO SLOT MAP ───────────────────
     function buildAvailabilityMap(raw) {
         const map = {};
         raw.forEach(entry => {
@@ -41,13 +34,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const availabilityMap = buildAvailabilityMap(rawAvailability);
 
-    // ── 4. CALCULATE TOTALS ───────────────────────────────────
+    // ── 4. CALCULATE TIMELINE TOTALS ──────────────────────────
     const daysOfWeek = [
         "Sunday", "Monday", "Tuesday", "Wednesday",
         "Thursday", "Friday", "Saturday"
     ];
 
-    // FR8.1 — total study hours = total slots across all days
     let totalSessions = 0;
     let totalStudyHours = 0;
     const weeklySlotsByDay = {};
@@ -56,21 +48,20 @@ document.addEventListener("DOMContentLoaded", () => {
         const slots = availabilityMap[day] || [];
         weeklySlotsByDay[day] = slots.length;
         totalSessions += slots.length;
-        totalStudyHours += slots.length; // each slot = 1 hour
+        totalStudyHours += slots.length; 
     });
 
-    // FR6.2 — completed/missed from studyProgress (synced with studyplan)
+    // Compute metric breakdowns for both flat string fallbacks and dynamic session objects
     const completed = studyProgress.completedSessions.length;
     const missed = studyProgress.missedSessions.length;
     const pending = Math.max(0, totalSessions - completed - missed);
 
-    // ── 5. PIE CHART PERCENTAGES ──────────────────────────────
-    const completedPct = totalSessions > 0
-        ? Math.floor((completed / totalSessions) * 100) : 0;
-    const missedPct = totalSessions > 0
-        ? Math.floor((missed / totalSessions) * 100) : 0;
+    // ── 5. PIE CHART RATIOS ───────────────────────────────────
+    const completedPct = totalSessions > 0 ? Math.round((completed / totalSessions) * 100) : 0;
+    const missedPct = totalSessions > 0 ? Math.round((missed / totalSessions) * 100) : 0;
+    const pendingPct = totalSessions > 0 ? Math.max(0, 100 - completedPct - missedPct) : 0;
 
-    // ── 6. DOM ELEMENTS ───────────────────────────────────────
+    // ── 6. CACHE DOM ELEMENTS ─────────────────────────────────
     const progressPercentEl = document.getElementById("progressPercent");
     const completedInfoEl = document.getElementById("completedInfo");
     const pendingInfoEl = document.getElementById("pendingInfo");
@@ -83,7 +74,11 @@ document.addEventListener("DOMContentLoaded", () => {
     const pieChartEl = document.getElementById("pieChart");
     const weeklyChartEl = document.getElementById("weeklyChart");
 
-    // ── 7. PIE CHART ──────────────────────────────────────────
+    if (progressPercentEl) {
+        progressPercentEl.innerText = `${completedPct}%`;
+    }
+
+    // ── 7. RENDER PIE CHART BACKGROUND ────────────────────────
     if (pieChartEl) {
         if (totalSessions === 0) {
             pieChartEl.style.background = "#eadcf2";
@@ -91,53 +86,63 @@ document.addEventListener("DOMContentLoaded", () => {
             const c = completedPct;
             const m = c + missedPct;
             pieChartEl.style.background = `conic-gradient(
-            #7FBF9A 0% ${c}%,
-            #D9788F ${c}% ${m}%,
-            #8A6FC7  ${m}% 100%
-        )`;
+                #7FBF9A 0% ${c}%,
+                #D9788F ${c}% ${m}%,
+                #8A6FC7 ${m}% 100%
+            )`;
         }
     }
 
-    // ── 8. LEGEND ─────────────────────────────────────────────
+    // ── 8. RENDER CHART LEGEND WITH ACCESSIBLE ALT TEXT ───────
     if (completedInfoEl) completedInfoEl.innerHTML = `
-        <span class="box green"></span>
-        <img src="../imgs/success.png" class="mini-icon" alt="">
-        Completed (${completed})
+        <span class="box green" style="background-color: #7FBF9A;"></span>
+        <img src="../imgs/success.png" class="mini-icon" alt="Success icon">
+        Completed: ${completed} (${completedPct}%)
     `;
     if (pendingInfoEl) pendingInfoEl.innerHTML = `
-        <span class="box blue"></span>
-        <img src="../imgs/hourglass.png" class="mini-icon" alt="">
-        Pending (${pending})
+        <span class="box blue" style="background-color: #8A6FC7;"></span>
+        <img src="../imgs/hourglass.png" class="mini-icon" alt="Hourglass pending icon">
+        Pending: ${pending} (${pendingPct}%)
     `;
     if (missedInfoEl) missedInfoEl.innerHTML = `
-        <span class="box red"></span>
-        <img src="../imgs/warningRed.png" class="mini-icon" alt="">
-        Missed (${missed})
+        <span class="box red" style="background-color: #D9788F;"></span>
+        <img src="../imgs/warningRed.png" class="mini-icon" alt="Error warning icon">
+        Missed: ${missed} (${missedPct}%)
     `;
 
-    // ── 9. RECENT ACTIVITY ────────────────────────────────────
+    // ── 9. GENERATE RECENT ACTIVITY LOG ───────────────────────
     if (recentActivityEl) {
         recentActivityEl.innerHTML = "";
-
+        
         const recentDone = [...studyProgress.completedSessions].reverse().slice(0, 3);
         const recentMissed = [...studyProgress.missedSessions].reverse().slice(0, 2);
 
-        recentDone.forEach(id => {
-            recentActivityEl.innerHTML += `
-                <div class="activity">
-                    <p><strong>📚 ${id.replace('-', ' — ')}</strong></p>
-                    <p><img src="../imgs/checkMark.png" class="mini-icon" alt=""> Completed</p>
-                </div>
-            `;
+        recentDone.forEach(session => {
+            const sId = (session && session.id) ? session.id : session;
+            const sCourse = (session && session.course) ? ` [${session.course}]` : "";
+            
+            if (sId) {
+                recentActivityEl.innerHTML += `
+                    <div class="activity">
+                        <p><strong>📚 ${sId.replace('-', ' — ')}${sCourse}</strong></p>
+                        <p><img src="../imgs/checkMark.png" class="mini-icon" alt="Checked checkmark icon"> Completed</p>
+                    </div>
+                `;
+            }
         });
 
-        recentMissed.forEach(id => {
-            recentActivityEl.innerHTML += `
-                <div class="activity">
-                    <p><strong>📚 ${id.replace('-', ' — ')}</strong></p>
-                    <p><img src="../imgs/warningRed.png" class="mini-icon" alt=""> Missed</p>
-                </div>
-            `;
+        recentMissed.forEach(session => {
+            const sId = (session && session.id) ? session.id : session;
+            const sCourse = (session && session.course) ? ` [${session.course}]` : "";
+            
+            if (sId) {
+                recentActivityEl.innerHTML += `
+                    <div class="activity">
+                        <p><strong>📚 ${sId.replace('-', ' — ')}${sCourse}</strong></p>
+                        <p><img src="../imgs/warningRed.png" class="mini-icon" alt="Red warning icon"> Missed</p>
+                    </div>
+                `;
+            }
         });
 
         if (!recentDone.length && !recentMissed.length) {
@@ -149,24 +154,20 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    // ── 10. SUMMARY ───────────────────────────────────────────
+    // ── 10. RENDER TOTALS SUMMARY CONTAINER ───────────────────
     if (completedTasksEl)
-        completedTasksEl.innerHTML =
-            `<img src="../imgs/checkMark.png" class="mini-icon" alt=""> Completed Sessions: ${completed}`;
+        completedTasksEl.innerHTML = `<img src="../imgs/checkMark.png" class="mini-icon" alt="Checked checkmark icon"> Completed Sessions: ${completed} (${completedPct}%)`;
 
     if (pendingTasksEl)
-        pendingTasksEl.innerHTML =
-            `<img src="../imgs/hourglass.png" class="mini-icon" alt=""> Pending Sessions: ${pending}`;
+        pendingTasksEl.innerHTML = `<img src="../imgs/hourglass.png" class="mini-icon" alt="Hourglass pending icon"> Pending Sessions: ${pending} (${pendingPct}%)`;
 
     if (missedTasksEl)
-        missedTasksEl.innerHTML =
-            `<img src="../imgs/warningRed.png" class="mini-icon" alt=""> Missed Sessions: ${missed}`;
+        missedTasksEl.innerHTML = `<img src="../imgs/warningRed.png" class="mini-icon" alt="Red warning icon"> Missed Sessions: ${missed} (${missedPct}%)`;
 
     if (studyHoursEl)
-        studyHoursEl.innerHTML =
-            `<img src="../imgs/clock.png" class="mini-icon" alt=""> Weekly Study Hours: ${totalStudyHours}h`;
+        studyHoursEl.innerHTML = `<img src="../imgs/clock.png" class="mini-icon" alt="Clock layout icon"> Weekly Study Hours: ${totalStudyHours}h`;
 
-    // ── 11. FR8.2 — WEEKLY BAR CHART ─────────────────────────
+    // ── 11. RENDER WEEKLY BAR CHART PROGRESS TREND ────────────
     if (weeklyChartEl) {
         const activeDays = daysOfWeek.filter(d => weeklySlotsByDay[d] > 0);
         const maxSlots = Math.max(...activeDays.map(d => weeklySlotsByDay[d]), 1);
@@ -174,46 +175,48 @@ document.addEventListener("DOMContentLoaded", () => {
         if (activeDays.length === 0) {
             weeklyChartEl.innerHTML = `
                 <h2 style="margin-bottom:12px;">
-                    <img src="../imgs/graph.png" class="section-icon" alt=""> Weekly Study Trend
+                    <img src="../imgs/graph.png" class="section-icon" alt="Trend analytics chart icon"> Weekly Study Trend
                 </h2>
                 <p style="color:#aaa; text-align:center;">
-                    No availability set yet.
-                    <a href="availability.html">Set your schedule →</a>
+                    No availability set yet. <a href="availability.html">Set your schedule →</a>
                 </p>
             `;
         } else {
             weeklyChartEl.innerHTML = `
                 <h2 style="margin-bottom:16px;">
-                    <img src="../imgs/graph.png" class="section-icon" alt=""> Weekly Study Trend
+                    <img src="../imgs/graph.png" class="section-icon" alt="Trend analytics chart icon"> Weekly Study Trend
                 </h2>
                 <div class="bar-chart">
                     ${activeDays.map(day => {
-                const total = weeklySlotsByDay[day];
-                const doneCount = studyProgress.completedSessions
-                    .filter(s => s.startsWith(day + "-")).length;
-                const missCount = studyProgress.missedSessions
-                    .filter(s => s.startsWith(day + "-")).length;
+                        const total = weeklySlotsByDay[day];
+                        
+                        const doneCount = studyProgress.completedSessions.filter(s => {
+                            const id = (s && s.id) ? s.id : s;
+                            return id && typeof id === 'string' && id.startsWith(day + "-");
+                        }).length;
 
-                const donePct = total > 0 ? Math.round((doneCount / total) * 100) : 0;
-                const missPct = total > 0 ? Math.round((missCount / total) * 100) : 0;
-                const pendPct = Math.max(0, 100 - donePct - missPct);
-                const barH = Math.round((total / maxSlots) * 120); // max 120px
+                        const missCount = studyProgress.missedSessions.filter(s => {
+                            const id = (s && s.id) ? s.id : s;
+                            return id && typeof id === 'string' && id.startsWith(day + "-");
+                        }).length;
 
-                return `
+                        const donePct = total > 0 ? Math.round((doneCount / total) * 100) : 0;
+                        const missPct = total > 0 ? Math.round((missCount / total) * 100) : 0;
+                        const pendPct = Math.max(0, 100 - donePct - missPct);
+                        const barH = Math.round((total / maxSlots) * 120);
+
+                        return `
                             <div class="bar-group">
                                 <div class="bar-wrap" style="height:${barH}px">
-                                    <div class="bar-segment bar-pending"
-                                         style="height:${pendPct}%"></div>
-                                    <div class="bar-segment bar-missed"
-                                         style="height:${missPct}%"></div>
-                                    <div class="bar-segment bar-done"
-                                         style="height:${donePct}%"></div>
+                                    <div class="bar-segment bar-pending" style="height:${pendPct}%; background-color: #8A6FC7;"></div>
+                                    <div class="bar-segment bar-missed" style="height:${missPct}%; background-color: #D9788F;"></div>
+                                    <div class="bar-segment bar-done" style="height:${donePct}%; background-color: #7FBF9A;"></div>
                                 </div>
                                 <span class="bar-label">${day.slice(0, 3)}</span>
                                 <span class="bar-hours">${total}h</span>
                             </div>
                         `;
-            }).join('')}
+                    }).join('')}
                 </div>
                 <div class="chart-legend">
                     <span><span class="legend-dot" style="background:#7FBF9A"></span> Done</span>
@@ -223,5 +226,4 @@ document.addEventListener("DOMContentLoaded", () => {
             `;
         }
     }
-
 });

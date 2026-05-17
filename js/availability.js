@@ -1,4 +1,3 @@
-
 // check if user is logged in, if not send them back to login
 const currentUser = JSON.parse(localStorage.getItem("currentUser"));
 if (!currentUser) {
@@ -12,154 +11,133 @@ const storageKey = "availability_" + currentUser.id;
 const days = ["saturday", "sunday", "monday", "tuesday", "wednesday", "thursday", "friday"];
 
 // =========================================
-//   HELPER — fill a select with hours
+//   HELPER — generate hours HTML options
 //            from 00:00 to 23:00
 // =========================================
-
-function fillHours(selectId) {
-    const select = document.getElementById(selectId);
-
+function generateHourOptions(placeholder) {
+    let options = `<option value="" disabled selected>${placeholder}</option>`;
     for (let i = 0; i < 24; i++) {
-        // padStart makes sure 1 becomes 01, 9 becomes 09, etc.
         const hour = i.toString().padStart(2, "0") + ":00";
-
-        const option = document.createElement("option");
-        option.value = hour;
-        option.textContent = hour;
-        select.appendChild(option);
+        options += `<option value="${hour}">${hour}</option>`;
     }
-}
-
-// fill all 14 selects (start + end for each of the 7 days)
-days.forEach(day => {
-    fillHours("start-" + day);
-    fillHours("end-" + day);
-});
-
-// =========================================
-//   PART 1 — set up checkboxes and
-//            dropdowns when page loads
-// =========================================
-
-days.forEach(day => {
-    const checkbox = document.getElementById("check-" + day);
-    const start = document.getElementById("start-" + day);
-    const end = document.getElementById("end-" + day);
-
-    // gray out dropdowns for days that are not checked
-    start.disabled = !checkbox.checked;
-    end.disabled = !checkbox.checked;
-    start.style.opacity = checkbox.checked ? "1" : "0.4";
-    end.style.opacity = checkbox.checked ? "1" : "0.4";
-
-    // when the user clicks a checkbox, enable or disable its dropdowns
-    checkbox.addEventListener("change", () => {
-        const isChecked = checkbox.checked;
-
-        start.disabled = !isChecked;
-        end.disabled = !isChecked;
-        start.style.opacity = isChecked ? "1" : "0.4";
-        end.style.opacity = isChecked ? "1" : "0.4";
-
-        // clear the times if the user unchecks the day
-        if (!isChecked) {
-            start.value = "";
-            end.value = "";
-        }
-    });
-});
-
-// =========================================
-//   PART 2 — load saved availability
-//            from localStorage on page open
-// =========================================
-
-const saved = JSON.parse(localStorage.getItem(storageKey));
-
-if (saved) {
-    saved.forEach(entry => {
-        const day = entry.day.toLowerCase();
-        const checkbox = document.getElementById("check-" + day);
-        const start = document.getElementById("start-" + day);
-        const end = document.getElementById("end-" + day);
-
-        // restore the saved state for this day
-        if (checkbox && start && end) {
-            checkbox.checked = true;
-            start.disabled = false;
-            end.disabled = false;
-            start.style.opacity = "1";
-            end.style.opacity = "1";
-            start.value = entry.start;
-            end.value = entry.end;
-        }
-    });
+    return options;
 }
 
 // =========================================
-//   PART 3 — save button logic
+//   MAIN — initialize page states & DOM
 // =========================================
-
-const saveBtn = document.querySelector(".availability-save-btn");
-
-saveBtn.addEventListener("click", () => {
-    const availability = [];
-    let hasError = false;
+function initAvailability() {
+    // load saved availability from localStorage first
+    const saved = JSON.parse(localStorage.getItem(storageKey)) || [];
 
     days.forEach(day => {
         const checkbox = document.getElementById("check-" + day);
         const start = document.getElementById("start-" + day);
         const end = document.getElementById("end-" + day);
 
-        // only process days the user checked
-        if (checkbox.checked) {
+        if (!checkbox || !start || !end) return;
 
-            // make sure both times are selected
-            if (!start.value || !end.value) {
-                hasError = true;
+        // fill start and end selects with hours options
+        start.innerHTML = generateHourOptions("Start");
+        end.innerHTML = generateHourOptions("End");
 
-                // don't allow end time to be before or equal to start time
-            } else if (start.value >= end.value) {
-                hasError = true;
-
-            } else {
-                // capitalize the first letter of the day name before saving
-                const dayName = day.charAt(0).toUpperCase() + day.slice(1);
-                availability.push({
-                    day: dayName,
-                    start: start.value,
-                    end: end.value
-                });
-            }
+        // restore the saved state for this day if it exists
+        const entry = saved.find(e => e.day.toLowerCase() === day);
+        if (entry) {
+            checkbox.checked = true;
+            start.value = entry.start;
+            end.value = entry.end;
         }
+
+        // gray out dropdowns for days that are not checked
+        start.disabled = !checkbox.checked;
+        end.disabled = !checkbox.checked;
+        start.style.opacity = checkbox.checked ? "1" : "0.4";
+        end.style.opacity = checkbox.checked ? "1" : "0.4";
+
+        // when the user clicks a checkbox, enable or disable its dropdowns
+        checkbox.addEventListener("change", () => {
+            const isChecked = checkbox.checked;
+
+            start.disabled = !isChecked;
+            end.disabled = !isChecked;
+            start.style.opacity = isChecked ? "1" : "0.4";
+            end.style.opacity = isChecked ? "1" : "0.4";
+
+            // clear the times if the user unchecks the day
+            if (!isChecked) {
+                start.value = "";
+                end.value = "";
+            }
+        });
     });
 
-    // show error if any checked day has missing or invalid times
-    if (hasError) {
-        showToast(" Please select valid start and end times for all checked days.", "error");
+    // load AI study tips right after rendering the DOM states
+    loadAITips();
+}
 
-        // at least one day must be selected
-    } else if (availability.length === 0) {
-        showToast(" Please check at least one day.", "error");
+// run the setup when the DOM is fully ready
+document.addEventListener("DOMContentLoaded", initAvailability);
 
-    } else {
-        // save to localStorage under this user's unique key
-        localStorage.setItem(storageKey, JSON.stringify(availability));
-        showToast(" Availability saved successfully!", "success");
-    }
-});
+// =========================================
+//   PART 3 — save button logic
+// =========================================
+const saveBtn = document.querySelector(".availability-save-btn");
+
+if (saveBtn) {
+    saveBtn.addEventListener("click", () => {
+        const availability = [];
+        let hasError = false;
+
+        days.forEach(day => {
+            const checkbox = document.getElementById("check-" + day);
+            const start = document.getElementById("start-" + day);
+            const end = document.getElementById("end-" + day);
+
+            // only process days the user checked
+            if (checkbox && checkbox.checked) {
+                // make sure both times are selected and end time is after start time
+                if (!start.value || !end.value || start.value >= end.value) {
+                    hasError = true;
+                } else {
+                    // capitalize the first letter of the day name before saving
+                    const dayName = day.charAt(0).toUpperCase() + day.slice(1);
+                    availability.push({
+                        day: dayName,
+                        start: start.value,
+                        end: end.value
+                    });
+                }
+            }
+        });
+
+        // show error if any checked day has missing or invalid times
+        if (hasError) {
+            showToast(" Please select valid start and end times for all checked days.", "error");
+        } else if (availability.length === 0) {
+            // at least one day must be selected
+            showToast(" Please check at least one day.", "error");
+        } else {
+            // save to localStorage under this user's unique key
+            localStorage.setItem(storageKey, JSON.stringify(availability));
+            showToast(" Availability saved successfully!", "success");
+            
+            // refresh tips to stay synchronized
+            loadAITips();
+        }
+    });
+}
 
 // =========================================
 //   HELPER — show a toast notification
-//            at the top then fade it out
 // =========================================
-
 function showToast(text, type) {
     const toast = document.getElementById("toast");
+    if (!toast) return;
 
     const icon = type === "success" ? "../imgs/success.png" : "../imgs/warningRed.png";
-    toast.innerHTML = `<img src="${icon}" class="toast-icon" alt=""> ${text}`;
-
+    const altText = type === "success" ? "Success icon" : "Error icon";
+    toast.innerHTML = `<img src="${icon}" class="toast-icon" alt="${altText}"> ${text}`;
     // remove old classes and apply the right color
     toast.className = "";
     toast.classList.add("toast");
@@ -171,17 +149,18 @@ function showToast(text, type) {
         toast.classList.remove("toast-visible");
     }, 3000);
 }
+
 // =========================================
 //   GEMINI — load AI study tips
 // =========================================
-
 async function loadAITips() {
     const API_KEY = "AIzaSyBCOGvtuTuQkJPHVjiABvjJT7mWeUexk4E";
     const container = document.getElementById("tipsContainer");
+    if (!container) return;
 
     try {
         const response = await fetch(
-             `https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent`,
+            `https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent`,
             {
                 method: "POST",
                 headers: {
@@ -207,33 +186,32 @@ async function loadAITips() {
 
         // split by numbered list
         const tips = text.split(/\d+\./).filter(t => t.trim() !== "");
-
         container.innerHTML = "";
 
         tips.forEach(tip => {
-            container.innerHTML += `
-                <div class="availability-tip">
-                    <img src="../imgs/pin.png" class="availability-pin" alt="">
-                    ${tip.trim()}
-                </div>
-            `;
+        container.innerHTML += `
+        <div class="availability-tip">
+            <img src="../imgs/pin.png" class="availability-pin" alt="Pin icon" aria-hidden="true">
+            ${tip.trim()}
+        </div>
+    `;
         });
 
     } catch (error) {
         // fallback to static tips if API fails
         container.innerHTML = `
             <div class="availability-tip">
-                <img src="../imgs/pin.png" class="availability-pin" alt=""> Be consistent with your study hours
+                <img src="../imgs/pin.png" class="availability-pin" alt="Pin icon" aria-hidden="true">
+                Be consistent with your study hours
             </div>
             <div class="availability-tip">
-                <img src="../imgs/pin.png" class="availability-pin" alt=""> Take 10–15 min breaks every 1–2 hours
+                <img src="../imgs/pin.png" class="availability-pin" alt="Pin icon" aria-hidden="true">
+                Take 10–15 min breaks every 1–2 hours
             </div>
             <div class="availability-tip">
-                <img src="../imgs/pin.png" class="availability-pin" alt=""> Avoid over-scheduling
+                <img src="../imgs/pin.png" class="availability-pin" alt="Pin icon" aria-hidden="true">
+                Avoid over-scheduling
             </div>
         `;
     }
 }
-
-// call it when page loads
-loadAITips();

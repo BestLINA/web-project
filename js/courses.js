@@ -4,7 +4,6 @@
 
 document.addEventListener("DOMContentLoaded", () => {
     /* CHECK LOGIN */
-
     const currentUser = JSON.parse(localStorage.getItem("currentUser"));
 
     if (!currentUser) {
@@ -12,208 +11,145 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     /* STORAGE KEY */
-
     const storageKey = "courses_" + currentUser.id;
+
     /* ELEMENTS */
-
     const courseCode = document.getElementById("courseCode");
-
     const courseName = document.getElementById("courseName");
-
     const courseColor = document.getElementById("courseColor");
-
     const addCourseBtn = document.getElementById("addCourseBtn");
-
     const coursesContainer = document.getElementById("coursesContainer");
-
     const totalCourses = document.getElementById("totalCourses");
-
     const emptyState = document.getElementById("emptyState");
-
     const searchInput = document.getElementById("searchInput");
 
     /* LOAD COURSES */
-
     let courses = JSON.parse(localStorage.getItem(storageKey)) || [];
-    /* RENDER COURSES */
 
+    /* RENDER COURSES */
     function renderCourses(filteredCourses = courses) {
         coursesContainer.innerHTML = "";
 
+        // Toggle visibility of empty state layout
         if (filteredCourses.length === 0) {
             emptyState.style.display = "block";
         } else {
             emptyState.style.display = "none";
         }
+
+        // Map course colors to corresponding book illustrations
         const bookImages = {
             "#9b7edc": "../imgs/purpleBook.png",
             "#ff8fab": "../imgs/pinkBook.png",
             "#7ec8e3": "../imgs/blueBook.png",
             "#8bd3c7": "../imgs/mintBook.png"
         };
+
         filteredCourses.forEach((course, index) => {
             const courseCard = document.createElement("div");
-
             courseCard.classList.add("card", "course-card");
-
             courseCard.style.borderLeft = `8px solid ${course.color}`;
 
             const bookImg = bookImages[course.color] || "../imgs/purpleBook.png";
 
+            // UPDATED: Dynamic alternative text for better accessibility (e.g., "CSC 227 course book")
             courseCard.innerHTML = `
-
                 <div class="course-top">
-
                     <div>
-
-                        <h2>
-                            ${course.code}
-                        </h2>
-
-                        <p>
-                            ${course.name}
-                        </p>
-
+                        <h2>${course.code}</h2>
+                        <p>${course.name}</p>
                     </div>
-
                 </div>
 
-                <img src="${bookImg}" class="course-book-img" alt="book">
+                <img src="${bookImg}" class="course-book-img" alt="${course.code} course book">
 
                 <div class="course-actions">
-
-                    <button
-                        class="update-btn"
-                        data-index="${index}"
-                    >
-                        Update
-                    </button>
-
-                    <button
-                        class="delete-btn"
-                        data-index="${index}"
-                    >
-                        Delete
-                    </button>
-
+                    <button class="update-btn" data-index="${index}">Update</button>
+                    <button class="delete-btn" data-index="${index}">Delete</button>
                 </div>
-
             `;
 
             coursesContainer.appendChild(courseCard);
         });
 
         updateStatistics();
-
         addDeleteEvents();
-
         addUpdateEvents();
     }
 
     /* ADD COURSE */
-
     addCourseBtn.addEventListener("click", () => {
         const code = courseCode.value.trim();
-
         const name = courseName.value.trim();
 
-        /* EMPTY FIELDS */
-
+        /* EMPTY FIELDS VALIDATION */
         if (code === "" || name === "") {
             showToast(" Please fill all fields.", "error");
-
             return;
         }
 
-        /* DUPLICATE COURSE CODE */
-
+        /* DUPLICATE COURSE CODE VALIDATION */
         const duplicateCourse = courses.find(
             (course) => course.code.toLowerCase() === code.toLowerCase(),
         );
 
         if (duplicateCourse) {
             showToast(" Course code already exists.", "error");
-
             return;
         }
 
-        /* CREATE COURSE */
-
+        /* CREATE COURSE OBJECT */
         const newCourse = {
             code: code,
-
             name: name,
-
             color: courseColor.value,
-
-
         };
 
         courses.push(newCourse);
-
         saveCourses();
-
         renderCourses();
 
         /* CLEAR INPUTS */
-
         courseCode.value = "";
-
         courseName.value = "";
 
         /* SUCCESS MESSAGE */
-
         showToast(" Course added successfully!", "success");
     });
 
-    /* SAVE */
-
+    /* SAVE TO LOCAL STORAGE */
     function saveCourses() {
-        localStorage.setItem(
-            storageKey,
-
-            JSON.stringify(courses),
-        );
+        localStorage.setItem(storageKey, JSON.stringify(courses));
     }
 
-    /* DELETE */
-
+    /* DELETE ACTIONS WITH ANIMATION */
     function addDeleteEvents() {
         const deleteButtons = document.querySelectorAll(".delete-btn");
 
         deleteButtons.forEach((btn) => {
             btn.addEventListener("click", () => {
                 const index = btn.dataset.index;
-
                 const card = btn.closest(".course-card");
 
+                // Trigger exit transition
                 card.style.opacity = "0";
-
                 card.style.transform = "translateX(40px)";
 
                 setTimeout(() => {
                     courses.splice(index, 1);
-
                     saveCourses();
-
                     renderCourses();
                 }, 300);
             });
         });
     }
 
-    /* UPDATE */
-
+    /* UPDATE SYSTEM (MODAL CONFIGURATION) */
     const editModal = document.getElementById("editModal");
-
     const editCourseName = document.getElementById("editCourseName");
-
     const editCourseCode = document.getElementById("editCourseCode");
-
     const saveEditBtn = document.getElementById("saveEditBtn");
-
     const closeModal = document.getElementById("closeModal");
-
     let currentEditIndex = null;
 
     function addUpdateEvents() {
@@ -222,52 +158,40 @@ document.addEventListener("DOMContentLoaded", () => {
         updateButtons.forEach((btn) => {
             btn.addEventListener("click", () => {
                 currentEditIndex = btn.dataset.index;
-
                 editCourseName.value = courses[currentEditIndex].name;
-
                 editCourseCode.value = courses[currentEditIndex].code;
-
                 editModal.style.display = "flex";
             });
         });
     }
 
-    /* SAVE EDIT */
-
+    /* SAVE EDITED COURSE */
     saveEditBtn.addEventListener("click", () => {
-        if (
-            editCourseName.value.trim() === "" ||
-            editCourseCode.value.trim() === ""
-        ) {
+        if (editCourseName.value.trim() === "" || editCourseCode.value.trim() === "") {
             return;
         }
 
         courses[currentEditIndex].name = editCourseName.value;
-
         courses[currentEditIndex].code = editCourseCode.value;
 
         saveCourses();
-
         renderCourses();
-
         editModal.style.display = "none";
     });
 
-    /* CLOSE MODAL */
-
+    /* CLOSE MODAL VIA BUTTON */
     closeModal.addEventListener("click", () => {
         editModal.style.display = "none";
     });
 
-    /* CLOSE WHEN CLICK OUTSIDE */
-
+    /* CLOSE MODAL WHEN CLICKING OUTSIDE */
     window.addEventListener("click", (e) => {
         if (e.target === editModal) {
             editModal.style.display = "none";
         }
     });
-    /* SEARCH */
 
+    /* LIVE SEARCH SYSTEM */
     searchInput.addEventListener("input", () => {
         const searchValue = searchInput.value.toLowerCase();
 
@@ -280,46 +204,43 @@ document.addEventListener("DOMContentLoaded", () => {
         renderCourses(filteredCourses);
     });
 
-    /* STATISTICS */
-
+    /* STATISTICS ENGINE */
     function updateStatistics() {
         totalCourses.innerText = courses.length;
     }
 
-    /* INITIAL RENDER */
-
+    /* INITIAL RENDER RUN */
     renderCourses();
 });
 
 /* =========================
-   TOAST NOTIFICATION
+   TOAST NOTIFICATION SYSTEM
 ========================= */
 
 function showToast(text, type) {
     let toast = document.getElementById("toast");
 
-    /* CREATE TOAST IF NOT FOUND */
-
+    /* CREATE TOAST ELEMENT IF IT DOES NOT EXIST IN DOM */
     if (!toast) {
         toast = document.createElement("div");
-
         toast.id = "toast";
-
         document.body.appendChild(toast);
     }
 
-    const icon =
-        type === "success" ? "../imgs/success.png" : "../imgs/warningRed.png";
-    toast.innerHTML = `<img src="${icon}" class="toast-icon" alt=""> ${text}`;
+    const icon = type === "success" ? "../imgs/success.png" : "../imgs/warningRed.png";
+    
+    // UPDATED: Added semantic alt description instead of an empty string
+    const altText = type === "success" ? "Success icon" : "Error icon";
+    
+    toast.innerHTML = `<img src="${icon}" class="toast-icon" alt="${altText}"> ${text}`;
 
+    /* CSS CLASS RESET AND TOGGLE animation STATE */
     toast.className = "";
-
     toast.classList.add("toast");
-
     toast.classList.add(type === "success" ? "toast-success" : "toast-error");
-
     toast.classList.add("toast-visible");
 
+    /* DISMISS TOAST AFTER 3 SECONDS */
     setTimeout(() => {
         toast.classList.remove("toast-visible");
     }, 3000);
