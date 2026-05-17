@@ -2598,3 +2598,7 @@ body.dark ::-webkit-scrollbar-thumb {
 .course-card::after {
   display: none !important;
 }
+#passwordHint{
+color:#a07ab0; 
+font-size:12px;
+}
