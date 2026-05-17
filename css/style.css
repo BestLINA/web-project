@@ -593,7 +593,7 @@ input[type="checkbox"] {
 .stats-grid,
 .dashboard-grid {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: repeat(2, 1fr);
   gap: 1.5em;
   margin-top: 1.5em;
 }
@@ -1582,55 +1582,6 @@ body.dark .reminder-course {
   color: var(--text-muted);
 }
 
-.reminder-right {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  flex-shrink: 0;
-}
-
-.reminder-dot {
-  display: inline-block;
-  width: 8px;
-  height: 8px;
-  background: var(--accent);
-  border-radius: 50%;
-}
-
-.reminder-badge {
-  padding: 4px 10px;
-  border-radius: 10px;
-  font-size: 12px;
-  font-weight: 600;
-}
-
-.reminder-upcoming {
-  background: #f3e0f7;
-  color: var(--primary);
-}
-
-.reminder-today {
-  background: var(--success-bg);
-  color: var(--success);
-}
-
-.reminder-overdue {
-  background: var(--danger-bg);
-  color: var(--danger);
-}
-
-body.dark .reminder-upcoming {
-  background: #5a3870;
-}
-
-body.dark .reminder-today {
-  color: #8dcdb0;
-}
-
-body.dark .reminder-overdue {
-  color: var(--accent);
-}
-
 .reminder-section {
   margin-top: 1.5em;
 }
@@ -2038,11 +1989,9 @@ body.dark .off-slot {
 .welcome-hero {
   margin-bottom: 1.5em;
   padding: 1.8em 2em;
-  background: linear-gradient(
-    135deg,
-    var(--surface-soft) 0%,
-    var(--surface-row) 100%
-  );
+  background: linear-gradient(135deg,
+      var(--surface-soft) 0%,
+      var(--surface-row) 100%);
   border: 1px solid var(--border);
   border-radius: var(--radius-xl);
 }
