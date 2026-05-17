@@ -1818,8 +1818,8 @@ body.dark .modal-content {
 }
 
 .toast-error {
-  background: var(--danger);
-  color: #ffffff;
+  background: var(--danger) !important;
+  color: #ffffff !important;
 }
 
 .toast-visible,

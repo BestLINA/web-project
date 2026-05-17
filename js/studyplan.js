@@ -131,7 +131,12 @@ document.addEventListener('DOMContentLoaded', () => {
                     const isMissed = !!savedMissed;
 
                     // Extract the saved course name if available
-                    const savedCourseName = (savedDone && savedDone.course) || (savedMissed && savedMissed.course) || "";
+                    let savedCourseName = (savedDone && savedDone.course) || (savedMissed && savedMissed.course) || "";
+                    
+                    // If not interacted yet, check if there's a custom dynamic pending selection saved
+                    if (!isDone && !isMissed && studyProgress.pendingCourses) {
+                        savedCourseName = studyProgress.pendingCourses[sessionId] || "";
+                    }
 
                     const courseOptions = userCourses.map(c => {
                         let sel = '';
@@ -187,7 +192,7 @@ document.addEventListener('DOMContentLoaded', () => {
         updateSummary();
     }
 
-    // ── 8. FR7 — AUTO RESCHEDULING ────────────────────────────
+    // ── 8.AUTO RESCHEDULING ────────────────────────────
     function rescheduleSession(missedId) {
         let foundMissed = false;
         for (const cell of tableBody.querySelectorAll('.session-cell')) {
@@ -228,6 +233,9 @@ document.addEventListener('DOMContentLoaded', () => {
             // Push structured object containing both session details and the assigned course name
             studyProgress.completedSessions.push({ id: sessionId, course: currentCourse });
             if (selectEl) selectEl.disabled = true; // Lock the select input once done
+            
+            // Clean from pending if saved there
+            if (studyProgress.pendingCourses) delete studyProgress.pendingCourses[sessionId];
         } else {
             if (selectEl) selectEl.disabled = false; // Re-enable if unmarked
         }
@@ -250,6 +258,10 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // Save as structured object to preserve course selection
         studyProgress.missedSessions.push({ id: sessionId, course: currentCourse });
+        
+        // Clean from pending if saved there
+        if (studyProgress.pendingCourses) delete studyProgress.pendingCourses[sessionId];
+        
         saveProgress();
 
         const cell = document.getElementById(`cell-${sessionId}`);
@@ -317,11 +329,23 @@ document.addEventListener('DOMContentLoaded', () => {
         `;
     }
 
-    // ── 11. EVENT LISTENERS ───────────────────────────────────
+    // ── 11. EVENT LISTENERS (WITH VALIDATION) ─────────────────
     tableBody.addEventListener('change', e => {
         if (!e.target.classList.contains('task-checkbox')) return;
+        
         const sessionId = e.target.getAttribute('data-session');
         const cell = e.target.closest('.session-cell');
+        
+        // Find the adjacent course selector dropdown
+        const selectEl = document.querySelector(`select[data-session="${sessionId}"]`);
+        
+        // Validation check: If no course is selected, block action and alert user
+        if (e.target.checked && (!selectEl || !selectEl.value)) {
+            e.target.checked = false; // uncheck the checkbox instantly
+            showToast("Please select a course before marking this session as done.", "error");
+            return;
+        }
+
         if (e.target.checked) {
             cell.classList.add('session-done');
             cell.classList.remove('session-missed');
@@ -332,17 +356,31 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     tableBody.addEventListener('click', e => {
-        if (e.target.classList.contains('miss-btn') && !e.target.disabled)
-            markMissed(e.target.getAttribute('data-session'));
+        if (e.target.classList.contains('miss-btn') && !e.target.disabled) {
+            const sessionId = e.target.getAttribute('data-session');
+            
+            // Find the adjacent course selector dropdown
+            const selectEl = document.querySelector(`select[data-session="${sessionId}"]`);
+            
+            // Validation check: If no course is selected, block action and alert user
+            if (!selectEl || !selectEl.value) {
+                showToast("Please select a course before marking this session as missed.", "error");
+                return;
+            }
+
+            markMissed(sessionId);
+        }
     });
 
-    // Listen to continuous manual change of courses on uncompleted slots to allow saving immediately
     tableBody.addEventListener('change', e => {
         if (!e.target.classList.contains('course-selector')) return;
         const sessionId = e.target.getAttribute('data-session');
         
-        // If it's a regular pending session, we can save its active selection dynamically if needed
-        // but locking it on 'Done'/'Missed' is handled cleanly inside updateProgress/markMissed.
+        if (!studyProgress.pendingCourses) {
+            studyProgress.pendingCourses = {};
+        }
+        studyProgress.pendingCourses[sessionId] = e.target.value;
+        saveProgress();
     });
 
     // ── 12. TOAST ─────────────────────────────────────────────
@@ -353,6 +391,9 @@ document.addEventListener('DOMContentLoaded', () => {
         let iconClass = "toast-icon";
         let icon = "../imgs/checkMark.png";
         let altText = "Success checkmark alert icon";
+
+        toast.classList.remove('toast-error', 'toast-success');
+
         if (type === "celebrate") {
             icon = "../imgs/celebrate.png";
             iconClass = "toast-icon-lg";
@@ -361,11 +402,15 @@ document.addEventListener('DOMContentLoaded', () => {
         if (type === "error") {
             icon = "../imgs/warningRed.png";
             altText = "Red warning notification icon";
+            toast.classList.add('toast-error');
         }
 
         toast.innerHTML = `<img src="${icon}" class="${iconClass}" alt="${altText}"> ${text}`;
         toast.classList.add('show');
-        setTimeout(() => toast.classList.remove('show'), 3000);
+        setTimeout(() => {
+            toast.classList.remove('show');
+            toast.classList.remove('toast-error');
+        }, 3000);
     }
 
     // ── 13. WEEKLY MOTIVATION ─────────────────────────────────
@@ -382,7 +427,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const footer = document.querySelector('.motivation-footer');
         if (!motivationContainer) return;
 
-        // A clean, powerful collection of tech & university focused motivation quotes
         const quotes = [
             "Success is the sum of small efforts, repeated day in and day out.",
             "The best way to predict the future is to invent it. Keep coding!",
@@ -393,11 +437,9 @@ document.addEventListener('DOMContentLoaded', () => {
             "Do something today that your future self will thank you for."
         ];
 
-        // Safely pick a quote based on the current week number of the year
         const idx = getWeekNumber(new Date()) % quotes.length;
         const currentQuote = quotes[idx];
 
-        // Render the weekly quote dynamically into your HTML
         motivationContainer.innerHTML = `
             <div class="availability-tip">
                 <img src="../imgs/purpleLightbulb.png" class="mini-icon" alt="Purple lightbulb idea icon"> 
@@ -405,7 +447,6 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>
         `;
 
-        // Optional: dynamically update your focus footer if it exists
         if (footer) {
             const focuses = [
                 "Build the habit", "Strengthen your routine", "Deepen understanding", 
